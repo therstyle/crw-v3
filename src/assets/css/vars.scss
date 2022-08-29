@@ -1,0 +1,60 @@
+//Breakpoints (SASS)
+$max-breakpoint: 1440px;
+$desktop-breakpoint: 1200px;
+$lg-tablet-breakpoint: 1024px;
+$md-tablet-breakpoint: 992px;
+$tablet-breakpoint: 768px;
+$phone-breakpoint: 600px;
+$md-phone-breakpoint: 500px;
+$sm-phone-breakpoint: 400px;
+$xs-breakpoint: $sm-phone-breakpoint - 1px;
+
+:root {
+  //colors
+  --black: #000;
+  --med-gray: #414141;
+  --med-gray-alpha: rgba(64, 64, 64, 0.65);
+  --med-gray-alpha-alt: rgba(64, 64, 64, 0.95);
+  --dark-gray: #333;
+  --dark-gray-alpha: rgba(51, 51, 51, 0.65);
+  --light-gray: rgba(255,255,255,0.1);
+  --red: #CC0000;
+  --light-red: #FF6B6B;
+  --dark-red: #990000;
+  --white: #FFF;
+  --body-bg: var(--dark-gray);
+  --sidebar-bg: var(--black);
+
+  //fonts
+  --main-font: 'Metropolis', sans-serif;
+  --accent-font: 'Share Tech Mono', monospace;
+  --sig-font: 'Rock Salt', cursive;
+
+  //sizes
+  --space: 1.6rem;
+  --space-half: calc(var(--space) / 2);
+  --space-1: var(--space);
+  --space-2: calc(var(--space) * 2);
+  --space-3: calc(var(--space) * 3);
+  --space-4: calc(var(--space) * 4);
+  --space-5: calc(var(--space) * 5);
+  --space-6: calc(var(--space) * 6);
+  --space-7: calc(var(--space) * 7);
+  --space-8: calc(var(--space) * 8);
+  --font-size: 1.8rem;
+  --min-font-size: 1.4rem;
+  --max-font-size: 1.8rem;
+  --line-height: 1.5;
+  --sidebar-width: 100px;
+
+  @media only screen and (max-width: $phone-breakpoint) {
+    --font-size: 1.4rem;
+    --space: 1.2rem;
+    --sidebar-width: 60px;
+    --line-height: 1.3;
+  }
+
+  @media only screen and (min-width: $phone-breakpoint) and (max-height: 650px) {
+    --sidebar-width: 60px;
+  }
+}
