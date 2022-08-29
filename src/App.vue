@@ -1,10 +1,13 @@
 <script setup>
 import {ref, onMounted} from 'vue';
 import Sidebar from './components/Sidebar.vue';
+import Intro from './components/Intro.vue';
 
 const bgVideo = ref(null);
+const intro = ref(null);
 const refs = {
-	bgVideo
+	bgVideo,
+	intro
 };
 
 const github = ref('');
@@ -139,6 +142,18 @@ onMounted(() => {
 		v-on:scrollRequest="scrollHere"
 	>
 	</Sidebar>
+
+	<Intro
+		ref="intro" 
+		:introHeadline="introHeadline" 
+		:introSubHeadline="introSubHeadline" 
+		:introText="introText"
+		:scrollText="scrollText"
+		:viewed="sections.intro.viewed"
+		v-on:observed="activeItem"
+		v-on:scrollRequest="scrollHere"
+	>
+	</Intro>
 	
 	<div class="bg-video">
 		<video ref="bgVideo" preload="auto" autoplay muted loop class="full-height"> 
