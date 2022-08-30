@@ -3,6 +3,7 @@ import {ref, onMounted} from 'vue';
 import Sidebar from './components/Sidebar.vue';
 import Intro from './components/Intro.vue';
 import Resume from './components/Resume.vue';
+import Portfolio from './components/Portfolio.vue';
 
 const bgVideo = ref(null);
 const intro = ref(null);
@@ -172,7 +173,15 @@ onMounted(() => {
   >
 	</Resume>
 
-	
+	<Portfolio
+		ref="portfolio" 
+		:portfolioItems="portfolioItems"
+		:portfolioIcons="portfolioIcons"
+		:viewed="sections.portfolio.viewed"
+		v-on:observed="activeItem"
+		v-on:intersected="viewedItem"
+  >
+	</Portfolio>
 	
 	<div class="bg-video">
 		<video ref="bgVideo" preload="auto" autoplay muted loop class="full-height"> 

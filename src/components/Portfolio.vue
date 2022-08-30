@@ -1,7 +1,7 @@
 <script setup>
 	import { onMounted, ref } from 'vue';
 	import Heading from './layout/heading.vue';
-	import PorfolioItem from './layout/portfolioItem.vue';
+	import PortfolioItem from './layout/portfolioItem.vue';
 	//import {waypoint} from './helpers/observer';
 
 	const i = ref(0);
@@ -17,22 +17,22 @@
 </script>
 
 <template>
-  <section id="portfolio" class="portfolio" :class="{ viewed : viewed }">
+  <section id="portfolio" class="portfolio">
     <Heading title="Portfolio"></Heading>
 
     <div class="portfolio--content content">
-      <PorfolioItem v-for="(PortfolioItem, index) in PortfolioItems" 
+      <PortfolioItem v-for="(portfolioItem, index) in portfolioItems" 
         :count="index + 1"
         :key="index"
-        :url="PortfolioItem.url"
-        :image="PortfolioItem.image"
-        :video="PortfolioItem.video"
-        :name="PortfolioItem.name"
-        :description="PortfolioItem.description"
-        :type="PortfolioItem.type"
+        :url="portfolioItem.url"
+        :image="portfolioItem.image"
+        :video="portfolioItem.video"
+        :name="portfolioItem.name"
+        :description="portfolioItem.description"
+        :type="portfolioItem.type"
         :icons="portfolioIcons"
-        :source="PortfolioItem.source"
-      ></PorfolioItem>
+        :source="portfolioItem.source"
+      ></PortfolioItem>
     </div>
   </section>
 </template>
