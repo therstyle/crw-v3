@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar.vue';
 import Intro from './components/Intro.vue';
 import Resume from './components/Resume.vue';
 import Portfolio from './components/Portfolio.vue';
+import Contact from './components/Contact.vue';
 
 const bgVideo = ref(null);
 const intro = ref(null);
@@ -182,6 +183,19 @@ onMounted(() => {
 		v-on:intersected="viewedItem"
   >
 	</Portfolio>
+
+	<Contact
+		ref="contact" 
+		:headline="contactHeadline"
+		:image="contactPhoto"
+		:buttonText="contactButtonText"
+		:formErrorMessage="formErrorMessage"
+		:loaderImg="loaderImg"
+		:viewed="sections.contact.viewed"
+		v-on:observed="activeItem"
+		v-on:intersected="viewedItem"
+	>
+	</Contact>
 	
 	<div class="bg-video">
 		<video ref="bgVideo" preload="auto" autoplay muted loop class="full-height"> 
