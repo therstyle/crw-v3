@@ -2,7 +2,7 @@
 	import { onMounted, ref } from 'vue';
 	import Heading from './layout/heading.vue';
 	import PorfolioItem from './layout/portfolioItem.vue';
-	import {waypoint} from './helpers/observer.js';
+	//import {waypoint} from './helpers/observer';
 
 	const i = ref(0);
 	const props = defineProps({
@@ -12,7 +12,7 @@
 	});
 
 	onMounted(() => {
-		waypoint();
+		//waypoint();
 	});
 </script>
 

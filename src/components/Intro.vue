@@ -1,8 +1,9 @@
 <script setup>
 	import {ref, onMounted} from 'vue';
-	import { waypoint } from '../helpers/observer';
+	//import { waypoint } from '../helpers/observer';
 	import scrollRequest from '../helpers/scrollRequest';
 
+	const el = ref(null);
 	const viewed = ref(false);
 
 	const props = defineProps({
@@ -14,12 +15,12 @@
 	});
 
 	onMounted(() => {
-		waypoint();
+		//waypoint(el.value);
 	});
 </script>
 
 <template>
-	<section id="intro" class="intro content" :class="{ viewed : viewed }">
+	<section ref="el" id="intro" class="intro content" :class="{ viewed : viewed }">
     <div class="intro--content">
       <h6 class="sub-heading">{{ introSubHeadline }}</h6>
       <h1 class="heading" v-html="introHeadline"></h1>

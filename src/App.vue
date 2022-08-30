@@ -2,6 +2,7 @@
 import {ref, onMounted} from 'vue';
 import Sidebar from './components/Sidebar.vue';
 import Intro from './components/Intro.vue';
+import Resume from './components/Resume.vue';
 
 const bgVideo = ref(null);
 const intro = ref(null);
@@ -154,6 +155,21 @@ onMounted(() => {
 		v-on:scrollRequest="scrollHere"
 	>
 	</Intro>
+
+	<Resume
+		ref="resume"  
+		:entries="resumeEntries"
+		:image="resumePhoto"
+		:devSkillsHeadline="devSkillsHeadline"
+		:devSkills="devSkills"
+		:designSkillsHeadline="designSkillsHeadline"
+		:designSkills="designSkills"
+		:sigText="sigText"
+		:linkList="linkList"
+		:viewed="sections.resume.viewed"
+		v-on:observed="activeItem"
+		v-on:intersected="viewedItem"
+    ></Resume>
 	
 	<div class="bg-video">
 		<video ref="bgVideo" preload="auto" autoplay muted loop class="full-height"> 

@@ -1,22 +1,20 @@
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, defineEmits} from 'vue';
 
-const observer = ref(null);
 const isMobile = ref('(max-width: 992px)');
 const sectionName = ref('');
 const config = ref({threshold: 0});
+const emit = defineEmits(['observed'], ['intersected']);
 
 const observed = (currentSection, threshold) => {
-	const emit = defineEmits(['observed']);
 	emit('observed', currentSection, threshold);
 };
 
 const intersected = currentSection => {
-	const emit = defineEmits(['intersected']);
 	emit('intersected', currentSection);
 };
 
-const waypoint = () => {
-	observer.value = new IntersectionObserver(entries => {
+const waypoint = (el) => {
+	const observer = new IntersectionObserver(entries => {
 		entries.forEach(entry => {
 			if (entry.target.id) {
 				sectionName.value = entry.target.id;
@@ -28,6 +26,8 @@ const waypoint = () => {
 			}
 		});
 	}, config.value);
+
+	observer.observe(el); //Init observing
 };
 
 const detectMobile = () => {
@@ -44,6 +44,5 @@ onMounted(() => {
 });
 
 export {
-	observer,
 	waypoint
 }
