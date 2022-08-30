@@ -3,7 +3,7 @@ import {ref, onMounted} from 'vue';
 //import {animate, viewed} from '../../helpers/animate';
 
 const el = ref(null);
-const video = ref(null);
+const videoPlayer = ref(null);
 const settings = ref({threshold: 0.25});
 
 const props = defineProps({
@@ -19,19 +19,16 @@ const props = defineProps({
 });
 
 const loadVideos = () => {
-	if (video.value === null) {return};
-	video.value.load();
-	video.value.pause();
+	videoPlayer.value.load();
+	videoPlayer.value.pause();
 };
 
 const startVideo = () => {
-	if (video.value === null) {return};
-	video.value.play();
+	videoPlayer.value.play();
 };
 
 const endVideo = () => {
-	if (video.value === null) {return};
-	video.value.pause();
+	videoPlayer.value.pause();
 }
 
 onMounted(() => {
@@ -44,7 +41,7 @@ onMounted(() => {
 	<article class="portfolio--content-entry animate" v-on:mouseover="startVideo" v-on:mouseout="endVideo">
     <a :href="url" target="_blank">
       <header>
-        <video ref="video" muted autoplay loop v-if="video" :poster="image.image_2x">
+        <video v-if="video" ref="videoPlayer" muted autoplay loop :poster="image.image_2x">
           <source :src="video" type="video/mp4">
         </video>
       </header>
