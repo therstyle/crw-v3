@@ -169,7 +169,10 @@ onMounted(() => {
 		:viewed="sections.resume.viewed"
 		v-on:observed="activeItem"
 		v-on:intersected="viewedItem"
-    ></Resume>
+  >
+	</Resume>
+
+	
 	
 	<div class="bg-video">
 		<video ref="bgVideo" preload="auto" autoplay muted loop class="full-height"> 
