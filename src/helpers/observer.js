@@ -2,7 +2,7 @@ import sections from '../state/sections';
 
 const isMobile = '(max-width: 992px)';
 const threshold = window.matchMedia(isMobile).matches ? 0.1 : 0;
-const config = {threshold: threshold};
+const settings = {threshold: threshold};
 
 const waypoint = (el) => {
 	const observer = new IntersectionObserver(entries => {
@@ -35,7 +35,7 @@ const waypoint = (el) => {
 				}
 			}
 		});
-	}, config);
+	}, settings);
 
 	observer.observe(el);
 };
