@@ -12,7 +12,7 @@
 	});
 
 	onMounted(() => {
-		waypoint(el.value);
+		waypoint(el);
 	});
 </script>
 

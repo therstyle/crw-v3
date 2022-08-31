@@ -21,7 +21,7 @@ const props = defineProps({
 });
 
 onMounted(() => {
-	waypoint(el.value);
+	waypoint(el);
 })
 </script>
 

@@ -89,7 +89,7 @@ const formSubmit = async () => {
 };
 
 onMounted(() => {
-	waypoint(el.value);
+	waypoint(el);
 	window.addEventListener('scroll', getCurrentPosition);
 });
 </script>

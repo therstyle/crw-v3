@@ -37,7 +37,7 @@ const waypoint = (el) => {
 		});
 	}, settings);
 
-	observer.observe(el);
+	observer.observe(el.value);
 };
 
 export default waypoint;
