@@ -1,12 +1,13 @@
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import Heading from '../components/layout/Heading.vue';
 import TimelineEntry from '../components/layout/TimelineEntry.vue';
 import ProfilePhoto from './layout/ProfilePhoto.vue';
 import LinkList from './layout/LinkList.vue';
 import SkillSet from './layout/SkillSet.vue';
-//import { waypoint } from '../helpers/observer';
+import waypoint from '../helpers/observer';
 
+const el = ref(null);
 const props = defineProps({
 	entries: Array,
 	image: Object,
@@ -20,12 +21,12 @@ const props = defineProps({
 });
 
 onMounted(() => {
-	//waypoint();
+	waypoint(el.value);
 })
 </script>
 
 <template>
-  <section id="resume" class="resume" :class="{ viewed : viewed }">
+  <section ref="el" id="resume" class="resume" :class="{viewed: viewed}">
     <Heading title="Resume"></Heading>
 
     <div class="resume--content content">

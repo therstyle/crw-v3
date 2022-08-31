@@ -1,7 +1,7 @@
 <script setup>
 import {ref, onMounted} from 'vue';
 import Heading from './layout/Heading.vue';
-//import { waypoint } from '../helpers/observer';
+import waypoint from '../helpers/observer';
 
 const el = ref(null);
 const amountScrolled = ref(0);
@@ -89,7 +89,7 @@ const formSubmit = async () => {
 };
 
 onMounted(() => {
-	//waypoint(el.value);
+	waypoint(el.value);
 	window.addEventListener('scroll', getCurrentPosition);
 });
 </script>

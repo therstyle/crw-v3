@@ -1,48 +1,24 @@
-import {ref, onMounted, defineEmits} from 'vue';
+import sections from '../state/sections'; 
 
-const isMobile = ref('(max-width: 992px)');
-const sectionName = ref('');
-const config = ref({threshold: 0});
-const emit = defineEmits(['observed'], ['intersected']);
-
-const observed = (currentSection, threshold) => {
-	emit('observed', currentSection, threshold);
-};
-
-const intersected = currentSection => {
-	emit('intersected', currentSection);
-};
+const isMobile = '(max-width: 992px)';
+const threshold = window.matchMedia(isMobile).matches ? 0.1 : 0;
+const config = {threshold: threshold};
 
 const waypoint = (el) => {
 	const observer = new IntersectionObserver(entries => {
 		entries.forEach(entry => {
-			if (entry.target.id) {
-				sectionName.value = entry.target.id;
-				observed(sectionName.value, entry.intersectionRatio);
+			const keyName = entry.target.id;
 
-				if (entry.isIntersecting) {
-					intersected(sectionName.value);
-				}
+			if (!keyName) {return};
+			if (entry.isIntersecting) {
+				sections.value[keyName].viewed = true;
 			}
-		});
-	}, config.value);
 
-	observer.observe(el); //Init observing
+			sections.value[keyName].intersectionRatio = threshold;
+		});
+	}, config);
+
+	observer.observe(el);
 };
 
-const detectMobile = () => {
-	if (window.matchMedia(isMobile.value).matches) {
-		config.value.threshold = 0.1;
-	}
-	else {
-		config.value.threshold = 0;
-	}
-}
-
-onMounted(() => {
-	detectMobile();
-});
-
-export {
-	waypoint
-}
+export default waypoint;
