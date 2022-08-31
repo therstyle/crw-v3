@@ -1,10 +1,11 @@
 <script setup>
 import {ref, onMounted} from 'vue';
-//import {animate, viewed} from '../../helpers/animate';
+import animate from '../../helpers/animate';
 
 const el = ref(null);
 const videoPlayer = ref(null);
-const settings = ref({threshold: 0.25});
+const viewed = ref(false);
+const settings = {threshold: 0.25};
 
 const props = defineProps({
 	url: String,
@@ -33,12 +34,12 @@ const endVideo = () => {
 
 onMounted(() => {
 	loadVideos();
-	//animate(settings.value, el.value);
+	animate(el, settings, viewed);
 });
 </script>
 
 <template>
-	<article class="portfolio--content-entry animate" v-on:mouseover="startVideo" v-on:mouseout="endVideo">
+	<article ref="el" class="portfolio--content-entry animate" :class="{viewed: viewed}" v-on:mouseover="startVideo" v-on:mouseout="endVideo">
     <a :href="url" target="_blank">
       <header>
         <video v-if="video" ref="videoPlayer" muted autoplay loop :poster="image.image_2x">
