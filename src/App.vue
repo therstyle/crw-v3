@@ -1,5 +1,5 @@
 <script setup>
-import {ref, computed, onMounted} from 'vue';
+import {ref, onMounted} from 'vue';
 import Sidebar from './components/Sidebar.vue';
 import Intro from './components/Intro.vue';
 import Resume from './components/Resume.vue';
