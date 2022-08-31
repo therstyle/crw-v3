@@ -95,8 +95,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <section ref="el" id="contact" class="contact" :class="{ viewed : viewed }">
+  <section ref="el" id="contact" class="contact" :class="{viewed: viewed}">
+		<a name="contact" class="jump-link"></a>
     <Heading :title="headline"></Heading>
+
     <div class="contact--content content">
       <div class="contact-form">
         <form v-on:submit.prevent="formSubmit">

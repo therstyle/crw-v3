@@ -18,6 +18,7 @@
 
 <template>
   <section ref="el" id="portfolio" class="portfolio" :class="{viewed: viewed}">
+		<a name="portfolio" class="jump-link"></a>
     <Heading title="Portfolio"></Heading>
 
     <div class="portfolio--content content">

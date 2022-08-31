@@ -27,6 +27,7 @@ onMounted(() => {
 
 <template>
   <section ref="el" id="resume" class="resume" :class="{viewed: viewed}">
+		<a name="resume" class="jump-link"></a>
     <Heading title="Resume"></Heading>
 
     <div class="resume--content content">
