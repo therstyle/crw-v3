@@ -35,7 +35,6 @@ const contactPhoto = ref({});
 const contactButtonText = ref('');
 const loaderImg = ref('');
 const formErrorMessage = ref('');
-const highThreshold = ref(0);
 
 const viewedItem = currentSection => {
 	sections.value[currentSection].viewed = true;

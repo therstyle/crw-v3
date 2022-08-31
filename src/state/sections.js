@@ -4,22 +4,22 @@ const sections = ref({
 	intro: {
 		active: false,
 		viewed: false,
-		threshold: 0
+		intersectionRatio: 0
 	},
 	resume: {
 		active: false,
 		viewed: false,
-		threshold: 0
+		intersectionRatio: 0
 	},
 	portfolio: {
 		active: false,
 		viewed: false,
-		threshold: 0
+		intersectionRatio: 0
 	},
 	contact: {
 		active: false,
 		viewed: false,
-		threshold: 0
+		intersectionRatio: 0
 	}
 });
 
