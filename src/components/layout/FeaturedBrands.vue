@@ -1,14 +1,15 @@
 <script setup>
 import {ref, onMounted} from 'vue';
-import {animate, viewed} from '../../helpers/animate';
+import animate from '../../helpers/animate';
 import Flickity from 'flickity';
 
 const el = ref(null);
 const carousel = ref(null);
-const settings = ref({threshold: 1});
+const viewed = ref(false);
 const carouselWidth = ref(0);
 const brandWidth = ref(200);
 const draggable = ref(false);
+const settings = {threshold: 1};
 
 const props = defineProps({
 	featuredBrands: Array
@@ -48,15 +49,15 @@ const initCarousel = () => {
 
 onMounted(() => {
 	initCarousel();
-	animate(settings.value, el.value);
+	animate(el, settings, viewed);
 });
 </script>
 
 <template>
-	<footer ref="el" class="featured-brands animate" :class="{ viewed : viewed }">
+	<footer ref="el" class="featured-brands animate" :class="{viewed: viewed}">
 		<h5>Brands I've Worked With</h5>
 
-    <div ref="carousel" class="brand-carousel" :class="{ draggable : draggable }">
+    <div ref="carousel" class="brand-carousel" :class="{draggable: draggable}">
       <div class="brand" v-for="(featuredBrand, index) in featuredBrands" :key="index">
         <img :src="featuredBrand.logo" :alt="featuredBrand.name">
       </div>

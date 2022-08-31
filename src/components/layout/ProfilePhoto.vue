@@ -1,9 +1,10 @@
 <script setup>
 import {ref, onMounted} from 'vue';
-import {animate, viewed} from '../../helpers/animate';
+import animate from '../../helpers/animate';
 
 const el = ref(null);
-const settings = ref({threshold: 0.5});
+const viewed = ref(false);
+const settings = {threshold: 0.5};
 
 const props = defineProps({
 	image: Object,
@@ -11,12 +12,12 @@ const props = defineProps({
 });
 
 onMounted(() => {
-	animate(settings.value, el.value);
+	animate(el, settings, viewed);
 });
 </script>
 
 <template>
-	<div ref="el" class="photo animate" :class="{ viewed : viewed }">
+	<div ref="el" class="photo animate" :class="{viewed: viewed}">
     <picture>
       <source v-if="image.image_2x_webp" :srcset="`${image.image_1x_webp} 1x, ${image.image_2x_webp} 2x`" type="image/webp">
       <source v-if="image.image_2x" :srcset="`${image.image_1x} 1x, ${image.image_2x} 2x`" type="image/jpeg">

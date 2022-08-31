@@ -1,23 +1,24 @@
 <script setup>
 import {ref, onMounted} from 'vue';
-import {animate, viewed} from '../../helpers/animate';
+import animate from '../../helpers/animate';
 import Percentage from './Percentage.vue';
 
 const el = ref(null);
-const settings = ref({threshold: 1});
+const viewed = ref(false);
+const settings = {threshold: 1};
 
 const props = defineProps({
 	stats: Array
 });
 
 onMounted(() => {
-	animate(settings.value, el.value);
+	animate(el, settings, viewed);
 });
 </script>
 
 <template>
   <footer ref="el" class="stats">
-    <div class="stat animate" :class="{viewed : viewed}" v-for="(stat, index) in stats" :key="index">
+    <div class="stat animate" :class="{viewed: viewed}" v-for="(stat, index) in stats" :key="index">
       <div class="stat--focal">
         <div class="single-chart">
           <Percentage 

@@ -1,13 +1,14 @@
 <script setup>
 import {ref, onMounted} from 'vue';
-import {animate, viewed} from '../../helpers/animate';
 import FeaturedBrands from './FeaturedBrands.vue';
 import Stats from './Stats.vue';
 import EntryDetail from './EntryDetail.vue';
 import JobTitle from './JobTitle.vue';
+import animate from '../../helpers/animate';
 
 const el = ref(null);
-const settings = ref({threshold: 0.5});
+const viewed = ref(false);
+const settings = {threshold: 0.5};
 
 const props = defineProps({
 	year: Number,
@@ -20,12 +21,12 @@ const props = defineProps({
 });
 
 onMounted(() => {
-	animate(settings.value, el.value);
+	animate(el, settings, viewed);
 });
 </script>
 
 <template>
-  <article ref="el" class="timeline--entry" :class="{ viewed : viewed }" :data-year="year">
+  <article ref="el" class="timeline--entry" :class="{viewed: viewed}" :data-year="year">
     <JobTitle 
       :logo="logo"
       :company="company"
