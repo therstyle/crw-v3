@@ -8,11 +8,6 @@ import Contact from './components/Contact.vue';
 import sections from './state/sections';
 
 const bgVideo = ref(null);
-const intro = ref(null);
-const resume = ref(null);
-const portfolio = ref(null);
-const contact = ref(null);
-
 const github = ref('');
 const linkedin = ref('');
 const introHeadline = ref('');
@@ -84,7 +79,6 @@ onMounted(() => {
 	</Sidebar>
 
 	<Intro
-		ref="intro"
 		:introHeadline="introHeadline" 
 		:introSubHeadline="introSubHeadline" 
 		:introText="introText"
@@ -94,7 +88,6 @@ onMounted(() => {
 	</Intro>
 
 	<Resume
-		ref="resume"
 		:entries="resumeEntries"
 		:image="resumePhoto"
 		:devSkillsHeadline="devSkillsHeadline"
@@ -108,7 +101,6 @@ onMounted(() => {
 	</Resume>
 
 	<Portfolio
-		ref="portfolio"
 		:portfolioItems="portfolioItems"
 		:portfolioIcons="portfolioIcons"
 		:viewed="sections.portfolio.viewed"
@@ -116,7 +108,6 @@ onMounted(() => {
 	</Portfolio>
 
 	<Contact
-		ref="contact" 
 		:headline="contactHeadline"
 		:image="contactPhoto"
 		:buttonText="contactButtonText"
