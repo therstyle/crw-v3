@@ -36,25 +36,6 @@ const contactButtonText = ref('');
 const loaderImg = ref('');
 const formErrorMessage = ref('');
 
-const viewedItem = currentSection => {
-	sections.value[currentSection].viewed = true;
-};
-
-const scrollHere = section => {
-	//Loop thru refs, look for a match
-	Object.keys(refs.value).forEach(item => {
-		if (section === item) {
-			let clickedSection = refs.value[item];
-			
-			window.scroll({
-				behavior: 'smooth',
-				left: 0,
-				top: clickedSection.offsetTop
-			})
-		}
-	});
-};
-
 const loadVideo = () => {
 	bgVideo.value.load();
 };
@@ -99,7 +80,6 @@ onMounted(() => {
 		:github="github"
 		:linkedin="linkedin"
 		:sections="sections"
-		v-on:scrollRequest="scrollHere"
 	>
 	</Sidebar>
 
@@ -109,8 +89,6 @@ onMounted(() => {
 		:introSubHeadline="introSubHeadline" 
 		:introText="introText"
 		:scrollText="scrollText"
-		:viewed="sections.intro.viewed"
-		v-on:scrollRequest="scrollHere"
 	>
 	</Intro>
 
@@ -124,8 +102,6 @@ onMounted(() => {
 		:designSkills="designSkills"
 		:sigText="sigText"
 		:linkList="linkList"
-		:viewed="sections.resume.viewed"
-		v-on:intersected="viewedItem"
   >
 	</Resume>
 
@@ -133,8 +109,6 @@ onMounted(() => {
 		ref="portfolio"
 		:portfolioItems="portfolioItems"
 		:portfolioIcons="portfolioIcons"
-		:viewed="sections.portfolio.viewed"
-		v-on:intersected="viewedItem"
   >
 	</Portfolio>
 
@@ -145,8 +119,6 @@ onMounted(() => {
 		:buttonText="contactButtonText"
 		:formErrorMessage="formErrorMessage"
 		:loaderImg="loaderImg"
-		:viewed="sections.contact.viewed"
-		v-on:intersected="viewedItem"
 	>
 	</Contact>
 	
