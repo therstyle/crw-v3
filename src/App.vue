@@ -89,6 +89,7 @@ onMounted(() => {
 		:introSubHeadline="introSubHeadline" 
 		:introText="introText"
 		:scrollText="scrollText"
+		:viewed="sections.intro.viewed"
 	>
 	</Intro>
 
@@ -102,6 +103,7 @@ onMounted(() => {
 		:designSkills="designSkills"
 		:sigText="sigText"
 		:linkList="linkList"
+		:viewed="sections.resume.viewed"
   >
 	</Resume>
 
@@ -109,6 +111,7 @@ onMounted(() => {
 		ref="portfolio"
 		:portfolioItems="portfolioItems"
 		:portfolioIcons="portfolioIcons"
+		:viewed="sections.portfolio.viewed"
   >
 	</Portfolio>
 
@@ -119,6 +122,7 @@ onMounted(() => {
 		:buttonText="contactButtonText"
 		:formErrorMessage="formErrorMessage"
 		:loaderImg="loaderImg"
+		:viewed="sections.contact.viewed"
 	>
 	</Contact>
 	
