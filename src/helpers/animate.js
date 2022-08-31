@@ -1,8 +1,4 @@
-import {ref} from 'vue';
-
-const viewed = ref(false);
-
-const animate = (settings, el) => {
+const animate = (el, settings, viewed) => {
 	const observer = new IntersectionObserver(entries => {
 		entries.forEach(entry => {
 			if (entry.isIntersecting) {
@@ -12,10 +8,7 @@ const animate = (settings, el) => {
 		});
 	}, settings);
 
-	observer.observe(el); //Init observer
+	observer.observe(el.value);
 }
 
-export {
-	viewed,
-	animate
-}
+export default animate;

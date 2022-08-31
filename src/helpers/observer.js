@@ -1,48 +1,43 @@
-import {ref, onMounted, defineEmits} from 'vue';
+import sections from '../state/sections'; 
 
-const isMobile = ref('(max-width: 992px)');
-const sectionName = ref('');
-const config = ref({threshold: 0});
-const emit = defineEmits(['observed'], ['intersected']);
-
-const observed = (currentSection, threshold) => {
-	emit('observed', currentSection, threshold);
-};
-
-const intersected = currentSection => {
-	emit('intersected', currentSection);
-};
+const isMobile = '(max-width: 992px)';
+const threshold = window.matchMedia(isMobile).matches ? 0.1 : 0;
+const settings = {threshold: threshold};
 
 const waypoint = (el) => {
 	const observer = new IntersectionObserver(entries => {
 		entries.forEach(entry => {
-			if (entry.target.id) {
-				sectionName.value = entry.target.id;
-				observed(sectionName.value, entry.intersectionRatio);
+			const keyName = entry.target.id;
 
-				if (entry.isIntersecting) {
-					intersected(sectionName.value);
+			if (!keyName) {return};
+			
+			sections.value[keyName].threshold = threshold;
+			sections.value[keyName].intersectionRatio = entry.intersectionRatio;
+
+			if (entry.isIntersecting) {
+				sections.value[keyName].viewed = true;
+			}
+			else {
+				sections.value[keyName].active = false;
+			}
+			
+			//Create an array of section thresholds and find the highest one
+			const ratios = Object.keys(sections.value).map(section => sections.value[section].intersectionRatio);
+			const highRatio = ratios.sort().reverse()[0];
+
+			//Set the section with highest threshold as active
+			for (const section in sections.value) {
+				if (sections.value[section].intersectionRatio === highRatio) {
+					sections.value[section].active = true;
+				}
+				else {
+					sections.value[section].active = false;
 				}
 			}
 		});
-	}, config.value);
+	}, settings);
 
-	observer.observe(el); //Init observing
+	observer.observe(el.value);
 };
 
-const detectMobile = () => {
-	if (window.matchMedia(isMobile.value).matches) {
-		config.value.threshold = 0.1;
-	}
-	else {
-		config.value.threshold = 0;
-	}
-}
-
-onMounted(() => {
-	detectMobile();
-});
-
-export {
-	waypoint
-}
+export default waypoint;

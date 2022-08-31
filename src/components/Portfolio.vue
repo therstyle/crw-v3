@@ -2,9 +2,9 @@
 	import { onMounted, ref } from 'vue';
 	import Heading from './layout/heading.vue';
 	import PortfolioItem from './layout/portfolioItem.vue';
-	//import {waypoint} from './helpers/observer';
+	import waypoint from '../helpers/observer';
 
-	const i = ref(0);
+	const el = ref(null);
 	const props = defineProps({
 		portfolioItems: Array,
     portfolioIcons: Object,
@@ -12,12 +12,13 @@
 	});
 
 	onMounted(() => {
-		//waypoint();
+		waypoint(el);
 	});
 </script>
 
 <template>
-  <section id="portfolio" class="portfolio">
+  <section ref="el" id="portfolio" class="portfolio" :class="{viewed: viewed}">
+		<a name="portfolio" class="jump-link"></a>
     <Heading title="Portfolio"></Heading>
 
     <div class="portfolio--content content">

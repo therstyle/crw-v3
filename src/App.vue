@@ -1,17 +1,17 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref, computed, onMounted} from 'vue';
 import Sidebar from './components/Sidebar.vue';
 import Intro from './components/Intro.vue';
 import Resume from './components/Resume.vue';
 import Portfolio from './components/Portfolio.vue';
 import Contact from './components/Contact.vue';
+import sections from './state/sections';
 
 const bgVideo = ref(null);
 const intro = ref(null);
-const refs = {
-	bgVideo,
-	intro
-};
+const resume = ref(null);
+const portfolio = ref(null);
+const contact = ref(null);
 
 const github = ref('');
 const linkedin = ref('');
@@ -35,68 +35,6 @@ const contactPhoto = ref({});
 const contactButtonText = ref('');
 const loaderImg = ref('');
 const formErrorMessage = ref('');
-const highThreshold = ref(0);
-const sections = ref({
-	intro: {
-		active: false,
-		viewed: false,
-		threshold: 0
-	},
-	resume: {
-		active: false,
-		viewed: false,
-		threshold: 0
-	},
-	portfolio: {
-		active: false,
-		viewed: false,
-		threshold: 0
-	},
-	contact: {
-		active: false,
-		viewed: false,
-		threshold: 0
-	}
-});
-
-const activeItem = (currentSection, threshold) => {
-	Object.keys(sections.value).forEach(() => {
-		sections.value[currentSection].threshold = threshold;
-	});
-
-	//Create an array of section thresholds and find the highest one
-	let arr = Object.keys(sections.value).map(section => sections.value[section].threshold);
-	highThreshold.value = Math.max(...arr);
-
-	//Set the section with highest threshold as active
-	Object.keys(sections.value).forEach(section => {
-		if (sections.value[section].threshold === highThreshold.value) {
-			sections.value[section].active = true;
-		}
-		else {
-			sections.value[section].active = false;
-		}
-	});
-};
-
-const viewedItem = currentSection => {
-	sections.value[currentSection].viewed = true;
-};
-
-const scrollHere = section => {
-	//Loop thru refs, look for a match
-	Object.keys(refs.value).forEach(item => {
-		if (section === item) {
-			let clickedSection = refs.value[item];
-			
-			window.scroll({
-				behavior: 'smooth',
-				left: 0,
-				top: clickedSection.offsetTop
-			})
-		}
-	});
-};
 
 const loadVideo = () => {
 	bgVideo.value.load();
@@ -142,24 +80,21 @@ onMounted(() => {
 		:github="github"
 		:linkedin="linkedin"
 		:sections="sections"
-		v-on:scrollRequest="scrollHere"
 	>
 	</Sidebar>
 
 	<Intro
-		ref="intro" 
+		ref="intro"
 		:introHeadline="introHeadline" 
 		:introSubHeadline="introSubHeadline" 
 		:introText="introText"
 		:scrollText="scrollText"
 		:viewed="sections.intro.viewed"
-		v-on:observed="activeItem"
-		v-on:scrollRequest="scrollHere"
 	>
 	</Intro>
 
 	<Resume
-		ref="resume"  
+		ref="resume"
 		:entries="resumeEntries"
 		:image="resumePhoto"
 		:devSkillsHeadline="devSkillsHeadline"
@@ -169,18 +104,14 @@ onMounted(() => {
 		:sigText="sigText"
 		:linkList="linkList"
 		:viewed="sections.resume.viewed"
-		v-on:observed="activeItem"
-		v-on:intersected="viewedItem"
   >
 	</Resume>
 
 	<Portfolio
-		ref="portfolio" 
+		ref="portfolio"
 		:portfolioItems="portfolioItems"
 		:portfolioIcons="portfolioIcons"
 		:viewed="sections.portfolio.viewed"
-		v-on:observed="activeItem"
-		v-on:intersected="viewedItem"
   >
 	</Portfolio>
 
@@ -192,8 +123,6 @@ onMounted(() => {
 		:formErrorMessage="formErrorMessage"
 		:loaderImg="loaderImg"
 		:viewed="sections.contact.viewed"
-		v-on:observed="activeItem"
-		v-on:intersected="viewedItem"
 	>
 	</Contact>
 	
@@ -220,6 +149,7 @@ onMounted(() => {
 
 html {
   font-size: 62.5%;
+	scroll-behavior: smooth;
 }
 
 body {
@@ -330,7 +260,7 @@ p {
   video {
     width: 100%;
     min-height: 100vh;
-    object-fit: fill;
+    object-fit: cover;
     margin-left: 15vw;
   }
 }
