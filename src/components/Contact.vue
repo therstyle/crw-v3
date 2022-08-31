@@ -287,7 +287,7 @@ onMounted(() => {
 
 		&:before {
 			top: auto;
-			bottom: 10rem;
+			bottom: 5rem;
 			left: 0;
 			right: 0;
 			font-size: 6.4rem;
@@ -296,7 +296,7 @@ onMounted(() => {
 		
 		&:after {
 			top: auto;
-			bottom: 10rem;
+			bottom: 5rem;
 			left: 0;
 			right: 0;
 			font-size: 1.4rem;
