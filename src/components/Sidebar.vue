@@ -109,6 +109,8 @@ nav.main-nav {
   max-height: 460px;
   background: var(--black);
   min-height: 100vh;
+	height: -webkit-fill-available;
+	height: fill-available;
   padding: var(--space-4) 0;
   box-shadow: 0 15px 30px rgba(0,0,0,0.25);
   position: fixed;

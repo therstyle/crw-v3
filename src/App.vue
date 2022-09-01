@@ -141,6 +141,8 @@ onMounted(() => {
 html {
   font-size: 62.5%;
 	scroll-behavior: smooth;
+	height: fill-available;
+	height: -webkit-fill-available;
 }
 
 body {
