@@ -136,11 +136,10 @@ onMounted(() => {
 		.project-details {
 			display: flex;
 			align-items: center;
+			gap: var(--space-1);
 		}
 	
 		.view-source {
-			margin-right: var(--space-1);
-	
 			> a {
 				display: inline-block;
 				border-radius: 30px;
@@ -155,10 +154,9 @@ onMounted(() => {
 		.project-type {
 			text-align: right;
 			flex: 1;
-	
-			> * {
-				margin-left: var(--space-1);
-			}
+			display: flex;
+			justify-content: flex-end;
+			gap: var(--space-1);
 		}
 	}
 	
