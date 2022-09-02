@@ -1,11 +1,12 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, defineAsyncComponent} from 'vue';
 import Sidebar from './components/Sidebar.vue';
-import Intro from './components/Intro.vue';
-import Resume from './components/Resume.vue';
-import Portfolio from './components/Portfolio.vue';
-import Contact from './components/Contact.vue';
 import sections from './state/sections';
+
+const Intro = defineAsyncComponent(() => import('./components/Intro.vue'));
+const Resume = defineAsyncComponent(() => import('./components/Resume.vue'));
+const Portfolio = defineAsyncComponent(() => import('./components/Portfolio.vue'));
+const Contact = defineAsyncComponent(() => import('./components/Contact.vue'));
 
 const bgVideo = ref(null);
 const github = ref('');
