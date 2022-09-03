@@ -1,28 +1,40 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Heading from '../components/layout/Heading.vue';
 import TimelineEntry from '../components/layout/TimelineEntry.vue';
 import ProfilePhoto from './layout/ProfilePhoto.vue';
 import LinkList from './layout/LinkList.vue';
 import SkillSet from './layout/SkillSet.vue';
+import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 
 const el = ref(null);
+const resume = ref({});
 const props = defineProps({
-	entries: Array,
-	image: Object,
-	devSkillsHeadline: String,
-	devSkills: Array,
-	designSkillsHeadline: String,
-	designSkills: Array,
-	sigText: String,
-	linkList: Object,
 	viewed: Boolean
 });
+
+const initData = async () => {
+	const data = await loadData('info.json');
+	resume.value.entries = data.resume.entries;
+	resume.value.image = data.resume.image;
+	resume.value.sigText = data.resume.sigText;
+	resume.value.linkList = data.resume.linkList;
+	resume.value.devSkillsHeadline = data.resume.skills.dev.headline;
+	resume.value.devSkills = data.resume.skills.dev.skillset;
+	resume.value.designSkillsHeadline = data.resume.skills.design.headline;
+	resume.value.designSkills = data.resume.skills.design.skillset;
+}
 
 onMounted(() => {
 	waypoint(el);
 })
+
+watch(() => props.viewed, (viewed, oldViewed) => {
+	if (viewed) {
+		initData();
+	}
+});
 </script>
 
 <template>
@@ -33,7 +45,7 @@ onMounted(() => {
     <div class="resume--content content">
       <div class="timeline">
         <TimelineEntry 
-          v-for="(entry, index) in entries"
+          v-for="(entry, index) in resume.entries"
           :key="index"
           :year="entry.year"
           :logo="entry.logo" 
@@ -47,22 +59,23 @@ onMounted(() => {
 
       <aside class="skill-tree">
         <ProfilePhoto
-        :image="image"
-        :name="sigText"
+				v-if="resume.image"
+        :image="resume.image"
+        :name="resume.sigText"
         ></ProfilePhoto>
         
         <LinkList
-        :links="linkList"
+        :links="resume.linkList"
         ></LinkList>
 
         <SkillSet
-        :headline="devSkillsHeadline"
-        :skillset="devSkills"
+        :headline="resume.devSkillsHeadline"
+        :skillset="resume.devSkills"
         ></SkillSet>
 
         <SkillSet
-        :headline="designSkillsHeadline"
-        :skillset="designSkills"
+        :headline="resume.designSkillsHeadline"
+        :skillset="resume.designSkills"
         ></SkillSet>
       </aside>
     </div>

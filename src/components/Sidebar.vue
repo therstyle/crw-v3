@@ -1,9 +1,21 @@
 <script setup>
-	const props = defineProps({
-		sections: Object,
-    github: String,
-    linkedin: String
-	});
+import {ref, onMounted} from 'vue';
+import loadData from '../helpers/loadData';
+
+const sidebar = ref({});
+const props = defineProps({
+	sections: Object
+});
+
+const initData = async () => {
+	const data = await loadData('info.json');
+	sidebar.value.github = data.nav.github;
+	sidebar.value.linkedin = data.nav.linkedin;
+};
+
+onMounted(() => {
+	initData();
+});
 </script>
 
 <template>
@@ -69,7 +81,7 @@
 
     <ul class="main-nav--external">
       <li>
-        <a :href="github" class="menu-github" target="_blank">
+        <a :href="sidebar.github" class="menu-github" target="_blank">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M10 0C4.475 0 0 4.475 0 10C0 14.425 2.8625 18.1625 6.8375 19.4875C7.3375 19.575 7.525 19.275 7.525 19.0125C7.525 18.775 7.5125 17.9875 7.5125 17.15C5 17.6125 4.35 16.5375 4.15 15.975C4.0375 15.6875 3.55 14.8 3.125 14.5625C2.775 14.375 2.275 13.9125 3.1125 13.9C3.9 13.8875 4.4625 14.625 4.65 14.925C5.55 16.4375 6.9875 16.0125 7.5625 15.75C7.65 15.1 7.9125 14.6625 8.2 14.4125C5.975 14.1625 3.65 13.3 3.65 9.475C3.65 8.3875 4.0375 7.4875 4.675 6.7875C4.575 6.5375 4.225 5.5125 4.775 4.1375C4.775 4.1375 5.6125 3.875 7.525 5.1625C8.325 4.9375 9.175 4.825 10.025 4.825C10.875 4.825 11.725 4.9375 12.525 5.1625C14.4375 3.8625 15.275 4.1375 15.275 4.1375C15.825 5.5125 15.475 6.5375 15.375 6.7875C16.0125 7.4875 16.4 8.375 16.4 9.475C16.4 13.3125 14.0625 14.1625 11.8375 14.4125C12.2 14.725 12.5125 15.325 12.5125 16.2625C12.5125 17.6 12.5 18.675 12.5 19.0125C12.5 19.275 12.6875 19.5875 13.1875 19.4875C17.1375 18.1625 20 14.4125 20 10C20 4.475 15.525 0 10 0Z" fill="white" fill-opacity="0.5"/>
           </svg>
@@ -77,7 +89,7 @@
       </li>
 
       <li>
-        <a :href="linkedin" class="menu-linkedin" target="_blank">
+        <a :href="sidebar.linkedin" class="menu-linkedin" target="_blank">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M20 12.1614V19.5555H15.7134V12.6566C15.7134 10.9235 15.0933 9.74078 13.5417 9.74078C12.3572 9.74078 11.6524 10.5379 11.3423 11.3089C11.2292 11.5846 11.2001 11.9682 11.2001 12.3541V19.5555H6.91198C6.91198 19.5555 6.96973 7.87101 6.91198 6.66041H11.1997V8.48824C11.191 8.50191 11.1797 8.51665 11.1715 8.5299H11.1997V8.48824C11.7693 7.61085 12.7867 6.35747 15.0638 6.35747C17.885 6.35743 20 8.2005 20 12.1614ZM2.42646 0.444336C0.959506 0.444336 0 1.40654 0 2.67187C0 3.90963 0.931746 4.90103 2.36954 4.90103H2.39818C3.89355 4.90103 4.82352 3.90981 4.82352 2.67187C4.79535 1.40654 3.89355 0.444336 2.42646 0.444336ZM0.254675 19.5555H4.54114V6.66041H0.254675V19.5555Z" fill="#7F7F7F"/>
           </svg>

@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted, defineAsyncComponent} from 'vue';
+import {defineAsyncComponent} from 'vue';
 import Sidebar from './components/Sidebar.vue';
 import sections from './state/sections';
 
@@ -7,122 +7,14 @@ const Intro = defineAsyncComponent(() => import('./components/Intro.vue'));
 const Resume = defineAsyncComponent(() => import('./components/Resume.vue'));
 const Portfolio = defineAsyncComponent(() => import('./components/Portfolio.vue'));
 const Contact = defineAsyncComponent(() => import('./components/Contact.vue'));
-
-const bgVideo = ref(null);
-const github = ref('');
-const linkedin = ref('');
-const introHeadline = ref('');
-const introSubHeadline = ref('');
-const introText = ref('');
-const scrollText = ref('');
-const introVideo = ref({});
-const resumeEntries = ref([]);
-const resumePhoto = ref({});
-const sigText = ref('');
-const linkList = ref({});
-const devSkillsHeadline = ref('');
-const devSkills = ref([]);
-const designSkillsHeadline = ref('');
-const designSkills = ref([]);
-const portfolioItems = ref([]);
-const portfolioIcons = ref({});
-const contactHeadline = ref('');
-const contactPhoto = ref({});
-const contactButtonText = ref('');
-const loaderImg = ref('');
-const formErrorMessage = ref('');
-
-const loadVideo = () => {
-	bgVideo.value.load();
-};
-
-const loadData = async () => {
-	const response = await fetch('info.json');
-	const info = await response.json();
-	await loadVideo();
-
-	if (!response.ok) {return};
-	github.value = info.nav.github;
-	linkedin.value = info.nav.linkedin;
-	introHeadline.value = info.intro.headline;
-	introSubHeadline.value = info.intro.introSubHeadline;
-	introText.value = info.intro.introText;
-	scrollText.value = info.intro.scrollText;
-	introVideo.value = info.intro.video;
-	resumeEntries.value = info.resume.entries;
-	resumePhoto.value = info.resume.image;
-	sigText.value = info.resume.sigText;
-	linkList.value = info.resume.linkList;
-	devSkillsHeadline.value = info.resume.skills.dev.headline;
-	devSkills.value = info.resume.skills.dev.skillset;
-	designSkillsHeadline.value = info.resume.skills.design.headline;
-	designSkills.value = info.resume.skills.design.skillset;
-	portfolioItems.value = info.portfolio.entries;
-	portfolioIcons.value = info.portfolio.icons;
-	contactHeadline.value = info.contact.headline;
-	contactPhoto.value = info.contact.image;
-	contactButtonText.value = info.contact.buttonText;
-	formErrorMessage.value = info.contact.formErrorMessage;
-	loaderImg.value = info.contact.loaderImg;
-};
-
-onMounted(() => {
-	loadData();
-});
 </script>
 
 <template>
-	<Sidebar
-		:github="github"
-		:linkedin="linkedin"
-		:sections="sections"
-	>
-	</Sidebar>
-
-	<Intro
-		:introHeadline="introHeadline" 
-		:introSubHeadline="introSubHeadline" 
-		:introText="introText"
-		:scrollText="scrollText"
-		:viewed="sections.intro.viewed"
-	>
-	</Intro>
-
-	<Resume
-		:entries="resumeEntries"
-		:image="resumePhoto"
-		:devSkillsHeadline="devSkillsHeadline"
-		:devSkills="devSkills"
-		:designSkillsHeadline="designSkillsHeadline"
-		:designSkills="designSkills"
-		:sigText="sigText"
-		:linkList="linkList"
-		:viewed="sections.resume.viewed"
-  >
-	</Resume>
-
-	<Portfolio
-		:portfolioItems="portfolioItems"
-		:portfolioIcons="portfolioIcons"
-		:viewed="sections.portfolio.viewed"
-  >
-	</Portfolio>
-
-	<Contact
-		:headline="contactHeadline"
-		:image="contactPhoto"
-		:buttonText="contactButtonText"
-		:formErrorMessage="formErrorMessage"
-		:loaderImg="loaderImg"
-		:viewed="sections.contact.viewed"
-	>
-	</Contact>
-	
-	<div class="bg-video">
-		<video ref="bgVideo" preload="auto" autoplay muted loop class="full-height"> 
-			<source :src="introVideo.video_mp4" type="video/mp4"> 
-		</video>
-	</div>
+	<Sidebar :sections="sections"></Sidebar>
+	<Intro :viewed="sections.intro.viewed"></Intro>
+	<Resume :viewed="sections.resume.viewed"></Resume>
+	<Portfolio :viewed="sections.portfolio.viewed"></Portfolio>
+	<Contact :viewed="sections.contact.viewed"></Contact>
 </template>
 
 <style lang="scss">
@@ -221,42 +113,6 @@ p {
 .content {
   padding: var(--space-4);
   overflow: hidden;
-}
-
-.bg-video,
-.bg-video:before,
-.bg-video:after  {
-  content: '';
-  position: fixed;
-  width: 100%;
-  min-height: 100vh;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.bg-video {
-  z-index: -1;
-
-  &:before {
-    background: -moz-linear-gradient(left,  rgba(51,51,51,1) 1%, rgba(51,51,51,1) 45%, rgba(51,51,51,0) 100%);
-    background: -webkit-linear-gradient(left,  rgba(51,51,51,1) 1%,rgba(51,51,51,1) 45%,rgba(51,51,51,0) 100%);
-    background: linear-gradient(to right,  rgba(51,51,51,1) 1%,rgba(51,51,51,1) 45%,rgba(51,51,51,0) 100%);
-  }
-
-  &:after {
-    background: -moz-linear-gradient(top,  rgba(51,51,51,0) 75%, rgba(51,51,51,0.99) 99%, rgba(51,51,51,1) 100%);
-    background: -webkit-linear-gradient(top,  rgba(51,51,51,0) 75%,rgba(51,51,51,0.99) 99%,rgba(51,51,51,1) 100%);
-    background: linear-gradient(to bottom,  rgba(51,51,51,0) 75%,rgba(51,51,51,0.99) 99%,rgba(51,51,51,1) 100%);
-  }
-
-  video {
-    width: 100%;
-    min-height: 100vh;
-    object-fit: cover;
-    margin-left: 15vw;
-  }
 }
 
 .animate {

@@ -1,9 +1,11 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, watch} from 'vue';
 import Heading from './layout/Heading.vue';
+import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 
 const el = ref(null);
+const contact = ref({});
 const amountScrolled = ref(0);
 const formName = ref('');
 const formNameError = ref(false);
@@ -16,11 +18,6 @@ const formResponse = ref('');
 const loading = ref(false);
 
 const props = defineProps({
-	headline: String,
-	image: Object,
-	buttonText: String,
-	formErrorMessage: String,
-	loaderImg: String,
 	viewed: Boolean
 });
 
@@ -88,44 +85,59 @@ const formSubmit = async () => {
 	}
 };
 
+const initData = async () => {
+	const data = await loadData('info.json');
+	contact.value.headline = data.contact.headline;
+	contact.value.image = data.contact.image;
+	contact.value.buttonText = data.contact.buttonText;
+	contact.value.formErrorMessage = data.contact.formEmailError;
+	contact.value.loaderImg = data.contact.loaderImg;
+}
+
 onMounted(() => {
 	waypoint(el);
 	window.addEventListener('scroll', getCurrentPosition);
+});
+
+watch(() => props.viewed, (viewed, oldViewed) => {
+	if (viewed) {
+		initData();
+	}
 });
 </script>
 
 <template>
   <section ref="el" id="contact" class="contact" :class="{viewed: viewed}">
 		<a name="contact" class="jump-link"></a>
-    <Heading :title="headline"></Heading>
+    <Heading :title="contact.headline"></Heading>
 
     <div class="contact--content content">
       <div class="contact-form">
         <form v-on:submit.prevent="formSubmit">
           <div class="field-group">
             <input id="name" type="text" placeholder="NAME" v-model="formName">
-            <span v-if="formAction && formName === ''" class="error">{{ formErrorMessage }}</span>
+            <span v-if="formAction && formName === ''" class="error">{{ contact.formErrorMessage }}</span>
           </div>
 
           <div class="field-group">
             <input id="email" type="email" placeholder="EMAIL ADDRESS" v-model="formEmail">
-            <span v-if="formAction && formEmail === ''" class="error">{{ formErrorMessage }}</span>
+            <span v-if="formAction && formEmail === ''" class="error">{{ contact.formErrorMessage }}</span>
           </div>
 
           <div class="field-group">
             <textarea name="" id="message" placeholder="MESSAGE" v-model="formMessage"></textarea>
-            <span v-if="formAction && formMessage === ''" class="error">{{ formErrorMessage }}</span>
+            <span v-if="formAction && formMessage === ''" class="error">{{ contact.formErrorMessage }}</span>
           </div>
 
-          <button>{{ buttonText }} <img :src="loaderImg" v-if="loading && loaderImg"></button>
+          <button>{{ contact.buttonText }} <img :src="contact.loaderImg" v-if="loading && contact.loaderImg"></button>
 
           <div v-if="formResponse !== ''" class="form-response" v-html="formResponse"></div>
         </form>
         
         <picture class="contact-photo" :data-pixels="amountScrolled">
-          <source v-if="image.image_2x_webp" :srcset="`${image.image_1x_webp} 1x, ${image.image_2x_webp} 2x`" type="image/webp">
-          <source v-if="image.image_2x" :srcset="`${image.image_1x} 1x, ${image.image_2x} 2x`" type="image/jpeg">
-          <img v-if="image.image_1x" :src="image.image_1x" alt="">
+          <source v-if="contact.image" :srcset="`${contact.image.image_1x_webp} 1x, ${contact.image.image_2x_webp} 2x`" type="image/webp">
+          <source v-if="contact.image" :srcset="`${contact.image.image_1x} 1x, ${contact.image.image_2x} 2x`" type="image/jpeg">
+          <img v-if="contact.image" :src="contact.image.image_1x" alt="">
         </picture>
       </div>
     </div>

@@ -1,20 +1,39 @@
 <script setup>
-	import {ref, onMounted} from 'vue';
+	import {ref, onMounted, watch} from 'vue';
+	import loadData from '../helpers/loadData';
 	import waypoint from '../helpers/observer';
 
 	const el = ref(null);
-	const viewed = ref(false);
+	const bgVideo = ref(null);
+	const intro = ref({});
 
 	const props = defineProps({
-		introHeadline: String,
-    introSubHeadline: String,
-    introText: String,
-    scrollText: String,
-    video: String
+		viewed: Boolean
 	});
+
+	const initData = async () => {
+		const data = await loadData('info.json');
+		intro.value.headline = data.intro.headline;
+		intro.value.subHeadline = data.intro.subHeadline;
+		intro.value.introText = data.intro.introText;
+		intro.value.scrollText = data.intro.scrollText;
+		intro.value.video = data.intro.video;
+	};
+
+	const loadVideo = () => {
+		if (!intro.video) {return};
+		bgVideo.value.load();
+	};
 
 	onMounted(() => {
 		waypoint(el);
+	});
+
+	watch(() => props.viewed, (viewed, oldViewed) => {
+		if (viewed) {
+			initData();
+			loadVideo();
+		}
 	});
 </script>
 
@@ -22,20 +41,26 @@
 	<section ref="el" id="intro" class="intro content" :class="{viewed: viewed}">
 		<a name="intro" class="jump-link"></a>
     <div class="intro--content">
-      <h6 class="sub-heading">{{ introSubHeadline }}</h6>
-      <h1 class="heading" v-html="introHeadline"></h1>
+      <h6 class="sub-heading">{{ intro.subHeadline }}</h6>
+      <h1 class="heading" v-html="intro.headline"></h1>
 
-      <div v-html="introText"></div>
+      <div v-html="intro.introText"></div>
     </div>
 
     <div class="scroll-down">
       <a href="#resume">
         <svg fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 0C9.787 0 4.733 5.134 4.733 11.444v9.113C4.733 26.867 9.787 32 16 32c6.212 0 11.267-5.118 11.267-11.408v-9.148C27.267 5.134 22.212 0 16 0zm9.148 20.592c0 5.122-4.104 9.289-9.148 9.289s-9.148-4.183-9.148-9.325v-9.112c0-5.142 4.104-9.325 9.148-9.325s9.148 4.183 9.148 9.325v9.148z" fill="#fff" fill-opacity=".5"/><path d="M16 8.76a1.06 1.06 0 0 0-1.06 1.06v3.708a1.06 1.06 0 0 0 2.12 0V9.819A1.06 1.06 0 0 0 16 8.76z" fill="#fff" fill-opacity=".5"/></svg>
 
-        <span class="sub-heading">{{ scrollText }}</span>
+        <span class="sub-heading">{{ intro.scrollText }}</span>
       </a>
     </div>
   </section>
+
+	<div class="bg-video" v-if="intro.video">
+		<video ref="bgVideo" preload="auto" autoplay muted loop class="full-height"> 
+			<source :src="intro.video.video_mp4" type="video/mp4"> 
+		</video>
+	</div>
 </template>
 
 <style lang="scss">
@@ -99,6 +124,42 @@
 			display: block;
 		}
 	}
+
+.bg-video,
+.bg-video:before,
+.bg-video:after  {
+  content: '';
+  position: fixed;
+  width: 100%;
+  min-height: 100vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.bg-video {
+  z-index: -1;
+
+  &:before {
+    background: -moz-linear-gradient(left,  rgba(51,51,51,1) 1%, rgba(51,51,51,1) 45%, rgba(51,51,51,0) 100%);
+    background: -webkit-linear-gradient(left,  rgba(51,51,51,1) 1%,rgba(51,51,51,1) 45%,rgba(51,51,51,0) 100%);
+    background: linear-gradient(to right,  rgba(51,51,51,1) 1%,rgba(51,51,51,1) 45%,rgba(51,51,51,0) 100%);
+  }
+
+  &:after {
+    background: -moz-linear-gradient(top,  rgba(51,51,51,0) 75%, rgba(51,51,51,0.99) 99%, rgba(51,51,51,1) 100%);
+    background: -webkit-linear-gradient(top,  rgba(51,51,51,0) 75%,rgba(51,51,51,0.99) 99%,rgba(51,51,51,1) 100%);
+    background: linear-gradient(to bottom,  rgba(51,51,51,0) 75%,rgba(51,51,51,0.99) 99%,rgba(51,51,51,1) 100%);
+  }
+
+  video {
+    width: 100%;
+    min-height: 100vh;
+    object-fit: cover;
+    margin-left: 15vw;
+  }
+}
 	
 	@keyframes scroll-down {
 		0% {
