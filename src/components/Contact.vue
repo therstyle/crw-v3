@@ -7,15 +7,18 @@ import waypoint from '../helpers/observer';
 const el = ref(null);
 const contact = ref({});
 const amountScrolled = ref(0);
-const formName = ref('');
-const formNameError = ref(false);
-const formEmail = ref('');
-const formEmailError = ref(false);
-const formMessage = ref('');
-const formMessageError = ref(false);
-const formAction = ref(false);
-const formResponse = ref('');
-const loading = ref(false);
+const form = ref({
+	name: '',
+	nameError: false,
+	email: '',
+	emailError: false,
+	message: '',
+	messageError: false,
+	honey: '',
+	loading: false,
+	success: false,
+	status: null
+});
 
 const props = defineProps({
 	viewed: Boolean
@@ -25,65 +28,11 @@ const getCurrentPosition = () => {
 	amountScrolled.value = Math.round(window.scrollY);
 };
 
-const formSubmit = async () => {
-	formAction.value = true;
-
-	if (formName.value !== '' && formEmail.value !== '' && formMessage.value !== '') {
-		loading.value = true;
-
-		try {
-			const apiURL = 'https://mailer.chrisrobertsweb.dev';
-			const args = {
-				headers: {
-					"content-type":"application/x-www-form-urlencoded"
-				},
-				method: 'POST',
-				mode: "cors",
-				body: `from=${formEmail.value}&name=${formName.value}&message=${formMessage.value}`
-			};
-
-			const data = await fetch(apiURL, args)
-			.then (response => {
-				//console.log(response);
-				formAction.value = true;
-				formNameError.value = false;
-				formEmailError.value = false;
-				formMessageError.value = false;
-				return response.text();
-			})
-			.then (
-				body => {
-					//console.log(body);
-					formAction.value = false;
-					formName.value = '';
-					formEmail.value = '';
-					formMessage.value = '';
-					formResponse.value = body;
-				}
-			)
-
-			loading.value = false;
-			return data;
-		}
-		catch (error) {
-			console.error(error);
-		}
-	}
-	else if (formName.value === '') {
-		formNameError.value = true;
-	}
-	else if (formEmail.value === '') {
-		formEmailError.value = true;
-	}
-	else if (formMessage.value === '') {
-		formMessageError.value = true;
-	}
-	else {
-		formNameError.value = true;
-		formEmailError.value = true;
-		formMessageError.value = true;
-	}
-};
+const resetfields = () => {
+	form.value.name = '';
+	form.value.email = '';
+	form.value.message = '';
+}
 
 const initData = async () => {
 	const data = await loadData('info.json');
@@ -93,6 +42,53 @@ const initData = async () => {
 	contact.value.formErrorMessage = data.contact.formEmailError;
 	contact.value.loaderImg = data.contact.loaderImg;
 }
+
+const formSubmit = async () => {
+	form.value.success = false;
+
+	const nameError = form.value.name.length === 0;
+	const emailError = form.value.name.length === 0;
+	const messageError = form.value.name.length === 0;
+
+	form.value.nameError = nameError;
+	form.value.emailError = emailError;
+	form.value.messageError = messageError;
+
+	if (nameError || emailError || messageError) {return};
+
+	form.value.loading = true;
+
+	try {
+		const body = {
+			name: form.value.name,
+			email: form.value.email,
+			message: form.value.message,
+		};
+
+		if (form.value.honey.length > 0) {
+			body.honey = form.value.honey;
+		}
+
+		const response = await fetch('https://formsubmit.co/ajax/c21474138c05ee3a77550626c88f34ee', {
+			method: 'POST',
+			headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    	},
+			body: JSON.stringify(body)
+		});
+
+		const data = await response.json();
+		form.value.status = data;
+	}
+	catch(e) {
+		console.error(e);
+	}
+
+	form.value.loading = false;
+	form.value.success = true;
+	resetfields();
+};
 
 onMounted(() => {
 	waypoint(el);
@@ -113,25 +109,27 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 
     <div class="contact--content content">
       <div class="contact-form">
-        <form v-on:submit.prevent="formSubmit">
+        <form action="https://app.headlessforms.cloud/api/v1/form-submission/f7COGvPXQV" method="POST" @submit.prevent="formSubmit">
           <div class="field-group">
-            <input id="name" type="text" placeholder="NAME" v-model="formName">
-            <span v-if="formAction && formName === ''" class="error">{{ contact.formErrorMessage }}</span>
+            <input name="name" id="name" type="text" placeholder="NAME" v-model="form.name" required>
+						<span v-if="form.nameError" class="error">{{contact.formErrorMessage}}</span>
           </div>
 
           <div class="field-group">
-            <input id="email" type="email" placeholder="EMAIL ADDRESS" v-model="formEmail">
-            <span v-if="formAction && formEmail === ''" class="error">{{ contact.formErrorMessage }}</span>
+            <input name="email" id="email" type="email" placeholder="EMAIL ADDRESS" v-model="form.email" required>
+						<span v-if="form.emailError" class="error">{{contact.formErrorMessage}}</span>
           </div>
 
           <div class="field-group">
-            <textarea name="" id="message" placeholder="MESSAGE" v-model="formMessage"></textarea>
-            <span v-if="formAction && formMessage === ''" class="error">{{ contact.formErrorMessage }}</span>
+            <textarea name="message" id="message" placeholder="MESSAGE" v-model="form.message" required></textarea>
+						<span v-if="form.messageError" class="error">{{contact.formErrorMessage}}</span>
           </div>
 
-          <button>{{ contact.buttonText }} <img :src="contact.loaderImg" v-if="loading && contact.loaderImg"></button>
+					<input type="text" name="_honey" v-model="form.honey" class="contact-form--honey">
 
-          <div v-if="formResponse !== ''" class="form-response" v-html="formResponse"></div>
+          <button v-if="!form.success">{{ contact.buttonText }} <img :src="contact.loaderImg" v-if="form.loading && contact.loaderImg"></button>
+
+					<p v-if="form.success" class="success">Thank you for your submission!</p>
         </form>
         
         <picture class="contact-photo" :data-pixels="amountScrolled">
@@ -189,6 +187,10 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 			padding: 1.2rem;
 			font-size: 1.6rem;
 			color: var(--white);
+
+			&.contact-form--honey {
+				display: none;
+			}
 		}
 
 		textarea {
@@ -267,6 +269,10 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 
 .form-response {
 	margin-top: 2rem;
+}
+
+.success {
+	text-align: center;
 }
 
 @media only screen and (max-width: $lg-tablet-breakpoint) {
