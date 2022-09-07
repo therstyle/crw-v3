@@ -15,15 +15,16 @@ const props = defineProps({
 });
 
 const initData = async () => {
-	const data = await loadData('info.json');
-	resume.value.entries = data.resume.entries;
+	const data = await loadData('http://crweb-api:8888/wp-json/cr/global');
+	resume.value.headline = data.resume.headline;
 	resume.value.image = data.resume.image;
-	resume.value.sigText = data.resume.sigText;
-	resume.value.linkList = data.resume.linkList;
-	resume.value.devSkillsHeadline = data.resume.skills.dev.headline;
-	resume.value.devSkills = data.resume.skills.dev.skillset;
-	resume.value.designSkillsHeadline = data.resume.skills.design.headline;
-	resume.value.designSkills = data.resume.skills.design.skillset;
+	resume.value.sigText = data.resume.sig_text;
+	resume.value.linkList = data.resume.link_list;
+	resume.value.entries = data.resume.entries;
+	resume.value.devSkillsHeadline = data.resume.dev_skills_headline;
+	resume.value.devSkills = data.resume.dev_skills;
+	resume.value.designSkillsHeadline = data.resume.design_skills_headline;
+	resume.value.designSkills = data.resume.design_skills;
 }
 
 onMounted(() => {
@@ -217,14 +218,16 @@ watch(() => props.viewed, (viewed, oldViewed) => {
   .photo {
     position: relative;
     margin-bottom: var(--space-4);
-  }
 
-  .skill-tree--photo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 0 40px rgba(0,0,0,0.66);
-    margin-bottom: var(--space-2);
+		.skill-tree--photo, img {
+			display: block;
+			width: auto;
+			height: auto;
+			margin-left: auto;
+			margin-right: auto;
+			box-shadow: 0 0 40px rgba(0,0,0,0.66);
+			margin-bottom: var(--space-2);
+  	}
   }
 
   .sig {

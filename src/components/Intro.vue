@@ -12,12 +12,12 @@
 	});
 
 	const initData = async () => {
-		const data = await loadData('info.json');
+		const data = await loadData('http://crweb-api:8888/wp-json/cr/global');
 		intro.value.headline = data.intro.headline;
-		intro.value.subHeadline = data.intro.subHeadline;
-		intro.value.introText = data.intro.introText;
-		intro.value.scrollText = data.intro.scrollText;
-		intro.value.video = data.intro.video;
+		intro.value.subHeadline = data.intro.sub_headline;
+		intro.value.introText = data.intro.text;
+		intro.value.scrollText = data.intro.scroll_text;
+		intro.value.video = data.intro.video_mp4;
 	};
 
 	const loadVideo = () => {
@@ -58,7 +58,7 @@
 
 	<div class="bg-video" v-if="intro.video">
 		<video ref="bgVideo" preload="auto" autoplay muted loop class="full-height"> 
-			<source :src="intro.video.video_mp4" type="video/mp4"> 
+			<source :src="intro.video" type="video/mp4"> 
 		</video>
 	</div>
 </template>

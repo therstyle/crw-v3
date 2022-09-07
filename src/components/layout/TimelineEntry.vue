@@ -11,13 +11,13 @@ const viewed = ref(false);
 const settings = {threshold: 0.5};
 
 const props = defineProps({
-	year: Number,
+	year: String,
 	logo: String,
 	company: String,
 	title: String,
 	details: Array,
 	featuredBrands: Array,
-	stats: Array
+	stats: [Array, Boolean]
 });
 
 onMounted(() => {
@@ -36,7 +36,7 @@ onMounted(() => {
     <ul class="details">
       <EntryDetail v-for="(detail, index) in details" 
         :key="index"
-        :detail="detail"
+        :detail="detail.detail"
         ></EntryDetail>
     </ul>
 

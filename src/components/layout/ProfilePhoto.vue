@@ -7,7 +7,7 @@ const viewed = ref(false);
 const settings = {threshold: 0.5};
 
 const props = defineProps({
-	image: Object,
+	image: String,
   name: String
 });
 
@@ -18,10 +18,7 @@ onMounted(() => {
 
 <template>
 	<div ref="el" class="photo animate" :class="{viewed: viewed}">
-    <picture>
-      <source v-if="image.image_2x_webp" :srcset="`${image.image_1x_webp} 1x, ${image.image_2x_webp} 2x`" type="image/webp">
-      <source v-if="image.image_2x" :srcset="`${image.image_1x} 1x, ${image.image_2x} 2x`" type="image/jpeg">
-      <img v-if="image.image_1x" :src="image.image_1x" alt="Chris Roberts" class="skill-tree--photo">
+    <picture v-html="image">
     </picture>
 
     <h3 class="sig">{{ name }}</h3>
