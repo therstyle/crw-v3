@@ -35,12 +35,12 @@ const resetfields = () => {
 }
 
 const initData = async () => {
-	const data = await loadData('info.json');
+	const data = await loadData('http://crweb-api:8888/wp-json/cr/global');
 	contact.value.headline = data.contact.headline;
 	contact.value.image = data.contact.image;
-	contact.value.buttonText = data.contact.buttonText;
-	contact.value.formErrorMessage = data.contact.formEmailError;
-	contact.value.loaderImg = data.contact.loaderImg;
+	contact.value.buttonText = data.contact.button_text;
+	contact.value.formErrorMessage = data.contact.form_error_message;
+	contact.value.loaderImg = data.contact.loader_image;
 }
 
 const formSubmit = async () => {
@@ -132,10 +132,7 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 					<p v-if="form.success" class="success">Thank you for your submission!</p>
         </form>
         
-        <picture class="contact-photo" :data-pixels="amountScrolled">
-          <source v-if="contact.image" :srcset="`${contact.image.image_1x_webp} 1x, ${contact.image.image_2x_webp} 2x`" type="image/webp">
-          <source v-if="contact.image" :srcset="`${contact.image.image_1x} 1x, ${contact.image.image_2x} 2x`" type="image/jpeg">
-          <img v-if="contact.image" :src="contact.image.image_1x" alt="">
+        <picture class="contact-photo" :data-pixels="amountScrolled" v-html="contact.image">
         </picture>
       </div>
     </div>
@@ -256,6 +253,7 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 	img {
 		max-width: none;
 		width: 100%;
+		height: auto;
 	}
 }
 
