@@ -21,6 +21,7 @@ const Contact = defineAsyncComponent(() => import('./components/Contact.vue'));
 @import 'assets/css/vars';
 @import 'assets/css/reboot';
 @import 'assets/css/fonts';
+@import 'assets/css/buttons';
 
 *,
 *:after,

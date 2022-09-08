@@ -127,7 +127,7 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 
 					<input type="text" name="_honey" v-model="form.honey" class="contact-form--honey">
 
-          <button v-if="!form.success">{{ contact.buttonText }} <img :src="contact.loaderImg" v-if="form.loading && contact.loaderImg"></button>
+          <button v-if="!form.success" class="button">{{ contact.buttonText }} <img :src="contact.loaderImg" v-if="form.loading && contact.loaderImg"></button>
 
 					<p v-if="form.success" class="success">Thank you for your submission!</p>
         </form>
@@ -195,19 +195,6 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 		}
 
 		button {
-			text-transform: uppercase;
-			border: none;
-			background: var(--white);
-			color: var(--black);
-			font-weight: 900;
-			min-width: 208px;
-			padding: 1rem;
-			margin: auto;
-			display: block;
-			font-size: 1.6rem;
-			min-height: 46px;
-			position: relative;
-
 			img {
 				max-width: 24px;
 				position: absolute;

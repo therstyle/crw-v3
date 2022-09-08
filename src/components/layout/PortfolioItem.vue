@@ -9,14 +9,13 @@ const settings = {threshold: 0.25};
 
 const props = defineProps({
 	url: String,
-	image: Object,
+	image: String,
 	video: String,
 	name: String,
 	description: String,
-	type: Array,
-	icons: Object,
+	types: Array,
 	count: Number,
-	source: String
+	source: [String, Boolean]
 });
 
 const loadVideos = () => {
@@ -45,20 +44,25 @@ onMounted(() => {
 	<article ref="el" class="portfolio--content-entry animate" :class="{viewed: viewed}" v-on:mouseover="startVideo" v-on:mouseout="endVideo">
     <a :href="url" target="_blank">
       <header>
-        <video v-if="video" ref="videoPlayer" muted autoplay loop :poster="image.image_2x">
+        <video v-if="video" ref="videoPlayer" muted autoplay loop :poster="image">
           <source :src="video" type="video/mp4">
         </video>
       </header>
     </a>
 
     <div class="description">
-      <h3>{{ name }}</h3>
+      <h3 v-html="name"></h3>
       <p v-html="description"></p>
       <div class="project-details">
         <div v-if="url" class="view-source"><a :href="url" target="_blank">View Project</a></div>
         
-        <div class="project-type">
-          <img v-for="(projectType, index) in type" :src="`${icons[projectType]}`" :alt="projectType" :key="index">
+        <div class="project-type" v-if="types">
+          <template 
+						v-for="(type, index) in types" 
+						:key="index"
+					>
+					<div v-html="type"></div>
+					</template>
         </div>
       </div>
     </div>

@@ -1,0 +1,30 @@
+.button {
+	text-transform: uppercase;
+	border: none;
+	background: var(--white);
+	color: var(--black);
+	font-weight: 900;
+	min-width: 208px;
+	padding: 1rem;
+	margin: auto;
+	display: block;
+	font-size: 1.6rem;
+	min-height: 46px;
+	position: relative;
+	border: 1px solid transparent;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&.ghost {
+		background: transparent;
+		color: #FFF;
+		border-color: #FFF;
+	}
+
+	&.disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+}
