@@ -142,6 +142,7 @@
 		margin-bottom: var(--space-2);
 		display: flex;
 		gap: var(--space-1);
+		overflow: auto;
 	}
 
 	.portfolio--content {
