@@ -3,6 +3,7 @@ import {ref, onMounted, watch} from 'vue';
 import Heading from './layout/Heading.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
+import API_BASE_PATH from '../state/apiBasePath';
 
 const el = ref(null);
 const contact = ref({});
@@ -35,7 +36,7 @@ const resetfields = () => {
 }
 
 const initData = async () => {
-	const data = await loadData('http://crweb-api:8888/wp-json/cr/global');
+	const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
 	contact.value.headline = data.contact.headline;
 	contact.value.image = data.contact.image;
 	contact.value.buttonText = data.contact.button_text;
@@ -109,7 +110,7 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 
     <div class="contact--content content">
       <div class="contact-form">
-        <form action="https://app.headlessforms.cloud/api/v1/form-submission/f7COGvPXQV" method="POST" @submit.prevent="formSubmit">
+        <form action="https://formsubmit.co/c21474138c05ee3a77550626c88f34ee" method="POST" @submit.prevent="formSubmit">
           <div class="field-group">
             <input name="name" id="name" type="text" placeholder="NAME" v-model="form.name" required>
 						<span v-if="form.nameError" class="error">{{contact.formErrorMessage}}</span>

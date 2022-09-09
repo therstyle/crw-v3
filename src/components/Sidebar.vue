@@ -2,6 +2,7 @@
 import {ref, onMounted} from 'vue';
 import loadData from '../helpers/loadData';
 import sections from '../state/sections';
+import API_BASE_PATH from '../state/apiBasePath';
 
 const sidebar = ref({});
 const props = defineProps({
@@ -9,7 +10,7 @@ const props = defineProps({
 });
 
 const initData = async () => {
-	const data = await loadData('http://crweb-api:8888/wp-json/cr/global');
+	const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
 	sidebar.value = data.sidebar;
 };
 

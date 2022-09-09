@@ -5,6 +5,7 @@
 	import PortfolioFilter from './layout/PortfolioFilter.vue';
 	import loadData from '../helpers/loadData';
 	import waypoint from '../helpers/observer';
+	import API_BASE_PATH from '../state/apiBasePath';
 
 	const el = ref(null);
 	const portfolio = ref({});
@@ -33,13 +34,13 @@
 	});
 
 	const initGlobalData = async () => {
-		const data = await loadData('http://crweb-api:8888/wp-json/cr/global');
+		const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
 		portfolio.value.headline = data.portfolio.headline;
 		filters.value = data.portfolio.types;
 	};
 
 	const loadPortfolioData = async (loadType) => {
-		const url = `http://crweb-api:8888/wp-json/wp/v2/portfolio?page=${currentPage.value}${portfolioTypeParam.value}&per_page=6&tax_relation=AND`;
+		const url = `${API_BASE_PATH}/wp-json/wp/v2/portfolio?page=${currentPage.value}${portfolioTypeParam.value}&per_page=6&tax_relation=AND`;
 		const response = await fetch(url);
 		const data = await response.json();
 

@@ -7,6 +7,7 @@ import LinkList from './layout/LinkList.vue';
 import SkillSet from './layout/SkillSet.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
+import API_BASE_PATH from '../state/apiBasePath';
 
 const el = ref(null);
 const resume = ref({});
@@ -15,7 +16,7 @@ const props = defineProps({
 });
 
 const initData = async () => {
-	const data = await loadData('http://crweb-api:8888/wp-json/cr/global');
+	const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
 	resume.value.headline = data.resume.headline;
 	resume.value.image = data.resume.image;
 	resume.value.sigText = data.resume.sig_text;

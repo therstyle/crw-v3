@@ -2,6 +2,7 @@
 	import {ref, onMounted, watch} from 'vue';
 	import loadData from '../helpers/loadData';
 	import waypoint from '../helpers/observer';
+	import API_BASE_PATH from '../state/apiBasePath';
 
 	const el = ref(null);
 	const bgVideo = ref(null);
@@ -12,7 +13,7 @@
 	});
 
 	const initData = async () => {
-		const data = await loadData('http://crweb-api:8888/wp-json/cr/global');
+		const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
 		intro.value.headline = data.intro.headline;
 		intro.value.subHeadline = data.intro.sub_headline;
 		intro.value.introText = data.intro.text;
