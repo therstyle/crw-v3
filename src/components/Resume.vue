@@ -7,6 +7,7 @@ import LinkList from './layout/LinkList.vue';
 import SkillSet from './layout/SkillSet.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
+import API_BASE_PATH from '../state/apiBasePath';
 
 const el = ref(null);
 const resume = ref({});
@@ -15,15 +16,16 @@ const props = defineProps({
 });
 
 const initData = async () => {
-	const data = await loadData('info.json');
-	resume.value.entries = data.resume.entries;
+	const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
+	resume.value.headline = data.resume.headline;
 	resume.value.image = data.resume.image;
-	resume.value.sigText = data.resume.sigText;
-	resume.value.linkList = data.resume.linkList;
-	resume.value.devSkillsHeadline = data.resume.skills.dev.headline;
-	resume.value.devSkills = data.resume.skills.dev.skillset;
-	resume.value.designSkillsHeadline = data.resume.skills.design.headline;
-	resume.value.designSkills = data.resume.skills.design.skillset;
+	resume.value.sigText = data.resume.sig_text;
+	resume.value.linkList = data.resume.link_list;
+	resume.value.entries = data.resume.entries;
+	resume.value.devSkillsHeadline = data.resume.dev_skills_headline;
+	resume.value.devSkills = data.resume.dev_skills;
+	resume.value.designSkillsHeadline = data.resume.design_skills_headline;
+	resume.value.designSkills = data.resume.design_skills;
 }
 
 onMounted(() => {
@@ -217,14 +219,16 @@ watch(() => props.viewed, (viewed, oldViewed) => {
   .photo {
     position: relative;
     margin-bottom: var(--space-4);
-  }
 
-  .skill-tree--photo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 0 40px rgba(0,0,0,0.66);
-    margin-bottom: var(--space-2);
+		.skill-tree--photo, img {
+			display: block;
+			width: auto;
+			height: auto;
+			margin-left: auto;
+			margin-right: auto;
+			box-shadow: 0 0 40px rgba(0,0,0,0.66);
+			margin-bottom: var(--space-2);
+  	}
   }
 
   .sig {

@@ -22,7 +22,7 @@ onMounted(() => {
       <div class="stat--focal">
         <div class="single-chart">
           <Percentage 
-            :amount="stat.percent"
+            :amount="parseInt(stat.percent)"
             :viewed="viewed"
             :index="index"
           ></Percentage>

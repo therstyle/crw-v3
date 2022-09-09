@@ -3,6 +3,7 @@ import {ref, onMounted, watch} from 'vue';
 import Heading from './layout/Heading.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
+import API_BASE_PATH from '../state/apiBasePath';
 
 const el = ref(null);
 const contact = ref({});
@@ -35,12 +36,12 @@ const resetfields = () => {
 }
 
 const initData = async () => {
-	const data = await loadData('info.json');
+	const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
 	contact.value.headline = data.contact.headline;
 	contact.value.image = data.contact.image;
-	contact.value.buttonText = data.contact.buttonText;
-	contact.value.formErrorMessage = data.contact.formEmailError;
-	contact.value.loaderImg = data.contact.loaderImg;
+	contact.value.buttonText = data.contact.button_text;
+	contact.value.formErrorMessage = data.contact.form_error_message;
+	contact.value.loaderImg = data.contact.loader_image;
 }
 
 const formSubmit = async () => {
@@ -109,7 +110,7 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 
     <div class="contact--content content">
       <div class="contact-form">
-        <form action="https://app.headlessforms.cloud/api/v1/form-submission/f7COGvPXQV" method="POST" @submit.prevent="formSubmit">
+        <form action="https://formsubmit.co/c21474138c05ee3a77550626c88f34ee" method="POST" @submit.prevent="formSubmit">
           <div class="field-group">
             <input name="name" id="name" type="text" placeholder="NAME" v-model="form.name" required>
 						<span v-if="form.nameError" class="error">{{contact.formErrorMessage}}</span>
@@ -127,15 +128,12 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 
 					<input type="text" name="_honey" v-model="form.honey" class="contact-form--honey">
 
-          <button v-if="!form.success">{{ contact.buttonText }} <img :src="contact.loaderImg" v-if="form.loading && contact.loaderImg"></button>
+          <button v-if="!form.success" class="button">{{ contact.buttonText }} <img :src="contact.loaderImg" v-if="form.loading && contact.loaderImg"></button>
 
 					<p v-if="form.success" class="success">Thank you for your submission!</p>
         </form>
         
-        <picture class="contact-photo" :data-pixels="amountScrolled">
-          <source v-if="contact.image" :srcset="`${contact.image.image_1x_webp} 1x, ${contact.image.image_2x_webp} 2x`" type="image/webp">
-          <source v-if="contact.image" :srcset="`${contact.image.image_1x} 1x, ${contact.image.image_2x} 2x`" type="image/jpeg">
-          <img v-if="contact.image" :src="contact.image.image_1x" alt="">
+        <picture class="contact-photo" :data-pixels="amountScrolled" v-html="contact.image">
         </picture>
       </div>
     </div>
@@ -198,19 +196,6 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 		}
 
 		button {
-			text-transform: uppercase;
-			border: none;
-			background: var(--white);
-			color: var(--black);
-			font-weight: 900;
-			min-width: 208px;
-			padding: 1rem;
-			margin: auto;
-			display: block;
-			font-size: 1.6rem;
-			min-height: 46px;
-			position: relative;
-
 			img {
 				max-width: 24px;
 				position: absolute;
@@ -256,6 +241,7 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 	img {
 		max-width: none;
 		width: 100%;
+		height: auto;
 	}
 }
 

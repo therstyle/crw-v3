@@ -25,7 +25,7 @@ onMounted(() => {
         :key="index"
         :logo="skill.logo"
         :name="skill.name"
-        :startYear="skill.startYear"
+        :startYear="parseInt(skill.start_year)"
       ></Skill>
     </ul>
   </div>
