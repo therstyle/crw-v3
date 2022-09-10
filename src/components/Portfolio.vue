@@ -1,7 +1,7 @@
 <script setup>
 	import { onMounted, ref, watch, computed } from 'vue';
-	import Heading from './layout/heading.vue';
-	import PortfolioItem from './layout/portfolioItem.vue';
+	import Heading from './layout/Heading.vue';
+	import PortfolioItem from './layout/PortfolioItem.vue';
 	import PortfolioFilter from './layout/PortfolioFilter.vue';
 	import loadData from '../helpers/loadData';
 	import waypoint from '../helpers/observer';
