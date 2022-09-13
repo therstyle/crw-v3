@@ -1,16 +1,12 @@
-# crw-v3
+# [chrisrobertsweb.dev](https://chrisrobertsweb.dev/)
 
-This template should help get you started developing with Vue 3 in Vite.
+My personal portfolio built with [Vue.js](https://vuejs.org/)
 
-## Recommended IDE Setup
+<p align="center">
+  <img src="https://chrisrobertsweb.dev/github/crweb.jpg">
+</p>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Installation & Set Up
 
 ```sh
 npm install
