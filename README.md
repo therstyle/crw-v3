@@ -3,7 +3,7 @@
 My personal portfolio built with [Vue.js](https://vuejs.org/)
 
 <p align="center">
-  <img src="https://chrisrobertsweb.dev/github/crweb.jpg">
+  <img src="https://assets.chrisrobertsweb.dev/github/crweb.webp">
 </p>
 
 ## Installation & Set Up
