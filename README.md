@@ -1,6 +1,6 @@
 # [chrisrobertsweb.dev](https://chrisrobertsweb.dev/)
 
-My personal portfolio built with [Vue.js](https://vuejs.org/)
+My personal portfolio powered by [Vue.js](https://vuejs.org/) and the WordPress Rest API
 
 <p align="center">
   <img src="https://assets.chrisrobertsweb.dev/github/crweb.webp">
