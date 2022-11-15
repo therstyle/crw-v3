@@ -1,5 +1,5 @@
 <script setup>
-	import { onMounted, ref, watch, computed } from 'vue';
+	import { onMounted, ref, computed } from 'vue';
 	import Heading from './layout/Heading.vue';
 	import PortfolioItem from './layout/PortfolioItem.vue';
 	import PortfolioFilter from './layout/PortfolioFilter.vue';
@@ -77,13 +77,8 @@
 
 	onMounted(() => {
 		waypoint(el);
-	});
-
-	watch(() => props.viewed, (viewed, oldViewed) => {
-		if (viewed) {
-			initGlobalData();
-			loadPortfolioData();
-		}
+		initGlobalData();
+		loadPortfolioData();
 	});
 </script>
 

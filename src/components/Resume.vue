@@ -30,13 +30,8 @@ const initData = async () => {
 
 onMounted(() => {
 	waypoint(el);
+	initData();
 })
-
-watch(() => props.viewed, (viewed, oldViewed) => {
-	if (viewed) {
-		initData();
-	}
-});
 </script>
 
 <template>
