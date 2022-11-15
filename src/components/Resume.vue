@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import Heading from '../components/layout/Heading.vue';
 import TimelineEntry from '../components/layout/TimelineEntry.vue';
 import ProfilePhoto from './layout/ProfilePhoto.vue';
