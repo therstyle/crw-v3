@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted, watch} from 'vue';
+import {ref, onMounted} from 'vue';
 import Heading from './layout/Heading.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
@@ -93,13 +93,8 @@ const formSubmit = async () => {
 
 onMounted(() => {
 	waypoint(el);
+	initData();
 	window.addEventListener('scroll', getCurrentPosition);
-});
-
-watch(() => props.viewed, (viewed, oldViewed) => {
-	if (viewed) {
-		initData();
-	}
 });
 </script>
 
@@ -143,6 +138,10 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 <style lang="scss">
 @import '../assets/css/vars';
 
+.contact {
+	padding-bottom: var(--space-8);
+}
+
 .contact--content.content {
 	overflow: visible;
 }
@@ -150,7 +149,6 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 .contact-form {
 	position: relative;
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: flex-end;
 	align-items: center;
 
@@ -172,9 +170,9 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 		padding: var(--space-2);
 		background: var(--med-gray-alpha-alt);
 		box-shadow: 0 0 90px rgba(0,0,0,0.25);
-		position: absolute;
-		left: 0;
+		margin-right: -6.4rem;
 		width: 50%;
+		z-index: 10;
 
 		textarea,
 		input {
@@ -262,84 +260,14 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 }
 
 @media only screen and (max-width: $lg-tablet-breakpoint) {
-	.contact--content.content {
-		padding: var(--space-8) 0 !important;
-	}
-
 	.contact-form {
-		flex-direction: column;
-		margin-top: -6.4rem;
+		flex-wrap: wrap;
+		flex-direction: column-reverse;
 
-		form {
-			z-index: 10;
-			width: calc(100% - var(--space-8));
-			top: -75px;
-			margin: 0 var(--space-4);
-
-			textarea {
-				min-height: 120px;
-			}
-		}
-	}
-
-	.contact-photo {
-		width: 100%;
-		max-width: none;
-		height: 500px;
-		overflow-x: hidden;
-		z-index: 1;
-
-		&:before {
-			top: auto;
-			bottom: 5rem;
-			left: 0;
-			right: 0;
-			font-size: 6.4rem;
-			text-align: center;
-		}
-		
-		&:after {
-			top: auto;
-			bottom: 5rem;
-			left: 0;
-			right: 0;
-			font-size: 1.4rem;
-			text-align: center;
-		}
-
-		img {
+		form, .contact-photo {
 			width: 100%;
-		}
-	}
-
-	.contact-form form,
-	.contact-photo {
-		flex: 1 100%;
-	}
-}
-
-@media only screen and (max-width: $tablet-breakpoint) {
-	.contact-photo {
-		img {
-			width: auto;
-		}
-	}
-}
-
-@media only screen and (max-width: $phone-breakpoint) {
-	.contact-form {
-		margin-top: 0;
-	}
-}
-
-@media only screen and (max-width: $md-phone-breakpoint) {
-	.contact-form form {
-		width: calc(100% - var(--space-4));
-		margin: 0 var(--space-2);
-
-		button {
-			width: 100%;
-			min-width: 0;
+			margin-right: 0;
+			max-width: 100%;
 		}
 	}
 }
@@ -354,6 +282,7 @@ watch(() => props.viewed, (viewed, oldViewed) => {
 		&::after {
 			font-size: 1.2rem;
 			bottom: 11rem;
+			margin-top: 4rem;
 		}
 	}
 }

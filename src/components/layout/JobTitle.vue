@@ -18,7 +18,7 @@ onMounted(() => {
 
 <template>
   <header ref="el" class="animate" :class="{viewed: viewed}">
-    <img :src="logo" :alt="company">
+    <img :src="logo" :alt="company" loading="lazy">
     <div class="company-info">
       <h3>{{ company }}</h3>
       <small>{{ title }}</small>

@@ -1,9 +1,10 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, watch} from 'vue';
 import animate from '../../helpers/animate';
 
 const el = ref(null);
 const videoPlayer = ref(null);
+const videoSource = ref(null);
 const viewed = ref(false);
 const settings = {threshold: 0.25};
 
@@ -34,18 +35,29 @@ const endVideo = () => {
 	videoPlayer.value.pause();
 }
 
-onMounted(() => {
+const lazyLoad = () => {
+	videoPlayer.value.setAttribute('poster', props.image);
+	videoSource.value.setAttribute('src', props.video);
 	loadVideos();
+}
+
+onMounted(() => {
 	animate(el, settings, viewed);
 });
+
+watch(viewed, (newViewed) => {
+  if (newViewed) {
+		lazyLoad();
+	}
+})
 </script>
 
 <template>
 	<article ref="el" class="portfolio--content-entry animate" :class="{viewed: viewed}" v-on:mouseover="startVideo" v-on:mouseout="endVideo">
     <a :href="url" target="_blank">
       <header>
-        <video v-if="video" ref="videoPlayer" muted autoplay loop :poster="image">
-          <source :src="video" type="video/mp4">
+        <video v-if="video" ref="videoPlayer" muted autoplay loop poster="" :data-poster="image">
+          <source ref="videoSource" src="" :data-src="video" type="video/mp4">
         </video>
       </header>
     </a>

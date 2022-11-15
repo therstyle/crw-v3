@@ -3,23 +3,19 @@ import {ref} from 'vue';
 const sections = ref({
 	intro: {
 		active: false,
-		viewed: false,
-		intersectionRatio: 0
+		viewed: false
 	},
 	resume: {
 		active: false,
-		viewed: false,
-		intersectionRatio: 0
+		viewed: false
 	},
 	portfolio: {
 		active: false,
-		viewed: false,
-		intersectionRatio: 0
+		viewed: false
 	},
 	contact: {
 		active: false,
-		viewed: false,
-		intersectionRatio: 0
+		viewed: false
 	}
 });
 
