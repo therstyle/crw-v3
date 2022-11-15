@@ -36,6 +36,7 @@ const endVideo = () => {
 }
 
 const lazyLoad = () => {
+	videoPlayer.value.setAttribute('poster', props.image);
 	videoSource.value.setAttribute('src', props.video);
 	loadVideos();
 }
@@ -55,7 +56,7 @@ watch(viewed, (newViewed) => {
 	<article ref="el" class="portfolio--content-entry animate" :class="{viewed: viewed}" v-on:mouseover="startVideo" v-on:mouseout="endVideo">
     <a :href="url" target="_blank">
       <header>
-        <video v-if="video" ref="videoPlayer" muted autoplay loop :poster="image">
+        <video v-if="video" ref="videoPlayer" muted autoplay loop poster="" :data-poster="image">
           <source ref="videoSource" src="" :data-src="video" type="video/mp4">
         </video>
       </header>

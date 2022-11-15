@@ -17,7 +17,7 @@ const experience = startYear => {
 <template>
   <li>
     <div>
-      <img :src="logo" :alt="name">
+      <img :src="logo" :alt="name" loading="lazy">
       <h6>{{ name }}</h6>
       <small>{{ experience(startYear) }}</small>
     </div>
