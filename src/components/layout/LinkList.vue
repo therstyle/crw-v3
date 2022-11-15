@@ -18,7 +18,7 @@ onMounted(() => {
 <template>
   <ul ref="el" class="info animate" :class="{viewed: viewed}">
     <li v-for="(link, index) in links" :key="index">
-      <img :src="link.icon" :alt="link.text">
+      <img :src="link.icon" :alt="link.text" width="16" height="16" loading="lazy">
       <a :href="link.source" target="_blank" class="link">{{ link.text }}</a>
     </li>
   </ul>
