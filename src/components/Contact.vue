@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted, watch} from 'vue';
+import {ref, onMounted} from 'vue';
 import Heading from './layout/Heading.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
@@ -96,12 +96,6 @@ onMounted(() => {
 	initData();
 	window.addEventListener('scroll', getCurrentPosition);
 });
-
-// watch(() => props.viewed, (viewed, oldViewed) => {
-// 	if (viewed) {
-// 		initData();
-// 	}
-// });
 </script>
 
 <template>
