@@ -9,8 +9,9 @@ const experience = startYear => {
 	const date = new Date();
 	const currentYear = date.getFullYear();
 	const years = currentYear - startYear;
+	const yearString = years > 15 ? '15+' : years;
 	const label = years > 1 ? 'Years' : 'Year';
-	return `${years} ${label}`;
+	return `${yearString} ${label}`;
 };
 </script>
 
