@@ -74,6 +74,7 @@ body {
 
 		&.contact {
 			min-height: auto;
+			scroll-padding-top: 56px;
 		}
   }
 }
