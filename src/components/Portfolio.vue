@@ -84,7 +84,6 @@
 
 <template>
   <section ref="el" id="portfolio" class="portfolio" :class="{viewed: viewed}">
-		<a name="portfolio" class="jump-link"></a>
     <Heading :title="portfolio.headline"></Heading>
 
 		<div 
