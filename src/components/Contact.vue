@@ -100,7 +100,6 @@ onMounted(() => {
 
 <template>
   <section ref="el" id="contact" class="contact" :class="{viewed: viewed}">
-		<a name="contact" class="jump-link"></a>
     <Heading :title="contact.headline"></Heading>
 
     <div class="contact--content content">

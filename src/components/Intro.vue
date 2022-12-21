@@ -40,7 +40,6 @@
 
 <template>
 	<section ref="el" id="intro" class="intro content" :class="{viewed: viewed}">
-		<a name="intro" class="jump-link"></a>
     <div class="intro--content">
       <h6 class="sub-heading">{{ intro.subHeadline }}</h6>
       <h1 class="heading" v-html="intro.headline"></h1>
