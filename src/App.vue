@@ -7,6 +7,7 @@ const Intro = defineAsyncComponent(() => import('./components/Intro.vue'));
 const Resume = defineAsyncComponent(() => import('./components/Resume.vue'));
 const Portfolio = defineAsyncComponent(() => import('./components/Portfolio.vue'));
 const Contact = defineAsyncComponent(() => import('./components/Contact.vue'));
+const AppFooter = defineAsyncComponent(() => import('./components/AppFooter.vue'));
 </script>
 
 <template>
@@ -15,6 +16,7 @@ const Contact = defineAsyncComponent(() => import('./components/Contact.vue'));
 	<Resume :viewed="sections.resume.viewed"></Resume>
 	<Portfolio :viewed="sections.portfolio.viewed"></Portfolio>
 	<Contact :viewed="sections.contact.viewed"></Contact>
+	<AppFooter></AppFooter>
 </template>
 
 <style lang="scss">
@@ -69,6 +71,10 @@ body {
     &:not(.contact) {
       margin-bottom: var(--space-8); //Keep out of viewport for observer
     }
+
+		&.contact {
+			min-height: auto;
+		}
   }
 }
 
