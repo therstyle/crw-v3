@@ -24,3 +24,11 @@ onMounted(() => {
     <h3 class="sig">{{ name }}</h3>
   </div>
 </template>
+
+<style lang="scss">
+	picture {
+		img {
+			max-width: 244px;
+		}
+	}
+</style>
