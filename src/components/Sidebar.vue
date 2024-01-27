@@ -289,7 +289,6 @@ nav.main-nav {
   .main-nav--external {
     svg {
       max-width: 16px;
-      max-width: 16px;
     }
   }
 
@@ -326,7 +325,6 @@ nav.main-nav {
 
   .main-nav--external {
     svg {
-      max-width: 16px;
       max-width: 16px;
     }
   }
