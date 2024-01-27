@@ -166,6 +166,7 @@ onMounted(() => {
             <img
               :src="contact.loaderImg"
               v-if="form.loading && contact.loaderImg"
+              alt='loading...'
             />
           </button>
 
