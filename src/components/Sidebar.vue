@@ -1,59 +1,60 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import loadData from '../helpers/loadData';
 import sections from '../state/sections';
 import API_BASE_PATH from '../state/apiBasePath';
 
 const sidebar = ref({});
 const props = defineProps({
-	sections: Object
+  sections: Object,
 });
 
 const initData = async () => {
-	const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-	sidebar.value = data.sidebar;
+  const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
+  sidebar.value = data.sidebar;
 };
 
-const isActive = key => {
-	return sections.value[key].active;
+const isActive = (key) => {
+  return sections.value[key].active;
 };
 
 onMounted(() => {
-	initData();
+  initData();
 });
 </script>
 
 <template>
-	<nav class="main-nav">
-    <div v-if="sidebar?.logo?.image && sidebar?.logo?.url" class="main-nav--logo">
+  <nav class="main-nav">
+    <div
+      v-if="sidebar?.logo?.image && sidebar?.logo?.url"
+      class="main-nav--logo"
+    >
       <a :href="sidebar.logo.url" v-html="sidebar.logo.image"></a>
     </div>
 
     <ul class="main-nav--internal" v-if="sidebar?.internal">
-			<li 
-				v-for="(link, index) in sidebar.internal"
-				:key="index"
-				:class="{active: isActive(link.id)}" 
-				:id="`menu-${link.id}`"
-			>
-				<a :href="link.url">
-					<span v-html="link.icon"></span>
-					<span class="menu-title">{{link.text}}</span>
-				</a>
-			</li>
+      <li
+        v-for="(link, index) in sidebar.internal"
+        :key="index"
+        :class="{ active: isActive(link.id) }"
+        :id="`menu-${link.id}`"
+      >
+        <a :href="link.url">
+          <span v-html="link.icon"></span>
+          <span class="menu-title">{{ link.text }}</span>
+        </a>
+      </li>
     </ul>
 
     <ul class="main-nav--external">
-			<li 
-				v-for="(link, index) in sidebar.external"
-			>
-				<a 
-					:href="link.url" 
-					v-html="link.icon"
-					:id="link.id"
-					target="_blank"
-				></a>
-			</li>
+      <li v-for="(link, index) in sidebar.external" :key="index">
+        <a
+          :href="link.url"
+          v-html="link.icon"
+          :id="link.id"
+          target="_blank"
+        ></a>
+      </li>
     </ul>
   </nav>
 </template>
@@ -80,10 +81,10 @@ nav.main-nav {
   max-height: 460px;
   background: var(--black);
   min-height: 100vh;
-	height: -webkit-fill-available;
-	height: fill-available;
+  height: -webkit-fill-available;
+  height: fill-available;
   padding: var(--space-4) 0;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
   position: fixed;
   top: 0;
   left: 0;
@@ -182,7 +183,7 @@ nav.main-nav {
       &:before {
         content: '';
         box-shadow: 0 0 75px var(--red);
-        opacity: .5;
+        opacity: 0.5;
         display: block;
         position: absolute;
         width: 100%;
@@ -193,8 +194,8 @@ nav.main-nav {
 
       a {
         &:before {
-         background: var(--red);
-         animation: fade-in-out ease-in-out infinite 3s;
+          background: var(--red);
+          animation: fade-in-out ease-in-out infinite 3s;
         }
       }
     }
@@ -203,7 +204,7 @@ nav.main-nav {
       padding: 1rem;
       position: relative;
       flex-direction: column;
-      color: rgba(255,255,255,0.66);
+      color: rgba(255, 255, 255, 0.66);
 
       &:before {
         content: '';
@@ -223,7 +224,7 @@ nav.main-nav {
     }
   }
 
-   svg {
+  svg {
     max-width: 40px;
     max-height: 40px;
     opacity: 0.5;
@@ -250,7 +251,7 @@ nav.main-nav {
   }
 
   li {
-    align-items: flex-end;    
+    align-items: flex-end;
 
     &:first-child {
       flex: 1;
@@ -288,7 +289,6 @@ nav.main-nav {
   .main-nav--external {
     svg {
       max-width: 16px;
-      max-width: 16px;
     }
   }
 
@@ -312,7 +312,7 @@ nav.main-nav {
     min-height: 0;
 
     li {
-     a {
+      a {
         padding: 1rem 0.5rem;
       }
     }
@@ -325,7 +325,6 @@ nav.main-nav {
 
   .main-nav--external {
     svg {
-      max-width: 16px;
       max-width: 16px;
     }
   }

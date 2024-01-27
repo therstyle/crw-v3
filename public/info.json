@@ -222,7 +222,6 @@
         "description": "REI guided tours and destinations custom WordPress travel website <small><a class=\"link\" href=\"#\">Credit 829 Studios</a></small>",
         "type": ["WordPress"],
         "source": "https://github.com/therstyle/Flowetik"
-  
       },
       {
         "url": "https://www.stanleyhealthcare.com/",
@@ -235,7 +234,6 @@
         "description": "Online portal for Stanley Healthcare's products, powered by Drupal <small><a class=\"link\" href=\"#\">Credit 829 Studios</a></small>",
         "type": ["Drupal"],
         "typeImage": "/images/project-type/icon-drupal.svg"
-  
       },
       {
         "url": "https://tv-guide.chrisrobertsweb.dev/",
@@ -248,20 +246,18 @@
         "description": "TV Guide powered by Vue.js and open source Rest API",
         "type": ["Vue.js"],
         "source": "https://github.com/therstyle/vue-tv-guide"
-  
       },
-      {	
-        "url": "https://andrewswaine.chrisrobertsweb.dev",	
-        "image": {	
-          "image_1x": "/images/portfolio/swaine.jpg",	
-          "image_2x": "/images/portfolio/swaine_2x.jpg"	
-        },	
-        "video": "/video/portfolio/swaine.mp4",	
-        "name": "Andrew Swaine Photography",	
-        "description": "Custom WordPress photo gallery theme built with Vue.js and the WordPress Rest API",	
+      {
+        "url": "https://andrewswaine.chrisrobertsweb.dev",
+        "image": {
+          "image_1x": "/images/portfolio/swaine.jpg",
+          "image_2x": "/images/portfolio/swaine_2x.jpg"
+        },
+        "video": "/video/portfolio/swaine.mp4",
+        "name": "Andrew Swaine Photography",
+        "description": "Custom WordPress photo gallery theme built with Vue.js and the WordPress Rest API",
         "type": ["WordPress", "Vue.js"],
-        "source": "https://github.com/therstyle/Andrew-Swaine-Photography"	
-
+        "source": "https://github.com/therstyle/Andrew-Swaine-Photography"
       },
       {
         "url": "https://jeopardy.chrisrobertsweb.dev",
@@ -274,20 +270,18 @@
         "description": "A Vue.js application (powered by WP Rest API) that allows you to be the host of local multiplayer matches of Jeopardy with friends",
         "type": ["WordPress", "Vue.js"],
         "source": "https://github.com/therstyle/Jeopardy"
-  
       },
-      {	
-        "url": "http://lrc.chrisrobertsweb.dev",	
-        "image": {	
-          "image_1x": "/images/portfolio/lrc.jpg",	
-          "image_2x": "/images/portfolio/lrc_2x.jpg"	
-        },	
-        "video": "/video/portfolio/lrc.mp4",	
-        "name": "Latin Rogue Cleaning",	
-        "description": "A single page, custom responsive WordPress theme, featured on <a class=\"link\" href=\"http://onepagelove.com\">One Page Love</a>",	
-        "type": ["WordPress"],	
-        "source": "https://github.com/therstyle/Latin-Rogue-Cleaning"	
-
+      {
+        "url": "http://lrc.chrisrobertsweb.dev",
+        "image": {
+          "image_1x": "/images/portfolio/lrc.jpg",
+          "image_2x": "/images/portfolio/lrc_2x.jpg"
+        },
+        "video": "/video/portfolio/lrc.mp4",
+        "name": "Latin Rogue Cleaning",
+        "description": "A single page, custom responsive WordPress theme, featured on <a class=\"link\" href=\"http://onepagelove.com\">One Page Love</a>",
+        "type": ["WordPress"],
+        "source": "https://github.com/therstyle/Latin-Rogue-Cleaning"
       }
     ]
   },
@@ -297,7 +291,7 @@
       "image_1x": "/images/zakim.jpg",
       "image_1x_webp": "/images/zakim.webp",
       "image_2x": "/images/zakim_2x.jpg",
-      "image_2x_webp": "/images/zakim_2x.webp"  
+      "image_2x_webp": "/images/zakim_2x.webp"
     },
     "buttonText": "Submit",
     "loaderImg": "/images/loading.svg",
