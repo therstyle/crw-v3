@@ -10,13 +10,7 @@ const props = defineProps({
 const emit = defineEmits(['update-selected']);
 
 const active = computed(() => {
-  if (props.selected.has(props.id)) {
-    return true;
-  } else if (props.selected.size === 0 && props.id === 0) {
-    return true;
-  } else {
-    return false;
-  }
+  return props.selected.has(props.id) || (props.selected.size === 0 && props.id === 0);
 });
 
 const updateSelected = () => {
