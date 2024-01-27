@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 
 const props = defineProps({
   name: String,
@@ -10,7 +10,13 @@ const props = defineProps({
 const emit = defineEmits(['update-selected']);
 
 const active = computed(() => {
-  return props.selected.has(props.id) || (props.selected.size === 0 && props.id === 0);
+  if (props.selected.has(props.id)) {
+    return true;
+  } else if (props.selected.size === 0 && props.id === 0) {
+    return true;
+  } else {
+    return false;
+  }
 });
 
 const updateSelected = () => {

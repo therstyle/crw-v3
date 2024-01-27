@@ -35,8 +35,8 @@ onMounted(() => {
 
 watch(
   () => props.viewed,
-  (newVal) => {
-    if (newVal) {
+  (viewed, oldViewed) => {
+    if (viewed) {
       loadVideo();
     }
   },

@@ -1,6 +1,8 @@
 const loadData = async (url) => {
   const response = await fetch(url);
-  return await response.json();
+  const data = await response.json();
+
+  return data;
 };
 
 export default loadData;

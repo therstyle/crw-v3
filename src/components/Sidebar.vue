@@ -47,7 +47,7 @@ onMounted(() => {
     </ul>
 
     <ul class="main-nav--external">
-      <li v-for="(link, index) in sidebar.external" :key="index">
+      <li v-for="(link, index) in sidebar.external">
         <a
           :href="link.url"
           v-html="link.icon"
@@ -289,6 +289,7 @@ nav.main-nav {
   .main-nav--external {
     svg {
       max-width: 16px;
+      max-width: 16px;
     }
   }
 
@@ -325,6 +326,7 @@ nav.main-nav {
 
   .main-nav--external {
     svg {
+      max-width: 16px;
       max-width: 16px;
     }
   }

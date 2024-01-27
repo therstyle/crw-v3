@@ -27,7 +27,11 @@ const isDraggable = () => {
   const threshold = carouselWidth.value - 50;
   const width = brandWidth.value * brands;
 
-  draggable.value = threshold < width;
+  if (threshold < width) {
+    draggable.value = true;
+  } else {
+    draggable.value = false;
+  }
 };
 
 const initCarousel = () => {

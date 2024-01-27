@@ -84,7 +84,8 @@ const formSubmit = async () => {
       },
     );
 
-    form.value.status = await response.json();
+    const data = await response.json();
+    form.value.status = data;
   } catch (e) {
     console.error(e);
   }
@@ -165,7 +166,6 @@ onMounted(() => {
             <img
               :src="contact.loaderImg"
               v-if="form.loading && contact.loaderImg"
-              alt='loading...'
             />
           </button>
 
