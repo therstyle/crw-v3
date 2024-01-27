@@ -47,7 +47,7 @@ onMounted(() => {
     </ul>
 
     <ul class="main-nav--external">
-      <li v-for="(link, index) in sidebar.external">
+      <li v-for="(link, index) in sidebar.external" :key="index">
         <a
           :href="link.url"
           v-html="link.icon"
