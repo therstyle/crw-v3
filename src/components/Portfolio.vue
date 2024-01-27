@@ -100,6 +100,7 @@ onMounted(() => {
 
       <PortfolioFilter
         v-for="(filter, index) in filters"
+        :key="index"
         :id="filter.term_id"
         :selected="selected"
         @update-selected="updateSelected"
