@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Heading from '../components/layout/Heading.vue';
 import TimelineEntry from '../components/layout/TimelineEntry.vue';

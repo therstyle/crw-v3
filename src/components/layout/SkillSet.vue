@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 import Skill from './Skill.vue';

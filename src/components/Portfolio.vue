@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import Heading from './layout/Heading.vue';
 import PortfolioItem from './layout/PortfolioItem.vue';

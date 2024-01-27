@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Heading from './layout/Heading.vue';
 import loadData from '../helpers/loadData';

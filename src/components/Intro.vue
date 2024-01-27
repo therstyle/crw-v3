@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';

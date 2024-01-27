@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import loadData from '../helpers/loadData';
 import sections from '../state/sections';
