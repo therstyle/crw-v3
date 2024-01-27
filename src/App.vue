@@ -1,22 +1,26 @@
 <script setup>
-import {defineAsyncComponent} from 'vue';
+import { defineAsyncComponent } from 'vue';
 import Sidebar from './components/Sidebar.vue';
 import sections from './state/sections';
 
 const Intro = defineAsyncComponent(() => import('./components/Intro.vue'));
 const Resume = defineAsyncComponent(() => import('./components/Resume.vue'));
-const Portfolio = defineAsyncComponent(() => import('./components/Portfolio.vue'));
+const Portfolio = defineAsyncComponent(
+  () => import('./components/Portfolio.vue'),
+);
 const Contact = defineAsyncComponent(() => import('./components/Contact.vue'));
-const AppFooter = defineAsyncComponent(() => import('./components/AppFooter.vue'));
+const AppFooter = defineAsyncComponent(
+  () => import('./components/AppFooter.vue'),
+);
 </script>
 
 <template>
-	<Sidebar :sections="sections"></Sidebar>
-	<Intro :viewed="sections.intro.viewed"></Intro>
-	<Resume :viewed="sections.resume.viewed"></Resume>
-	<Portfolio :viewed="sections.portfolio.viewed"></Portfolio>
-	<Contact :viewed="sections.contact.viewed"></Contact>
-	<AppFooter></AppFooter>
+  <Sidebar :sections="sections"></Sidebar>
+  <Intro :viewed="sections.intro.viewed"></Intro>
+  <Resume :viewed="sections.resume.viewed"></Resume>
+  <Portfolio :viewed="sections.portfolio.viewed"></Portfolio>
+  <Contact :viewed="sections.contact.viewed"></Contact>
+  <AppFooter></AppFooter>
 </template>
 
 <style lang="scss">
@@ -36,9 +40,9 @@ const AppFooter = defineAsyncComponent(() => import('./components/AppFooter.vue'
 
 html {
   font-size: 62.5%;
-	scroll-behavior: smooth;
-	height: fill-available;
-	height: -webkit-fill-available;
+  scroll-behavior: smooth;
+  height: fill-available;
+  height: -webkit-fill-available;
 }
 
 body {
@@ -72,10 +76,10 @@ body {
       margin-bottom: var(--space-8); //Keep out of viewport for observer
     }
 
-		&.contact {
-			min-height: auto;
-			scroll-padding-top: 56px;
-		}
+    &.contact {
+      min-height: auto;
+      scroll-padding-top: 56px;
+    }
   }
 }
 
@@ -107,7 +111,11 @@ a {
     transition: 0.3s all;
 
     &:hover {
-      background-image: linear-gradient(120deg, var(--dark-red) 0%, var(--dark-red) 100%);
+      background-image: linear-gradient(
+        120deg,
+        var(--dark-red) 0%,
+        var(--dark-red) 100%
+      );
     }
   }
 }
@@ -126,7 +134,9 @@ p {
 .animate {
   transform: translateY(var(--space-2));
   opacity: 0;
-  transition: opacity 0.3s, transform 0.3s;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
 
   &.portfolio--content-entry {
     transform: translateY(var(--space-4));
