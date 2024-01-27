@@ -84,8 +84,7 @@ const formSubmit = async () => {
       },
     );
 
-    const data = await response.json();
-    form.value.status = data;
+    form.value.status = await response.json();
   } catch (e) {
     console.error(e);
   }
