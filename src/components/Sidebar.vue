@@ -14,7 +14,7 @@ const initData = async () => {
   sidebar.value = data.sidebar;
 };
 
-const isActive = (key) => {
+const isActive = (key): boolean => {
   return sections.value[key].active;
 };
 
