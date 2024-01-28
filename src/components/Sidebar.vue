@@ -4,7 +4,23 @@ import loadData from '../helpers/loadData';
 import sections from '../state/sections';
 import API_BASE_PATH from '../state/apiBasePath';
 
-const sidebar = ref({
+interface SideBar {
+  logo: {
+    image: null | string;
+    url: null | string;
+  };
+  internal: NavLink[];
+  external: NavLink[];
+}
+
+interface NavLink {
+  icon: string;
+  id: string;
+  url: string;
+  text?: string;
+}
+
+const sidebar = ref<SideBar>({
   logo: {
     image: null,
     url: null
