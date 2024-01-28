@@ -4,7 +4,15 @@ import loadData from '../helpers/loadData';
 import sections from '../state/sections';
 import API_BASE_PATH from '../state/apiBasePath';
 
-const sidebar = ref({});
+const sidebar = ref({
+  logo: {
+    image: null,
+    url: null
+  },
+  internal: [],
+  external: []
+});
+
 const props = defineProps({
   sections: Object
 });
@@ -26,7 +34,7 @@ onMounted(() => {
 <template>
   <nav class='main-nav'>
     <div
-      v-if='sidebar?.logo?.image && sidebar?.logo?.url'
+      v-if='sidebar.logo.image && sidebar.logo.url !== null'
       class='main-nav--logo'
     >
       <a :href='sidebar.logo.url' v-html='sidebar.logo.image'></a>
