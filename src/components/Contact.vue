@@ -6,11 +6,11 @@ import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
 
 interface Contact {
-  buttonText: string;
-  formErrorMessage: string;
-  headline: string;
-  image: string;
-  loaderImg: string;
+  buttonText: string | null;
+  formErrorMessage: string | null;
+  headline: string | null;
+  image: string | null;
+  loaderImg: string | null;
 }
 
 interface Form {
@@ -27,7 +27,13 @@ interface Form {
 }
 
 const el = ref<null | HTMLElement>(null);
-const contact = ref<Contact>({});
+const contact = ref<Contact>({
+  buttonText: null,
+  formErrorMessage: null,
+  headline: null,
+  image: null,
+  loaderImg: null
+});
 const amountScrolled = ref(0);
 const form = ref<Form>({
   name: '',
