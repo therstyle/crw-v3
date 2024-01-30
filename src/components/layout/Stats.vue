@@ -7,9 +7,16 @@ const el = ref(null);
 const viewed = ref(false);
 const settings = { threshold: 1 };
 
-const props = defineProps({
-  stats: Array,
-});
+interface Props {
+  stats: Stat[];
+}
+
+interface Stat {
+  percent: string;
+  summary: string;
+}
+
+const props = defineProps<Props>();
 
 onMounted(() => {
   animate(el, settings, viewed);
