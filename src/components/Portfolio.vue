@@ -104,7 +104,7 @@ const reset = () => {
   currentPage.value = 1;
 };
 
-const updateSelected = (value) => {
+const updateSelected = (value: number | number[]) => {
   if (value === 0) {
     selected.value.clear();
   } else if (selected.value.has(value)) {
