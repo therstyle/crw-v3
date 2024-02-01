@@ -6,11 +6,11 @@ const settings = {
   rootMargin: '-50% 0% -50% 0%'
 };
 
-const waypoint = (el) => {
+const waypoint = (el: HTMLElement | null) => {
   if (el === null) {
     return;
   }
-  
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const keyName = entry.target.id;
