@@ -32,6 +32,7 @@ interface Filters {
 }
 
 interface PortfolioPost {
+  id: number;
   count: number;
   title: {
     rendered: string;
