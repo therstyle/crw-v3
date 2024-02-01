@@ -14,7 +14,7 @@ interface Props {
 
 interface Portfolio {
   headline: string;
-  filters: Filters[];
+  types: Filters[];
 }
 
 interface Filters {
@@ -137,7 +137,7 @@ onMounted(() => {
   >
     <Heading :title="portfolio.headline"></Heading>
 
-    <div class="portfolio--filters content" v-if="portfolio.filters">
+    <div class="portfolio--filters content" v-if="portfolio.types">
       <PortfolioFilter
         :id="0"
         :selected="selected"
@@ -147,7 +147,7 @@ onMounted(() => {
       </PortfolioFilter>
 
       <PortfolioFilter
-        v-for="(filter, index) in portfolio.filters"
+        v-for="(filter, index) in portfolio.types"
         :key="index"
         :id="filter.term_id"
         :selected="selected"
@@ -163,7 +163,7 @@ onMounted(() => {
       v-if="posts && posts.length > 0"
     >
       <PortfolioItem
-        v-for="(post, index) in posts"
+        v-for="post in posts"
         :key="post.id"
         :url="post.custom.url"
         :image="post.custom.image"
