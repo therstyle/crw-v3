@@ -8,7 +8,6 @@ import SkillSet from './layout/SkillSet.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
-import Resume from '@/components/Resume.vue';
 
 import type { DevSkill } from '@/types/DevSkill';
 import type { DesignSkill } from '@/types/DesignSkill';
