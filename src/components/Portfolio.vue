@@ -164,7 +164,6 @@ onMounted(() => {
     >
       <PortfolioItem
         v-for="(post, index) in posts"
-        :count="parseInt(index + 1)"
         :key="post.id"
         :url="post.custom.url"
         :image="post.custom.image"
