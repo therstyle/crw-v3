@@ -30,7 +30,7 @@ interface Resume {
   design_skills: DesignSkill[];
 }
 
-const el = ref(null);
+const el = ref<null | HTMLElement>(null);
 const resume = ref<null | Resume>(null);
 
 const props = defineProps<Props>();
