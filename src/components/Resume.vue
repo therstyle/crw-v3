@@ -37,17 +37,12 @@ const resume = ref<null | Resume>(null);
 const props = defineProps<Props>();
 
 const initData = async () => {
-  const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  resume.value = data.resume;
-  // resume.value.headline = data.resume.headline;
-  // resume.value.image = data.resume.image;
-  // resume.value.sig_text = data.resume.sig_text;
-  // resume.value.link_list = data.resume.link_list;
-  // resume.value.entries = data.resume.entries;
-  // resume.value.dev_skills_headline = data.resume.dev_skills_headline;
-  // resume.value.dev_skills = data.resume.dev_skills;
-  // resume.value.design_skills_headline = data.resume.design_skills_headline;
-  // resume.value.design_skills = data.resume.design_skills;
+  try {
+    const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
+    resume.value = data.resume;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 onMounted(() => {
@@ -58,7 +53,7 @@ onMounted(() => {
 
 <template>
   <section v-if="resume !== null" ref="el" id="resume" class="resume" :class="{ viewed: viewed }">
-    <Heading title="Resume"></Heading>
+    <Heading>Resume</Heading>
 
     <div class="resume--content content">
       <div class="timeline">

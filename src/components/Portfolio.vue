@@ -135,7 +135,7 @@ onMounted(() => {
     class="portfolio"
     :class="{ viewed: viewed }"
   >
-    <Heading :title="portfolio.headline"></Heading>
+    <Heading>{{ portfolio.headline }}</Heading>
 
     <div class="portfolio--filters content" v-if="portfolio.types">
       <PortfolioFilter

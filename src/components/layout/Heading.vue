@@ -1,12 +1,8 @@
-<script setup lang="ts">
-const props = defineProps({
-  title: String,
-});
-</script>
-
 <template>
   <header class="heading">
-    <h1>{{ title }}</h1>
+    <h1>
+      <slot></slot>
+    </h1>
     <div class="line-grid">
       <span></span>
       <span></span>

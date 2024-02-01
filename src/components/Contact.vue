@@ -27,13 +27,7 @@ interface Form {
 }
 
 const el = ref<null | HTMLElement>(null);
-const contact = ref<Contact>({
-  buttonText: null,
-  formErrorMessage: null,
-  headline: null,
-  image: null,
-  loaderImg: null
-});
+const contact = ref<null | Contact>(null);
 const amountScrolled = ref(0);
 const form = ref<Form>({
   name: '',
@@ -63,12 +57,12 @@ const resetfields = () => {
 };
 
 const initData = async () => {
-  const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  contact.value.headline = data.contact.headline;
-  contact.value.image = data.contact.image;
-  contact.value.buttonText = data.contact.button_text;
-  contact.value.formErrorMessage = data.contact.form_error_message;
-  contact.value.loaderImg = data.contact.loader_image;
+  try {
+    const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
+    contact.value = data.contact;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const formSubmit = async () => {
@@ -129,8 +123,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <section ref="el" id="contact" class="contact" :class="{ viewed: viewed }">
-    <Heading :title="contact.headline"></Heading>
+  <section v-if="contact !== null" ref="el" id="contact" class="contact" :class="{ viewed: viewed }">
+    <Heading>{{ contact.headline }}</Heading>
 
     <div class="contact--content content">
       <div class="contact-form">
