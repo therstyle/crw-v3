@@ -12,16 +12,6 @@ const settings = { threshold: 0.5 };
 
 import type { Entry } from '@/types/Entry';
 
-// const props = defineProps({
-//   year: String,
-//   logo: String,
-//   company: String,
-//   title: String,
-//   details: Array,
-//   featuredBrands: Array,
-//   stats: [Array, Boolean]
-// });
-
 const props = defineProps<Entry>();
 
 onMounted(() => {
