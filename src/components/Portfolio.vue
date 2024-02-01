@@ -111,7 +111,7 @@ const nextPage = () => {
 };
 
 onMounted(() => {
-  waypoint(el);
+  waypoint(el.value);
   initGlobalData();
   loadPortfolioData();
 });

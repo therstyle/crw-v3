@@ -42,7 +42,7 @@ const loadVideo = () => {
 };
 
 onMounted(() => {
-  waypoint(el);
+  waypoint(el.value);
   initData();
 });
 

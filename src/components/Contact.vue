@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Heading from './layout/Heading.vue';
 import loadData from '../helpers/loadData';
@@ -122,89 +122,89 @@ const formSubmit = async () => {
 };
 
 onMounted(() => {
-  waypoint(el);
+  waypoint(el.value);
   initData();
   window.addEventListener('scroll', getCurrentPosition);
 });
 </script>
 
 <template>
-  <section ref='el' id='contact' class='contact' :class='{ viewed: viewed }'>
-    <Heading :title='contact.headline'></Heading>
+  <section ref="el" id="contact" class="contact" :class="{ viewed: viewed }">
+    <Heading :title="contact.headline"></Heading>
 
-    <div class='contact--content content'>
-      <div class='contact-form'>
+    <div class="contact--content content">
+      <div class="contact-form">
         <form
-          action='https://formsubmit.co/c21474138c05ee3a77550626c88f34ee'
-          method='POST'
-          @submit.prevent='formSubmit'
+          action="https://formsubmit.co/c21474138c05ee3a77550626c88f34ee"
+          method="POST"
+          @submit.prevent="formSubmit"
         >
-          <div class='field-group'>
+          <div class="field-group">
             <input
-              name='name'
-              id='name'
-              type='text'
-              placeholder='NAME'
-              v-model='form.name'
+              name="name"
+              id="name"
+              type="text"
+              placeholder="NAME"
+              v-model="form.name"
               required
             />
-            <span v-if='form.nameError' class='error'>{{
+            <span v-if="form.nameError" class="error">{{
                 contact.formErrorMessage
               }}</span>
           </div>
 
-          <div class='field-group'>
+          <div class="field-group">
             <input
-              name='email'
-              id='email'
-              type='email'
-              placeholder='EMAIL ADDRESS'
-              v-model='form.email'
+              name="email"
+              id="email"
+              type="email"
+              placeholder="EMAIL ADDRESS"
+              v-model="form.email"
               required
             />
-            <span v-if='form.emailError' class='error'>{{
+            <span v-if="form.emailError" class="error">{{
                 contact.formErrorMessage
               }}</span>
           </div>
 
-          <div class='field-group'>
+          <div class="field-group">
             <textarea
-              name='message'
-              id='message'
-              placeholder='MESSAGE'
-              v-model='form.message'
+              name="message"
+              id="message"
+              placeholder="MESSAGE"
+              v-model="form.message"
               required
             ></textarea>
-            <span v-if='form.messageError' class='error'>{{
+            <span v-if="form.messageError" class="error">{{
                 contact.formErrorMessage
               }}</span>
           </div>
 
           <input
-            type='text'
-            name='_honey'
-            v-model='form.honey'
-            class='contact-form--honey'
+            type="text"
+            name="_honey"
+            v-model="form.honey"
+            class="contact-form--honey"
           />
 
-          <button v-if='!form.success' class='button'>
+          <button v-if="!form.success" class="button">
             {{ contact.buttonText }}
             <img
-              :src='contact.loaderImg'
-              v-if='form.loading && contact.loaderImg'
-              alt='loading...'
+              :src="contact.loaderImg"
+              v-if="form.loading && contact.loaderImg"
+              alt="loading..."
             />
           </button>
 
-          <p v-if='form.success' class='success'>
+          <p v-if="form.success" class="success">
             Thank you for your submission!
           </p>
         </form>
 
         <picture
-          class='contact-photo'
-          :data-pixels='amountScrolled'
-          v-html='contact.image'
+          class="contact-photo"
+          :data-pixels="amountScrolled"
+          v-html="contact.image"
         >
         </picture>
       </div>
@@ -212,7 +212,7 @@ onMounted(() => {
   </section>
 </template>
 
-<style lang='scss'>
+<style lang="scss">
 @import '../assets/css/vars';
 
 .contact {

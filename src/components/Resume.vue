@@ -51,7 +51,7 @@ const initData = async () => {
 };
 
 onMounted(() => {
-  waypoint(el);
+  waypoint(el.value);
   initData();
 });
 </script>
