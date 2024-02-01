@@ -54,7 +54,7 @@ const currentPage = ref(1);
 const maxPages = ref<null | number>(null);
 const results = ref<null | number>(null);
 const selected = ref(new Set());
-const posts = ref<null | PortfolioPost>(null);
+const posts = ref<null | PortfolioPost[]>(null);
 const loading = ref(false);
 
 const props = defineProps<Props>();
@@ -92,6 +92,7 @@ const loadPortfolioData = async (loadType?: string) => {
 
     maxPages.value = totalPagesHeader !== null ? parseInt(totalPagesHeader) : 1;
     results.value = totalResultsHeader !== null ? parseInt(totalResultsHeader) : 0;
+
     posts.value = loadType === 'more' ? [...posts.value, ...data] : data;
   } catch (e) {
     console.error(e);
