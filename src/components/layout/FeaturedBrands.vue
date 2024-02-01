@@ -3,6 +3,8 @@ import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 import Flickity from 'flickity';
 
+import type { FeaturedBrand } from '@/types/FeaturedBrand';
+
 const el = ref<null | HTMLElement>(null);
 const carousel = ref<null | HTMLElement>(null);
 const viewed = ref(false);
@@ -12,12 +14,7 @@ const draggable = ref(false);
 const settings = { threshold: 1 };
 
 interface Props {
-  featuredBrands: FeaturedBrand[] | [];
-}
-
-interface FeaturedBrand {
-  name: string;
-  logo: string;
+  featuredBrands: FeaturedBrand[];
 }
 
 const props = defineProps<Props>();
@@ -26,7 +23,7 @@ const isDraggable = () => {
   if (carousel.value === null) {
     return;
   }
-  
+
   carouselWidth.value = carousel.value.offsetWidth;
   let i = 0;
 

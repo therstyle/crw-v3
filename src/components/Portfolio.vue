@@ -6,20 +6,57 @@ import PortfolioFilter from './layout/PortfolioFilter.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
+import Portfolio from '@/components/Portfolio.vue';
+
+interface Props {
+  viewed: Boolean;
+}
+
+interface Portfolio {
+  headline: string;
+  filters: Filters[];
+}
+
+interface Filters {
+  term_id: number;
+  name: string;
+  slug: string;
+  term_group: number;
+  term_taxonomy_id: number;
+  taxonomy: string;
+  description: string;
+  parent: number;
+  count: number;
+  filter: string;
+  term_order: string;
+}
+
+interface PortfolioPost {
+  count: number;
+  title: {
+    rendered: string;
+  };
+  custom: {
+    video: string;
+    description: string;
+    url: string;
+    source?: string;
+    credit?: string;
+    image: string;
+    types: string[];
+  };
+}
 
 const el = ref(null);
-const portfolio = ref({});
-const filters = ref([]);
+const portfolio = ref<null | Portfolio>(null);
 const currentPage = ref(1);
 const maxPages = ref(1);
 const results = ref(0);
 const selected = ref(new Set());
-const posts = ref([]);
+const posts = ref<null | PortfolioPost>(null);
 const loading = ref(false);
 
-const props = defineProps({
-  viewed: Boolean,
-});
+const props = defineProps<Props>();
 
 const portfolioTypeParam = computed(() => {
   const base = '&portfolio_type=';
@@ -36,11 +73,10 @@ const portfolioTypeParam = computed(() => {
 
 const initGlobalData = async () => {
   const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  portfolio.value.headline = data.portfolio.headline;
-  filters.value = data.portfolio.types;
+  portfolio.value = data.portfolio;
 };
 
-const loadPortfolioData = async (loadType) => {
+const loadPortfolioData = async (loadType?: string) => {
   loading.value = true;
 
   const url = `${API_BASE_PATH}/wp-json/wp/v2/portfolio?page=${currentPage.value}${portfolioTypeParam.value}&per_page=6&tax_relation=AND`;
@@ -82,6 +118,7 @@ onMounted(() => {
 
 <template>
   <section
+    v-if="portfolio !== null"
     ref="el"
     id="portfolio"
     class="portfolio"
@@ -89,7 +126,7 @@ onMounted(() => {
   >
     <Heading :title="portfolio.headline"></Heading>
 
-    <div class="portfolio--filters content" v-if="filters">
+    <div class="portfolio--filters content" v-if="portfolio.filters">
       <PortfolioFilter
         :id="0"
         :selected="selected"
@@ -99,7 +136,7 @@ onMounted(() => {
       </PortfolioFilter>
 
       <PortfolioFilter
-        v-for="(filter, index) in filters"
+        v-for="(filter, index) in portfolio.filters"
         :key="index"
         :id="filter.term_id"
         :selected="selected"

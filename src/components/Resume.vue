@@ -8,24 +8,46 @@ import SkillSet from './layout/SkillSet.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
+import Resume from '@/components/Resume.vue';
+
+import type { DevSkill } from '@/types/DevSkill';
+import type { DesignSkill } from '@/types/DesignSkill';
+import type { LinkListing } from '@/types/LinkListing';
+import type { Entry } from '@/types/Entry';
+
+interface Props {
+  viewed: boolean;
+}
+
+interface Resume {
+  headline: string;
+  image: string;
+  sig_text: string;
+  link_list: LinkListing[];
+  entries: Entry[];
+  dev_skills_headline: string;
+  dev_skills: DevSkill[];
+  design_skills_headline: string;
+  design_skills: DesignSkill[];
+}
 
 const el = ref(null);
-const resume = ref({});
-const props = defineProps({
-  viewed: Boolean,
-});
+const resume = ref<null | Resume>(null);
+
+const props = defineProps<Props>();
 
 const initData = async () => {
   const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  resume.value.headline = data.resume.headline;
-  resume.value.image = data.resume.image;
-  resume.value.sigText = data.resume.sig_text;
-  resume.value.linkList = data.resume.link_list;
-  resume.value.entries = data.resume.entries;
-  resume.value.devSkillsHeadline = data.resume.dev_skills_headline;
-  resume.value.devSkills = data.resume.dev_skills;
-  resume.value.designSkillsHeadline = data.resume.design_skills_headline;
-  resume.value.designSkills = data.resume.design_skills;
+  resume.value = data.resume;
+  // resume.value.headline = data.resume.headline;
+  // resume.value.image = data.resume.image;
+  // resume.value.sig_text = data.resume.sig_text;
+  // resume.value.link_list = data.resume.link_list;
+  // resume.value.entries = data.resume.entries;
+  // resume.value.dev_skills_headline = data.resume.dev_skills_headline;
+  // resume.value.dev_skills = data.resume.dev_skills;
+  // resume.value.design_skills_headline = data.resume.design_skills_headline;
+  // resume.value.design_skills = data.resume.design_skills;
 };
 
 onMounted(() => {
@@ -35,7 +57,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section ref="el" id="resume" class="resume" :class="{ viewed: viewed }">
+  <section v-if="resume !== null" ref="el" id="resume" class="resume" :class="{ viewed: viewed }">
     <Heading title="Resume"></Heading>
 
     <div class="resume--content content">
@@ -48,7 +70,7 @@ onMounted(() => {
           :company="entry.company"
           :title="entry.title"
           :details="entry.details"
-          :featuredBrands="entry.featuredBrands"
+          :featuredBrands="entry.featured_brands"
           :stats="entry.stats"
         ></TimelineEntry>
       </div>
@@ -57,19 +79,19 @@ onMounted(() => {
         <ProfilePhoto
           v-if="resume.image"
           :image="resume.image"
-          :name="resume.sigText"
+          :name="resume.sig_text"
         ></ProfilePhoto>
 
-        <LinkList :links="resume.linkList"></LinkList>
+        <LinkList :links="resume.link_list"></LinkList>
 
         <SkillSet
-          :headline="resume.devSkillsHeadline"
-          :skillset="resume.devSkills"
+          :headline="resume.dev_skills_headline"
+          :skillset="resume.dev_skills"
         ></SkillSet>
 
         <SkillSet
-          :headline="resume.designSkillsHeadline"
-          :skillset="resume.designSkills"
+          :headline="resume.design_skills_headline"
+          :skillset="resume.design_skills"
         ></SkillSet>
       </aside>
     </div>

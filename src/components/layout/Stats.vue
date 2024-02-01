@@ -3,17 +3,14 @@ import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 import Percentage from './Percentage.vue';
 
+import type { Stat } from '@/types/Stat';
+
 const el = ref(null);
 const viewed = ref(false);
 const settings = { threshold: 1 };
 
 interface Props {
   stats: Stat[];
-}
-
-interface Stat {
-  percent: string;
-  summary: string;
 }
 
 const props = defineProps<Props>();

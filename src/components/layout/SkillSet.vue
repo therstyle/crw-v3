@@ -3,14 +3,19 @@ import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 import Skill from './Skill.vue';
 
+import type { DevSkill } from '@/types/DevSkill';
+import type { DesignSkill } from '@/types/DesignSkill';
+
 const el = ref(null);
 const viewed = ref(false);
 const settings = { threshold: 0.33 };
 
-const props = defineProps({
-  headline: String,
-  skillset: Array,
-});
+interface Props {
+  headline: string;
+  skillset: DevSkill[] | DesignSkill[];
+}
+
+const props = defineProps<Props>();
 
 onMounted(() => {
   animate(el, settings, viewed);
@@ -26,7 +31,7 @@ onMounted(() => {
         :key="index"
         :logo="skill.logo"
         :name="skill.name"
-        :startYear="parseInt(skill.start_year)"
+        :start_year="skill.start_year"
       ></Skill>
     </ul>
   </div>

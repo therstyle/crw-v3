@@ -10,15 +10,19 @@ const el = ref(null);
 const viewed = ref(false);
 const settings = { threshold: 0.5 };
 
-const props = defineProps({
-  year: String,
-  logo: String,
-  company: String,
-  title: String,
-  details: Array,
-  featuredBrands: Array,
-  stats: [Array, Boolean],
-});
+import type { Entry } from '@/types/Entry';
+
+// const props = defineProps({
+//   year: String,
+//   logo: String,
+//   company: String,
+//   title: String,
+//   details: Array,
+//   featuredBrands: Array,
+//   stats: [Array, Boolean]
+// });
+
+const props = defineProps<Entry>();
 
 onMounted(() => {
   animate(el, settings, viewed);
@@ -42,8 +46,8 @@ onMounted(() => {
       ></EntryDetail>
     </ul>
 
-    <template v-if="featuredBrands">
-      <FeaturedBrands :featuredBrands="featuredBrands"></FeaturedBrands>
+    <template v-if="featured_brands">
+      <FeaturedBrands :featuredBrands="featured_brands"></FeaturedBrands>
     </template>
 
     <template v-if="stats">
