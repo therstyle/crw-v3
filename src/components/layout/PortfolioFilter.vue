@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 
 interface Props {
-  name: string;
   id: number;
   selected: Set<any>; //TODO remove any
 }
