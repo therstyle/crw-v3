@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, watch, computed } from 'vue';
 import Heading from './layout/Heading.vue';
 import PortfolioItem from './layout/PortfolioItem.vue';
 import PortfolioFilter from './layout/PortfolioFilter.vue';
@@ -48,7 +48,7 @@ interface PortfolioPost {
   };
 }
 
-const el = ref(null);
+const el = ref<null | HTMLElement>(null);
 const portfolio = ref<null | Portfolio>(null);
 const currentPage = ref(1);
 const maxPages = ref<null | number>(null);
@@ -121,9 +121,14 @@ const nextPage = () => {
 };
 
 onMounted(() => {
-  waypoint(el.value);
   initGlobalData();
   loadPortfolioData();
+});
+
+watch(el, (newVal) => {
+  if (newVal) {
+    waypoint(el.value);
+  }
 });
 </script>
 

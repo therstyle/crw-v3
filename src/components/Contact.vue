@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Heading from './layout/Heading.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
@@ -116,9 +116,14 @@ const formSubmit = async () => {
 };
 
 onMounted(() => {
-  waypoint(el.value);
   initData();
   window.addEventListener('scroll', getCurrentPosition);
+});
+
+watch(el, (newVal) => {
+  if (newVal) {
+    waypoint(el.value);
+  }
 });
 </script>
 

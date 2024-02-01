@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import Heading from '../components/layout/Heading.vue';
 import TimelineEntry from '../components/layout/TimelineEntry.vue';
 import ProfilePhoto from './layout/ProfilePhoto.vue';
@@ -45,8 +45,13 @@ const initData = async () => {
 };
 
 onMounted(() => {
-  waypoint(el.value);
   initData();
+});
+
+watch(el, (newVal) => {
+  if (newVal) {
+    waypoint(el.value);
+  }
 });
 </script>
 

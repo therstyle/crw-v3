@@ -42,7 +42,6 @@ const loadVideo = () => {
 };
 
 onMounted(() => {
-  waypoint(el.value);
   initData();
 });
 
@@ -54,6 +53,12 @@ watch(
     }
   }
 );
+
+watch(el, (newVal) => {
+  if (newVal) {
+    waypoint(el.value);
+  }
+});
 </script>
 
 <template>
