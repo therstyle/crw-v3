@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import loadData from '../helpers/loadData';
 import sections from '../state/sections';
@@ -34,8 +34,12 @@ const props = defineProps({
 });
 
 const initData = async () => {
-  const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  sidebar.value = data.sidebar;
+  try {
+    const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
+    sidebar.value = data.sidebar;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const isActive = (key: string): boolean => {
@@ -48,42 +52,42 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class='main-nav'>
+  <nav class="main-nav">
     <div
-      v-if='sidebar.logo.image && sidebar.logo.url !== null'
-      class='main-nav--logo'
+      v-if="sidebar.logo.image && sidebar.logo.url !== null"
+      class="main-nav--logo"
     >
-      <a :href='sidebar.logo.url' v-html='sidebar.logo.image'></a>
+      <a :href="sidebar.logo.url" v-html="sidebar.logo.image"></a>
     </div>
 
-    <ul class='main-nav--internal' v-if='sidebar?.internal'>
+    <ul class="main-nav--internal" v-if="sidebar?.internal">
       <li
-        v-for='(link, index) in sidebar.internal'
-        :key='index'
-        :class='{ active: isActive(link.id) }'
-        :id='`menu-${link.id}`'
+        v-for="(link, index) in sidebar.internal"
+        :key="index"
+        :class="{ active: isActive(link.id) }"
+        :id="`menu-${link.id}`"
       >
-        <a :href='link.url'>
-          <span v-html='link.icon'></span>
-          <span class='menu-title'>{{ link.text }}</span>
+        <a :href="link.url">
+          <span v-html="link.icon"></span>
+          <span class="menu-title">{{ link.text }}</span>
         </a>
       </li>
     </ul>
 
-    <ul class='main-nav--external'>
-      <li v-for='(link, index) in sidebar.external' :key='index'>
+    <ul class="main-nav--external">
+      <li v-for="(link, index) in sidebar.external" :key="index">
         <a
-          :href='link.url'
-          v-html='link.icon'
-          :id='link.id'
-          target='_blank'
+          :href="link.url"
+          v-html="link.icon"
+          :id="link.id"
+          target="_blank"
         ></a>
       </li>
     </ul>
   </nav>
 </template>
 
-<style lang='scss'>
+<style lang="scss">
 @import '../assets/css/vars';
 
 @keyframes fade-in-out {
