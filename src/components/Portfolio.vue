@@ -51,8 +51,8 @@ interface PortfolioPost {
 const el = ref(null);
 const portfolio = ref<null | Portfolio>(null);
 const currentPage = ref(1);
-const maxPages = ref(1);
-const results = ref(0);
+const maxPages = ref<null | number>(null);
+const results = ref<null | number>(null);
 const selected = ref(new Set());
 const posts = ref<null | PortfolioPost>(null);
 const loading = ref(false);
@@ -73,21 +73,31 @@ const portfolioTypeParam = computed(() => {
 });
 
 const initGlobalData = async () => {
-  const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  portfolio.value = data.portfolio;
+  try {
+    const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
+    portfolio.value = data.portfolio;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const loadPortfolioData = async (loadType?: string) => {
-  loading.value = true;
+  try {
+    loading.value = true;
+    const url = `${API_BASE_PATH}/wp-json/wp/v2/portfolio?page=${currentPage.value}${portfolioTypeParam.value}&per_page=6&tax_relation=AND`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const totalPagesHeader = response.headers.get('X-WP-TotalPages');
+    const totalResultsHeader = response.headers.get('X-WP-Total');
 
-  const url = `${API_BASE_PATH}/wp-json/wp/v2/portfolio?page=${currentPage.value}${portfolioTypeParam.value}&per_page=6&tax_relation=AND`;
-  const response = await fetch(url);
-  const data = await response.json();
-
-  maxPages.value = parseInt(response.headers.get('X-WP-TotalPages'));
-  results.value = parseInt(response.headers.get('X-WP-Total'));
-  posts.value = loadType === 'more' ? [...posts.value, ...data] : data;
-  loading.value = false;
+    maxPages.value = totalPagesHeader !== null ? parseInt(totalPagesHeader) : 1;
+    results.value = totalResultsHeader !== null ? parseInt(totalResultsHeader) : 0;
+    posts.value = loadType === 'more' ? [...posts.value, ...data] : data;
+  } catch (e) {
+    console.error(e);
+  } finally {
+    loading.value = false;
+  }
 };
 
 const reset = () => {
