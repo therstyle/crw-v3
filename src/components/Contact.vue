@@ -108,11 +108,11 @@ const formSubmit = async () => {
     form.value.status = await response.json();
   } catch (e) {
     console.error(e);
+  } finally {
+    form.value.loading = false;
+    form.value.success = true;
+    resetfields();
   }
-
-  form.value.loading = false;
-  form.value.success = true;
-  resetfields();
 };
 
 onMounted(() => {
