@@ -20,7 +20,6 @@ interface Form {
   emailError: boolean;
   message: string;
   messageError: boolean;
-  honey: string;
   loading: boolean;
   success: boolean;
   status: null;
@@ -36,7 +35,6 @@ const form = ref<Form>({
   emailError: false,
   message: '',
   messageError: false,
-  honey: '',
   loading: false,
   success: false,
   status: null
@@ -88,10 +86,6 @@ const formSubmit = async () => {
       email: form.value.email,
       message: form.value.message
     };
-
-    if (form.value.honey.length > 0) {
-      body.honey = form.value.honey;
-    }
 
     const response = await fetch(
       'https://formsubmit.co/ajax/c21474138c05ee3a77550626c88f34ee',
@@ -179,13 +173,6 @@ watch(el, (newVal) => {
               }}</span>
           </div>
 
-          <input
-            type="text"
-            name="_honey"
-            v-model="form.honey"
-            class="contact-form--honey"
-          />
-
           <button v-if="!form.success" class="button">
             {{ contact.button_text }}
             <img
@@ -262,10 +249,6 @@ watch(el, (newVal) => {
       padding: 1.2rem;
       font-size: 1.6rem;
       color: var(--white);
-
-      &.contact-form--honey {
-        display: none;
-      }
     }
 
     textarea {
