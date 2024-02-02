@@ -6,7 +6,7 @@ import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
 
 interface Contact {
-  buttonText: string | null;
+  button_text: string | null;
   formErrorMessage: string | null;
   headline: string | null;
   image: string | null;
@@ -187,7 +187,7 @@ watch(el, (newVal) => {
           />
 
           <button v-if="!form.success" class="button">
-            {{ contact.buttonText }}
+            {{ contact.button_text }}
             <img
               :src="contact.loaderImg"
               v-if="form.loading && contact.loaderImg"
