@@ -26,7 +26,6 @@ import AppFooter from '@/components/AppFooter.vue';
 *,
 *:after,
 *:after {
-  -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
@@ -36,7 +35,6 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
   height: fill-available;
-  height: -webkit-fill-available;
 }
 
 body {

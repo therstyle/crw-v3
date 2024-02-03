@@ -173,18 +173,6 @@ watch(el, (newVal) => {
   z-index: -1;
 
   &:before {
-    background: -moz-linear-gradient(
-      left,
-      rgba(51, 51, 51, 1) 1%,
-      rgba(51, 51, 51, 1) 45%,
-      rgba(51, 51, 51, 0) 100%
-    );
-    background: -webkit-linear-gradient(
-      left,
-      rgba(51, 51, 51, 1) 1%,
-      rgba(51, 51, 51, 1) 45%,
-      rgba(51, 51, 51, 0) 100%
-    );
     background: linear-gradient(
       to right,
       rgba(51, 51, 51, 1) 1%,
@@ -194,18 +182,6 @@ watch(el, (newVal) => {
   }
 
   &:after {
-    background: -moz-linear-gradient(
-      top,
-      rgba(51, 51, 51, 0) 75%,
-      rgba(51, 51, 51, 0.99) 99%,
-      rgba(51, 51, 51, 1) 100%
-    );
-    background: -webkit-linear-gradient(
-      top,
-      rgba(51, 51, 51, 0) 75%,
-      rgba(51, 51, 51, 0.99) 99%,
-      rgba(51, 51, 51, 1) 100%
-    );
     background: linear-gradient(
       to bottom,
       rgba(51, 51, 51, 0) 75%,
