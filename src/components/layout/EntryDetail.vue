@@ -6,9 +6,11 @@ const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 1 };
 
-const props = defineProps({
-  detail: String
-});
+interface Props {
+  detail: string;
+}
+
+const props = defineProps<Props>();
 
 onMounted(() => {
   animate(el.value, viewed, settings);
