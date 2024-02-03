@@ -5,13 +5,11 @@ import Stats from './Stats.vue';
 import EntryDetail from './EntryDetail.vue';
 import JobTitle from './JobTitle.vue';
 import animate from '../../helpers/animate';
+import type { Entry } from '@/types/Entry';
 
 const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 0.5 };
-
-import type { Entry } from '@/types/Entry';
-
 const props = defineProps<Entry>();
 
 onMounted(() => {

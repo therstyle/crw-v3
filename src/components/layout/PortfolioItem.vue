@@ -23,6 +23,7 @@ const loadVideos = () => {
   if (!videoPlayer.value) {
     return;
   }
+
   videoPlayer.value.load();
   videoPlayer.value.pause();
 };
@@ -31,6 +32,7 @@ const startVideo = () => {
   if (!videoPlayer.value) {
     return;
   }
+
   videoPlayer.value.play();
 };
 
@@ -38,6 +40,7 @@ const endVideo = () => {
   if (!videoPlayer.value) {
     return;
   }
+  
   videoPlayer.value.pause();
 };
 

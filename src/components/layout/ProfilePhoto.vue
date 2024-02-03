@@ -10,7 +10,6 @@ interface Props {
 const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 0.5 };
-
 const props = defineProps<Props>();
 
 onMounted(() => {

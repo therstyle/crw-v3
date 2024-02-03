@@ -55,7 +55,6 @@ const results = ref<null | number>(null);
 const selected = ref<Set<number>>(new Set<number>());
 const posts = ref<[] | PortfolioPost[]>([]);
 const loading = ref(false);
-
 const props = defineProps<Props>();
 
 const portfolioTypeParam = computed(() => {
