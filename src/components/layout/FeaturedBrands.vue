@@ -56,7 +56,7 @@ const initCarousel = () => {
 
 onMounted(() => {
   initCarousel();
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 

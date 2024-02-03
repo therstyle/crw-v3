@@ -6,7 +6,7 @@ import EntryDetail from './EntryDetail.vue';
 import JobTitle from './JobTitle.vue';
 import animate from '../../helpers/animate';
 
-const el = ref(null);
+const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 0.5 };
 
@@ -15,7 +15,7 @@ import type { Entry } from '@/types/Entry';
 const props = defineProps<Entry>();
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 

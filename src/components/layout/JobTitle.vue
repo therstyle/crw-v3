@@ -2,17 +2,17 @@
 import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 
-const el = ref(null);
+const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 1 };
 const props = defineProps({
   logo: String,
   company: String,
-  title: String,
+  title: String
 });
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 

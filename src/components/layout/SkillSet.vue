@@ -6,7 +6,7 @@ import Skill from './Skill.vue';
 import type { DevSkill } from '@/types/DevSkill';
 import type { DesignSkill } from '@/types/DesignSkill';
 
-const el = ref(null);
+const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 0.33 };
 
@@ -18,7 +18,7 @@ interface Props {
 const props = defineProps<Props>();
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 

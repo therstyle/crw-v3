@@ -2,7 +2,7 @@
 import { ref, onMounted, watch } from 'vue';
 import animate from '../../helpers/animate';
 
-const el = ref(null);
+const el = ref<null | HTMLElement>(null);
 const videoPlayer = ref<null | HTMLVideoElement>(null);
 const videoSource = ref<null | HTMLVideoElement>(null);
 const viewed = ref(false);
@@ -53,7 +53,7 @@ const lazyLoad = () => {
 };
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 
 watch(viewed, (newViewed) => {

@@ -5,7 +5,7 @@ import Percentage from './Percentage.vue';
 
 import type { Stat } from '@/types/Stat';
 
-const el = ref(null);
+const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 1 };
 
@@ -16,7 +16,7 @@ interface Props {
 const props = defineProps<Props>();
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 

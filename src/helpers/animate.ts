@@ -1,4 +1,18 @@
-const animate = (el, settings, viewed) => {
+interface Settings {
+  root?: HTMLElement;
+  rootMargin?: string;
+  threshold?: number;
+}
+
+interface Viewed {
+  value: boolean;
+}
+
+const animate = (el: null | HTMLElement, viewed: Viewed, settings?: Settings) => {
+  if (el === null) {
+    return;
+  }
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -8,7 +22,7 @@ const animate = (el, settings, viewed) => {
     });
   }, settings);
 
-  observer.observe(el.value);
+  observer.observe(el);
 };
 
 export default animate;
