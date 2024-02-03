@@ -5,6 +5,10 @@ import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
 
+interface Props {
+  viewed: boolean;
+}
+
 interface Contact {
   button_text: string | null;
   formErrorMessage: string | null;
@@ -40,9 +44,7 @@ const form = ref<Form>({
   status: null
 });
 
-const props = defineProps({
-  viewed: Boolean
-});
+const props = defineProps<Props>();
 
 const getCurrentPosition = () => {
   amountScrolled.value = Math.round(window.scrollY);
