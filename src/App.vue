@@ -26,7 +26,6 @@ import AppFooter from '@/components/AppFooter.vue';
 *,
 *:after,
 *:after {
-  -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
@@ -36,7 +35,6 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
   height: fill-available;
-  height: -webkit-fill-available;
 }
 
 body {
@@ -106,9 +104,9 @@ a {
 
     &:hover {
       background-image: linear-gradient(
-          120deg,
-          var(--dark-red) 0%,
-          var(--dark-red) 100%
+        120deg,
+        var(--dark-red) 0%,
+        var(--dark-red) 100%
       );
     }
   }
@@ -128,8 +126,9 @@ p {
 .animate {
   transform: translateY(var(--space-2));
   opacity: 0;
-  transition: opacity 0.3s,
-  transform 0.3s;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
 
   &.portfolio--content-entry {
     transform: translateY(var(--space-4));

@@ -40,7 +40,7 @@ const endVideo = () => {
   if (!videoPlayer.value) {
     return;
   }
-  
+
   videoPlayer.value.pause();
 };
 

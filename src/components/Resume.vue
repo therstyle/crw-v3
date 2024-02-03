@@ -54,7 +54,13 @@ watch(el, (newVal) => {
 </script>
 
 <template>
-  <section v-if="resume !== null" ref="el" id="resume" class="resume" :class="{ viewed: viewed }">
+  <section
+    v-if="resume !== null"
+    ref="el"
+    id="resume"
+    class="resume"
+    :class="{ viewed: viewed }"
+  >
     <Heading>Resume</Heading>
 
     <div class="resume--content content">
