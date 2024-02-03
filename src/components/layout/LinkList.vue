@@ -1,17 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
+import type { LinkListing } from '@/types/LinkListing';
 
-const el = ref(null);
+interface Props {
+  links: LinkListing[];
+}
+
+const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 1 };
-
-const props = defineProps({
-  links: Object,
-});
+const props = defineProps<Props>();
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 

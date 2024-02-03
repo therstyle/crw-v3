@@ -1,9 +1,11 @@
-<script setup>
-const props = defineProps({
-  amount: Number,
-  viewed: Boolean,
-  index: Number,
-});
+<script setup lang="ts">
+interface Props {
+  amount: number;
+  viewed: boolean;
+  index: number;
+}
+
+const props = defineProps<Props>();
 </script>
 
 <template>

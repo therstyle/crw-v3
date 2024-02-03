@@ -3,10 +3,14 @@ import sections from '../state/sections';
 const threshold = 0;
 const settings = {
   threshold: threshold,
-  rootMargin: '-50% 0% -50% 0%',
+  rootMargin: '-50% 0% -50% 0%'
 };
 
-const waypoint = (el) => {
+const waypoint = (el: null | HTMLElement) => {
+  if (el === null) {
+    return;
+  }
+  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const keyName = entry.target.id;
@@ -27,7 +31,7 @@ const waypoint = (el) => {
     });
   }, settings);
 
-  observer.observe(el.value);
+  observer.observe(el);
 };
 
 export default waypoint;

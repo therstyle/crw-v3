@@ -1,17 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 
-const el = ref(null);
+interface Props {
+  detail: string;
+}
+
+const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 1 };
-
-const props = defineProps({
-  detail: String,
-});
+const props = defineProps<Props>();
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 

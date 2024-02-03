@@ -1,12 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 
-const props = defineProps({
-  name: String,
-  id: Number,
-  selected: Set,
-});
+interface Props {
+  id: number;
+  selected: Set<number>;
+}
 
+const props = defineProps<Props>();
 const emit = defineEmits(['update-selected']);
 
 const active = computed(() => {

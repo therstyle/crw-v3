@@ -1,21 +1,29 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 import Flickity from 'flickity';
 
-const el = ref(null);
-const carousel = ref(null);
+import type { FeaturedBrand } from '@/types/FeaturedBrand';
+
+const el = ref<null | HTMLElement>(null);
+const carousel = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const carouselWidth = ref(0);
 const brandWidth = ref(200);
 const draggable = ref(false);
 const settings = { threshold: 1 };
 
-const props = defineProps({
-  featuredBrands: Array,
-});
+interface Props {
+  featuredBrands: FeaturedBrand[];
+}
+
+const props = defineProps<Props>();
 
 const isDraggable = () => {
+  if (carousel.value === null) {
+    return;
+  }
+
   carouselWidth.value = carousel.value.offsetWidth;
   let i = 0;
 
@@ -31,12 +39,16 @@ const isDraggable = () => {
 };
 
 const initCarousel = () => {
+  if (carousel.value === null) {
+    return;
+  }
+
   new Flickity(carousel.value, {
     freeScroll: true,
     contain: true,
     prevNextButtons: false,
     pageDots: false,
-    cellAlign: 'left',
+    cellAlign: 'left'
   });
 
   isDraggable();
@@ -44,7 +56,7 @@ const initCarousel = () => {
 
 onMounted(() => {
   initCarousel();
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 
@@ -92,6 +104,7 @@ h5 {
 
 .draggable {
   position: relative;
+
   &:hover {
     cursor: grab;
   }

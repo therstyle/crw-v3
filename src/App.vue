@@ -1,17 +1,11 @@
-<script setup>
-import { defineAsyncComponent } from 'vue';
-import Sidebar from './components/Sidebar.vue';
+<script setup lang="ts">
 import sections from './state/sections';
-
-const Intro = defineAsyncComponent(() => import('./components/Intro.vue'));
-const Resume = defineAsyncComponent(() => import('./components/Resume.vue'));
-const Portfolio = defineAsyncComponent(
-  () => import('./components/Portfolio.vue'),
-);
-const Contact = defineAsyncComponent(() => import('./components/Contact.vue'));
-const AppFooter = defineAsyncComponent(
-  () => import('./components/AppFooter.vue'),
-);
+import Sidebar from './components/Sidebar.vue';
+import Intro from '@/components/Intro.vue';
+import Resume from '@/components/Resume.vue';
+import Portfolio from '@/components/Portfolio.vue';
+import Contact from '@/components/Contact.vue';
+import AppFooter from '@/components/AppFooter.vue';
 </script>
 
 <template>
@@ -112,9 +106,9 @@ a {
 
     &:hover {
       background-image: linear-gradient(
-        120deg,
-        var(--dark-red) 0%,
-        var(--dark-red) 100%
+          120deg,
+          var(--dark-red) 0%,
+          var(--dark-red) 100%
       );
     }
   }
@@ -134,9 +128,8 @@ p {
 .animate {
   transform: translateY(var(--space-2));
   opacity: 0;
-  transition:
-    opacity 0.3s,
-    transform 0.3s;
+  transition: opacity 0.3s,
+  transform 0.3s;
 
   &.portfolio--content-entry {
     transform: translateY(var(--space-4));

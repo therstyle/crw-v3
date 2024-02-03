@@ -1,18 +1,22 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 import Percentage from './Percentage.vue';
 
-const el = ref(null);
+import type { Stat } from '@/types/Stat';
+
+const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 1 };
 
-const props = defineProps({
-  stats: Array,
-});
+interface Props {
+  stats: Stat[];
+}
+
+const props = defineProps<Props>();
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 

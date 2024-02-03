@@ -1,29 +1,50 @@
-<script setup>
-import { ref, onMounted } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted, watch } from 'vue';
 import Heading from './layout/Heading.vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
 
-const el = ref(null);
-const contact = ref({});
+interface Props {
+  viewed: boolean;
+}
+
+interface Contact {
+  button_text: string | null;
+  formErrorMessage: string | null;
+  headline: string | null;
+  image: string | null;
+  loaderImg: string | null;
+}
+
+interface Form {
+  name: string;
+  nameError: boolean;
+  email: string;
+  emailError: boolean;
+  message: string;
+  messageError: boolean;
+  loading: boolean;
+  success: boolean;
+  status: null;
+}
+
+const el = ref<null | HTMLElement>(null);
+const contact = ref<null | Contact>(null);
 const amountScrolled = ref(0);
-const form = ref({
+const form = ref<Form>({
   name: '',
   nameError: false,
   email: '',
   emailError: false,
   message: '',
   messageError: false,
-  honey: '',
   loading: false,
   success: false,
-  status: null,
+  status: null
 });
 
-const props = defineProps({
-  viewed: Boolean,
-});
+const props = defineProps<Props>();
 
 const getCurrentPosition = () => {
   amountScrolled.value = Math.round(window.scrollY);
@@ -36,12 +57,12 @@ const resetfields = () => {
 };
 
 const initData = async () => {
-  const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  contact.value.headline = data.contact.headline;
-  contact.value.image = data.contact.image;
-  contact.value.buttonText = data.contact.button_text;
-  contact.value.formErrorMessage = data.contact.form_error_message;
-  contact.value.loaderImg = data.contact.loader_image;
+  try {
+    const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
+    contact.value = data.contact;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const formSubmit = async () => {
@@ -65,12 +86,8 @@ const formSubmit = async () => {
     const body = {
       name: form.value.name,
       email: form.value.email,
-      message: form.value.message,
+      message: form.value.message
     };
-
-    if (form.value.honey.length > 0) {
-      body.honey = form.value.honey;
-    }
 
     const response = await fetch(
       'https://formsubmit.co/ajax/c21474138c05ee3a77550626c88f34ee',
@@ -78,32 +95,37 @@ const formSubmit = async () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json',
+          Accept: 'application/json'
         },
-        body: JSON.stringify(body),
-      },
+        body: JSON.stringify(body)
+      }
     );
 
     form.value.status = await response.json();
   } catch (e) {
     console.error(e);
+  } finally {
+    form.value.loading = false;
+    form.value.success = true;
+    resetfields();
   }
-
-  form.value.loading = false;
-  form.value.success = true;
-  resetfields();
 };
 
 onMounted(() => {
-  waypoint(el);
   initData();
   window.addEventListener('scroll', getCurrentPosition);
+});
+
+watch(el, (newVal) => {
+  if (newVal) {
+    waypoint(el.value);
+  }
 });
 </script>
 
 <template>
-  <section ref="el" id="contact" class="contact" :class="{ viewed: viewed }">
-    <Heading :title="contact.headline"></Heading>
+  <section v-if="contact !== null" ref="el" id="contact" class="contact" :class="{ viewed: viewed }">
+    <Heading>{{ contact.headline }}</Heading>
 
     <div class="contact--content content">
       <div class="contact-form">
@@ -122,8 +144,8 @@ onMounted(() => {
               required
             />
             <span v-if="form.nameError" class="error">{{
-              contact.formErrorMessage
-            }}</span>
+                contact.formErrorMessage
+              }}</span>
           </div>
 
           <div class="field-group">
@@ -136,8 +158,8 @@ onMounted(() => {
               required
             />
             <span v-if="form.emailError" class="error">{{
-              contact.formErrorMessage
-            }}</span>
+                contact.formErrorMessage
+              }}</span>
           </div>
 
           <div class="field-group">
@@ -149,23 +171,16 @@ onMounted(() => {
               required
             ></textarea>
             <span v-if="form.messageError" class="error">{{
-              contact.formErrorMessage
-            }}</span>
+                contact.formErrorMessage
+              }}</span>
           </div>
 
-          <input
-            type="text"
-            name="_honey"
-            v-model="form.honey"
-            class="contact-form--honey"
-          />
-
           <button v-if="!form.success" class="button">
-            {{ contact.buttonText }}
+            {{ contact.button_text }}
             <img
               :src="contact.loaderImg"
               v-if="form.loading && contact.loaderImg"
-              alt='loading...'
+              alt="loading..."
             />
           </button>
 
@@ -236,10 +251,6 @@ onMounted(() => {
       padding: 1.2rem;
       font-size: 1.6rem;
       color: var(--white);
-
-      &.contact-form--honey {
-        display: none;
-      }
     }
 
     textarea {

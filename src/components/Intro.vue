@@ -1,35 +1,38 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
 
-const el = ref(null);
-const bgVideo = ref(null);
-const intro = ref({});
+interface Props {
+  viewed: boolean;
+}
 
-const props = defineProps({
-  viewed: Boolean,
-});
+interface Intro {
+  headline: string;
+  sub_headline: string;
+  text: string;
+  scroll_text: string;
+  video_mp4: string;
+}
+
+const el = ref<null | HTMLElement>(null);
+const bgVideo = ref<null | HTMLVideoElement>(null);
+const intro = ref<null | Intro>(null);
+const props = defineProps<Props>();
 
 const initData = async () => {
   const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  intro.value.headline = data.intro.headline;
-  intro.value.subHeadline = data.intro.sub_headline;
-  intro.value.introText = data.intro.text;
-  intro.value.scrollText = data.intro.scroll_text;
-  intro.value.video = data.intro.video_mp4;
+  intro.value = data.intro;
 };
 
 const loadVideo = () => {
-  if (!intro.video) {
-    return;
+  if (intro.value !== null && bgVideo.value !== null) {
+    bgVideo.value.load();
   }
-  bgVideo.value.load();
 };
 
 onMounted(() => {
-  waypoint(el);
   initData();
 });
 
@@ -39,22 +42,29 @@ watch(
     if (newVal) {
       loadVideo();
     }
-  },
+  }
 );
+
+watch(el, (newVal) => {
+  if (newVal) {
+    waypoint(el.value);
+  }
+});
 </script>
 
 <template>
   <section
     ref="el"
+    v-if="intro !== null"
     id="intro"
     class="intro content"
     :class="{ viewed: viewed }"
   >
     <div class="intro--content">
-      <h6 class="sub-heading">{{ intro.subHeadline }}</h6>
+      <h6 class="sub-heading">{{ intro.sub_headline }}</h6>
       <h1 class="heading" v-html="intro.headline"></h1>
 
-      <div v-html="intro.introText"></div>
+      <div v-html="intro.text"></div>
     </div>
 
     <div class="scroll-down">
@@ -72,14 +82,14 @@ watch(
           />
         </svg>
 
-        <span class="sub-heading">{{ intro.scrollText }}</span>
+        <span class="sub-heading">{{ intro.scroll_text }}</span>
       </a>
     </div>
   </section>
 
-  <div class="bg-video" v-if="intro.video">
+  <div class="bg-video" v-if="intro !== null">
     <video ref="bgVideo" preload="auto" autoplay muted loop class="full-height">
-      <source :src="intro.video" type="video/mp4" />
+      <source :src="intro.video_mp4" type="video/mp4" />
     </video>
   </div>
 </template>
@@ -164,43 +174,43 @@ watch(
 
   &:before {
     background: -moz-linear-gradient(
-      left,
-      rgba(51, 51, 51, 1) 1%,
-      rgba(51, 51, 51, 1) 45%,
-      rgba(51, 51, 51, 0) 100%
+        left,
+        rgba(51, 51, 51, 1) 1%,
+        rgba(51, 51, 51, 1) 45%,
+        rgba(51, 51, 51, 0) 100%
     );
     background: -webkit-linear-gradient(
-      left,
-      rgba(51, 51, 51, 1) 1%,
-      rgba(51, 51, 51, 1) 45%,
-      rgba(51, 51, 51, 0) 100%
+        left,
+        rgba(51, 51, 51, 1) 1%,
+        rgba(51, 51, 51, 1) 45%,
+        rgba(51, 51, 51, 0) 100%
     );
     background: linear-gradient(
-      to right,
-      rgba(51, 51, 51, 1) 1%,
-      rgba(51, 51, 51, 1) 45%,
-      rgba(51, 51, 51, 0) 100%
+        to right,
+        rgba(51, 51, 51, 1) 1%,
+        rgba(51, 51, 51, 1) 45%,
+        rgba(51, 51, 51, 0) 100%
     );
   }
 
   &:after {
     background: -moz-linear-gradient(
-      top,
-      rgba(51, 51, 51, 0) 75%,
-      rgba(51, 51, 51, 0.99) 99%,
-      rgba(51, 51, 51, 1) 100%
+        top,
+        rgba(51, 51, 51, 0) 75%,
+        rgba(51, 51, 51, 0.99) 99%,
+        rgba(51, 51, 51, 1) 100%
     );
     background: -webkit-linear-gradient(
-      top,
-      rgba(51, 51, 51, 0) 75%,
-      rgba(51, 51, 51, 0.99) 99%,
-      rgba(51, 51, 51, 1) 100%
+        top,
+        rgba(51, 51, 51, 0) 75%,
+        rgba(51, 51, 51, 0.99) 99%,
+        rgba(51, 51, 51, 1) 100%
     );
     background: linear-gradient(
-      to bottom,
-      rgba(51, 51, 51, 0) 75%,
-      rgba(51, 51, 51, 0.99) 99%,
-      rgba(51, 51, 51, 1) 100%
+        to bottom,
+        rgba(51, 51, 51, 0) 75%,
+        rgba(51, 51, 51, 0.99) 99%,
+        rgba(51, 51, 51, 1) 100%
     );
   }
 

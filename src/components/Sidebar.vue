@@ -1,20 +1,51 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import loadData from '../helpers/loadData';
 import sections from '../state/sections';
 import API_BASE_PATH from '../state/apiBasePath';
+import type { PageSections } from '@/types/PageSections';
 
-const sidebar = ref({});
-const props = defineProps({
-  sections: Object,
+interface SideBar {
+  logo: {
+    image: null | string;
+    url: null | string;
+  };
+  internal: NavLink[];
+  external: NavLink[];
+}
+
+interface NavLink {
+  icon: string;
+  id: string;
+  url: string;
+  text?: string;
+}
+
+interface Props {
+  sections: PageSections;
+}
+
+const sidebar = ref<SideBar>({
+  logo: {
+    image: null,
+    url: null
+  },
+  internal: [],
+  external: []
 });
 
+const props = defineProps<Props>();
+
 const initData = async () => {
-  const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  sidebar.value = data.sidebar;
+  try {
+    const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
+    sidebar.value = data.sidebar;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
-const isActive = (key) => {
+const isActive = (key: string): boolean => {
   return sections.value[key].active;
 };
 
@@ -26,7 +57,7 @@ onMounted(() => {
 <template>
   <nav class="main-nav">
     <div
-      v-if="sidebar?.logo?.image && sidebar?.logo?.url"
+      v-if="sidebar.logo.image && sidebar.logo.url !== null"
       class="main-nav--logo"
     >
       <a :href="sidebar.logo.url" v-html="sidebar.logo.image"></a>

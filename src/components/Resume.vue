@@ -1,5 +1,5 @@
-<script setup>
-import { ref, onMounted } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted, watch } from 'vue';
 import Heading from '../components/layout/Heading.vue';
 import TimelineEntry from '../components/layout/TimelineEntry.vue';
 import ProfilePhoto from './layout/ProfilePhoto.vue';
@@ -9,34 +9,53 @@ import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
 
-const el = ref(null);
-const resume = ref({});
-const props = defineProps({
-  viewed: Boolean,
-});
+import type { DevSkill } from '@/types/DevSkill';
+import type { DesignSkill } from '@/types/DesignSkill';
+import type { LinkListing } from '@/types/LinkListing';
+import type { Entry } from '@/types/Entry';
 
+interface Props {
+  viewed: boolean;
+}
+
+interface Resume {
+  headline: string;
+  image: string;
+  sig_text: string;
+  link_list: LinkListing[];
+  entries: Entry[];
+  dev_skills_headline: string;
+  dev_skills: DevSkill[];
+  design_skills_headline: string;
+  design_skills: DesignSkill[];
+}
+
+const el = ref<null | HTMLElement>(null);
+const resume = ref<null | Resume>(null);
+const props = defineProps<Props>();
 const initData = async () => {
-  const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  resume.value.headline = data.resume.headline;
-  resume.value.image = data.resume.image;
-  resume.value.sigText = data.resume.sig_text;
-  resume.value.linkList = data.resume.link_list;
-  resume.value.entries = data.resume.entries;
-  resume.value.devSkillsHeadline = data.resume.dev_skills_headline;
-  resume.value.devSkills = data.resume.dev_skills;
-  resume.value.designSkillsHeadline = data.resume.design_skills_headline;
-  resume.value.designSkills = data.resume.design_skills;
+  try {
+    const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
+    resume.value = data.resume;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 onMounted(() => {
-  waypoint(el);
   initData();
+});
+
+watch(el, (newVal) => {
+  if (newVal) {
+    waypoint(el.value);
+  }
 });
 </script>
 
 <template>
-  <section ref="el" id="resume" class="resume" :class="{ viewed: viewed }">
-    <Heading title="Resume"></Heading>
+  <section v-if="resume !== null" ref="el" id="resume" class="resume" :class="{ viewed: viewed }">
+    <Heading>Resume</Heading>
 
     <div class="resume--content content">
       <div class="timeline">
@@ -48,7 +67,7 @@ onMounted(() => {
           :company="entry.company"
           :title="entry.title"
           :details="entry.details"
-          :featuredBrands="entry.featuredBrands"
+          :featuredBrands="entry.featured_brands"
           :stats="entry.stats"
         ></TimelineEntry>
       </div>
@@ -57,19 +76,19 @@ onMounted(() => {
         <ProfilePhoto
           v-if="resume.image"
           :image="resume.image"
-          :name="resume.sigText"
+          :name="resume.sig_text"
         ></ProfilePhoto>
 
-        <LinkList :links="resume.linkList"></LinkList>
+        <LinkList :links="resume.link_list"></LinkList>
 
         <SkillSet
-          :headline="resume.devSkillsHeadline"
-          :skillset="resume.devSkills"
+          :headline="resume.dev_skills_headline"
+          :skillset="resume.dev_skills"
         ></SkillSet>
 
         <SkillSet
-          :headline="resume.designSkillsHeadline"
-          :skillset="resume.designSkills"
+          :headline="resume.design_skills_headline"
+          :skillset="resume.design_skills"
         ></SkillSet>
       </aside>
     </div>

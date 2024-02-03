@@ -1,27 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import FeaturedBrands from './FeaturedBrands.vue';
 import Stats from './Stats.vue';
 import EntryDetail from './EntryDetail.vue';
 import JobTitle from './JobTitle.vue';
 import animate from '../../helpers/animate';
+import type { Entry } from '@/types/Entry';
 
-const el = ref(null);
+const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 0.5 };
-
-const props = defineProps({
-  year: String,
-  logo: String,
-  company: String,
-  title: String,
-  details: Array,
-  featuredBrands: Array,
-  stats: [Array, Boolean],
-});
+const props = defineProps<Entry>();
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 </script>
 
@@ -42,12 +34,8 @@ onMounted(() => {
       ></EntryDetail>
     </ul>
 
-    <template v-if="featuredBrands">
-      <FeaturedBrands :featuredBrands="featuredBrands"></FeaturedBrands>
-    </template>
+    <FeaturedBrands v-if="featured_brands" :featuredBrands="featured_brands"></FeaturedBrands>
 
-    <template v-if="stats">
-      <Stats :stats="stats"></Stats>
-    </template>
+    <Stats v-if="Array.isArray(stats)" :stats="stats"></Stats>
   </article>
 </template>

@@ -1,28 +1,29 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import animate from '../../helpers/animate';
 
-const el = ref(null);
-const videoPlayer = ref(null);
-const videoSource = ref(null);
+const el = ref<null | HTMLElement>(null);
+const videoPlayer = ref<null | HTMLVideoElement>(null);
+const videoSource = ref<null | HTMLVideoElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 0.25 };
 
-const props = defineProps({
-  url: String,
-  image: String,
-  video: String,
-  name: String,
-  description: String,
-  types: Array,
-  count: Number,
-  source: [String, Boolean],
-});
+interface Props {
+  url: string;
+  image: string;
+  video: string;
+  name: string;
+  description: string;
+  types: string[];
+}
+
+const props = defineProps<Props>();
 
 const loadVideos = () => {
   if (!videoPlayer.value) {
     return;
   }
+
   videoPlayer.value.load();
   videoPlayer.value.pause();
 };
@@ -31,6 +32,7 @@ const startVideo = () => {
   if (!videoPlayer.value) {
     return;
   }
+
   videoPlayer.value.play();
 };
 
@@ -38,17 +40,22 @@ const endVideo = () => {
   if (!videoPlayer.value) {
     return;
   }
+  
   videoPlayer.value.pause();
 };
 
 const lazyLoad = () => {
+  if (videoPlayer.value === null || videoSource.value === null) {
+    return;
+  }
+
   videoPlayer.value.setAttribute('poster', props.image);
   videoSource.value.setAttribute('src', props.video);
   loadVideos();
 };
 
 onMounted(() => {
-  animate(el, settings, viewed);
+  animate(el.value, viewed, settings);
 });
 
 watch(viewed, (newViewed) => {
