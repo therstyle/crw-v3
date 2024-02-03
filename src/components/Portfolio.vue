@@ -41,7 +41,6 @@ interface PortfolioPost {
     video: string;
     description: string;
     url: string;
-    source?: string;
     credit?: string;
     image: string;
     types: string[];
@@ -176,7 +175,6 @@ watch(el, (newVal) => {
         :name="post.title.rendered"
         :description="post.custom.description"
         :types="post.custom.types"
-        :source="post.custom.source"
       >
       </PortfolioItem>
     </div>

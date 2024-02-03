@@ -9,5 +9,5 @@ export interface Entry {
   title: string;
   details: Detail[];
   featured_brands?: FeaturedBrand[];
-  stats?: Stat[];
+  stats: boolean | Stat[];
 }

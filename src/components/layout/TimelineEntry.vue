@@ -36,12 +36,8 @@ onMounted(() => {
       ></EntryDetail>
     </ul>
 
-    <template v-if="featured_brands">
-      <FeaturedBrands :featuredBrands="featured_brands"></FeaturedBrands>
-    </template>
+    <FeaturedBrands v-if="featured_brands" :featuredBrands="featured_brands"></FeaturedBrands>
 
-    <template v-if="stats">
-      <Stats :stats="stats"></Stats>
-    </template>
+    <Stats v-if="Array.isArray(stats)" :stats="stats"></Stats>
   </article>
 </template>

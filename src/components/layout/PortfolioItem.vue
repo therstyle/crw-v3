@@ -15,7 +15,6 @@ interface Props {
   name: string;
   description: string;
   types: string[];
-  source?: string;
 }
 
 const props = defineProps<Props>();
