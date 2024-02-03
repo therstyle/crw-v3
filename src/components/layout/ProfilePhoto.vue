@@ -2,14 +2,16 @@
 import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 
+interface Props {
+  image: string;
+  name: string;
+}
+
 const el = ref<null | HTMLElement>(null);
 const viewed = ref(false);
 const settings = { threshold: 0.5 };
 
-const props = defineProps({
-  image: String,
-  name: String
-});
+const props = defineProps<Props>();
 
 onMounted(() => {
   animate(el.value, viewed, settings);
