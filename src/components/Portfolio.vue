@@ -53,7 +53,7 @@ const portfolio = ref<null | Portfolio>(null);
 const currentPage = ref(1);
 const maxPages = ref<null | number>(null);
 const results = ref<null | number>(null);
-const selected = ref(new Set());
+const selected = ref<Set<number>>(new Set<number>());
 const posts = ref<[] | PortfolioPost[]>([]);
 const loading = ref(false);
 
@@ -104,7 +104,7 @@ const reset = () => {
   currentPage.value = 1;
 };
 
-const updateSelected = (value: number | number[]) => {
+const updateSelected = (value: number) => {
   if (value === 0) {
     selected.value.clear();
   } else if (selected.value.has(value)) {

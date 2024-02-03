@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 interface Props {
   id: number;
-  selected: Set<any>; //TODO remove any
+  selected: Set<number>;
 }
 
 const props = defineProps<Props>();
