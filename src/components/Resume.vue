@@ -32,9 +32,7 @@ interface Resume {
 
 const el = ref<null | HTMLElement>(null);
 const resume = ref<null | Resume>(null);
-
 const props = defineProps<Props>();
-
 const initData = async () => {
   try {
     const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
