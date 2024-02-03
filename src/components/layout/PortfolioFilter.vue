@@ -7,7 +7,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
 const emit = defineEmits(['update-selected']);
 
 const active = computed(() => {
