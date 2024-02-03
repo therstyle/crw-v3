@@ -89,7 +89,8 @@ const loadPortfolioData = async (loadType?: string) => {
     const totalResultsHeader = response.headers.get('X-WP-Total');
 
     maxPages.value = totalPagesHeader !== null ? parseInt(totalPagesHeader) : 1;
-    results.value = totalResultsHeader !== null ? parseInt(totalResultsHeader) : 0;
+    results.value =
+      totalResultsHeader !== null ? parseInt(totalResultsHeader) : 0;
     posts.value = loadType === 'more' ? [...posts.value, ...data] : data;
   } catch (e) {
     console.error(e);

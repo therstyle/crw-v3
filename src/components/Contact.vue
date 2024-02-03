@@ -41,7 +41,7 @@ const form = ref<Form>({
   messageError: false,
   loading: false,
   success: false,
-  status: null
+  status: null,
 });
 
 const props = defineProps<Props>();
@@ -86,7 +86,7 @@ const formSubmit = async () => {
     const body = {
       name: form.value.name,
       email: form.value.email,
-      message: form.value.message
+      message: form.value.message,
     };
 
     const response = await fetch(
@@ -95,10 +95,10 @@ const formSubmit = async () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json'
+          Accept: 'application/json',
         },
-        body: JSON.stringify(body)
-      }
+        body: JSON.stringify(body),
+      },
     );
 
     form.value.status = await response.json();
@@ -124,7 +124,13 @@ watch(el, (newVal) => {
 </script>
 
 <template>
-  <section v-if="contact !== null" ref="el" id="contact" class="contact" :class="{ viewed: viewed }">
+  <section
+    v-if="contact !== null"
+    ref="el"
+    id="contact"
+    class="contact"
+    :class="{ viewed: viewed }"
+  >
     <Heading>{{ contact.headline }}</Heading>
 
     <div class="contact--content content">
@@ -144,8 +150,8 @@ watch(el, (newVal) => {
               required
             />
             <span v-if="form.nameError" class="error">{{
-                contact.formErrorMessage
-              }}</span>
+              contact.formErrorMessage
+            }}</span>
           </div>
 
           <div class="field-group">
@@ -158,8 +164,8 @@ watch(el, (newVal) => {
               required
             />
             <span v-if="form.emailError" class="error">{{
-                contact.formErrorMessage
-              }}</span>
+              contact.formErrorMessage
+            }}</span>
           </div>
 
           <div class="field-group">
@@ -171,8 +177,8 @@ watch(el, (newVal) => {
               required
             ></textarea>
             <span v-if="form.messageError" class="error">{{
-                contact.formErrorMessage
-              }}</span>
+              contact.formErrorMessage
+            }}</span>
           </div>
 
           <button v-if="!form.success" class="button">

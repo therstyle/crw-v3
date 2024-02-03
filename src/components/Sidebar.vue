@@ -28,10 +28,10 @@ interface Props {
 const sidebar = ref<SideBar>({
   logo: {
     image: null,
-    url: null
+    url: null,
   },
   internal: [],
-  external: []
+  external: [],
 });
 
 const props = defineProps<Props>();

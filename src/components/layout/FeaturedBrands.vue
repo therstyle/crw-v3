@@ -48,7 +48,7 @@ const initCarousel = () => {
     contain: true,
     prevNextButtons: false,
     pageDots: false,
-    cellAlign: 'left'
+    cellAlign: 'left',
   });
 
   isDraggable();

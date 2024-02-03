@@ -3,7 +3,7 @@
     <h1>
       <slot></slot>
     </h1>
-    
+
     <div class="line-grid">
       <span></span>
       <span></span>

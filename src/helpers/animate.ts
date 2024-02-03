@@ -8,7 +8,11 @@ interface Viewed {
   value: boolean;
 }
 
-const animate = (el: null | HTMLElement, viewed: Viewed, settings?: Settings) => {
+const animate = (
+  el: null | HTMLElement,
+  viewed: Viewed,
+  settings?: Settings,
+) => {
   if (el === null) {
     return;
   }

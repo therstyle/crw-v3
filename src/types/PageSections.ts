@@ -1,8 +1,8 @@
 interface Section {
-  active: boolean,
-  viewed: boolean,
-  intersectionRatio: number,
-  threshold: number
+  active: boolean;
+  viewed: boolean;
+  intersectionRatio: number;
+  threshold: number;
 }
 
 export interface PageSections {
