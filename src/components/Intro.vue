@@ -9,36 +9,25 @@ interface Props {
 }
 
 interface Intro {
-  headline: string | null;
-  introText: string | null;
-  scrollText: string | null;
-  subHeadline: string | null;
-  video: string | null;
+  headline: string;
+  sub_headline: string;
+  text: string;
+  scroll_text: string;
+  video_mp4: string;
 }
 
 const el = ref<null | HTMLElement>(null);
 const bgVideo = ref<null | HTMLVideoElement>(null);
-const intro = ref<Intro>({
-  headline: null,
-  introText: null,
-  scrollText: null,
-  subHeadline: null,
-  video: null
-});
-
+const intro = ref<null | Intro>(null);
 const props = defineProps<Props>();
 
 const initData = async () => {
   const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
-  intro.value.headline = data.intro.headline;
-  intro.value.subHeadline = data.intro.sub_headline;
-  intro.value.introText = data.intro.text;
-  intro.value.scrollText = data.intro.scroll_text;
-  intro.value.video = data.intro.video_mp4;
+  intro.value = data.intro;
 };
 
 const loadVideo = () => {
-  if (intro.value.video !== null && bgVideo.value !== null) {
+  if (intro.value !== null && bgVideo.value !== null) {
     bgVideo.value.load();
   }
 };
@@ -66,15 +55,16 @@ watch(el, (newVal) => {
 <template>
   <section
     ref="el"
+    v-if="intro !== null"
     id="intro"
     class="intro content"
     :class="{ viewed: viewed }"
   >
     <div class="intro--content">
-      <h6 class="sub-heading">{{ intro.subHeadline }}</h6>
+      <h6 class="sub-heading">{{ intro.sub_headline }}</h6>
       <h1 class="heading" v-html="intro.headline"></h1>
 
-      <div v-html="intro.introText"></div>
+      <div v-html="intro.text"></div>
     </div>
 
     <div class="scroll-down">
@@ -92,14 +82,14 @@ watch(el, (newVal) => {
           />
         </svg>
 
-        <span class="sub-heading">{{ intro.scrollText }}</span>
+        <span class="sub-heading">{{ intro.scroll_text }}</span>
       </a>
     </div>
   </section>
 
-  <div class="bg-video" v-if="intro.video">
+  <div class="bg-video" v-if="intro !== null">
     <video ref="bgVideo" preload="auto" autoplay muted loop class="full-height">
-      <source :src="intro.video" type="video/mp4" />
+      <source :src="intro.video_mp4" type="video/mp4" />
     </video>
   </div>
 </template>
