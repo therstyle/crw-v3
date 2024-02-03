@@ -34,9 +34,7 @@ const sidebar = ref<SideBar>({
   external: []
 });
 
-const props = defineProps({
-  sections: Object
-});
+const props = defineProps<Props>();
 
 const initData = async () => {
   try {
