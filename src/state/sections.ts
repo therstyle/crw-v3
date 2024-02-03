@@ -1,17 +1,7 @@
 import { ref } from 'vue';
+import type { PageSections } from '@/types/PageSections';
 
-interface Section {
-  active: boolean,
-  viewed: boolean,
-  intersectionRatio: number,
-  threshold: number
-}
-
-interface Sections {
-  [key: string]: Section;
-}
-
-const sections = ref<Sections>({
+const sections = ref<PageSections>({
   intro: {
     active: false,
     viewed: false,

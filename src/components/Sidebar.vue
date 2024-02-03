@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import loadData from '../helpers/loadData';
 import sections from '../state/sections';
 import API_BASE_PATH from '../state/apiBasePath';
+import type { PageSections } from '@/types/PageSections';
 
 interface SideBar {
   logo: {
@@ -18,6 +19,10 @@ interface NavLink {
   id: string;
   url: string;
   text?: string;
+}
+
+interface Props {
+  sections: PageSections;
 }
 
 const sidebar = ref<SideBar>({
