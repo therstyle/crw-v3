@@ -4,6 +4,10 @@ import loadData from '../helpers/loadData';
 import waypoint from '../helpers/observer';
 import API_BASE_PATH from '../state/apiBasePath';
 
+interface Props {
+  viewed: boolean;
+}
+
 interface Intro {
   headline: string | null;
   introText: string | null;
@@ -22,9 +26,7 @@ const intro = ref<Intro>({
   video: null
 });
 
-const props = defineProps({
-  viewed: Boolean
-});
+const props = defineProps<Props>();
 
 const initData = async () => {
   const data = await loadData(`${API_BASE_PATH}/wp-json/cr/global`);
