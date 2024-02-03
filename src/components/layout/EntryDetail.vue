@@ -2,14 +2,13 @@
 import { ref, onMounted } from 'vue';
 import animate from '../../helpers/animate';
 
-const el = ref<null | HTMLElement>(null);
-const viewed = ref(false);
-const settings = { threshold: 1 };
-
 interface Props {
   detail: string;
 }
 
+const el = ref<null | HTMLElement>(null);
+const viewed = ref(false);
+const settings = { threshold: 1 };
 const props = defineProps<Props>();
 
 onMounted(() => {
