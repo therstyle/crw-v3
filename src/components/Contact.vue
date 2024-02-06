@@ -10,11 +10,11 @@ interface Props {
 }
 
 interface Contact {
-  button_text: string | null;
-  formErrorMessage: string | null;
-  headline: string | null;
-  image: string | null;
-  loaderImg: string | null;
+  button_text: string;
+  formErrorMessage: string;
+  headline: string;
+  image: string;
+  loaderImg: string;
 }
 
 interface Form {
