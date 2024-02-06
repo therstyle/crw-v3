@@ -54,50 +54,46 @@ watch(el, (newVal) => {
 </script>
 
 <template>
-  <section
-    v-if="resume !== null"
-    ref="el"
-    id="resume"
-    class="resume"
-    :class="{ viewed: viewed }"
-  >
-    <Heading>Resume</Heading>
+  <section ref="el" id="resume" class="resume" :class="{ viewed: viewed }">
+    <template v-if="resume !== null">
+      <Heading>Resume</Heading>
 
-    <div class="resume--content content">
-      <div class="timeline">
-        <TimelineEntry
-          v-for="(entry, index) in resume.entries"
-          :key="index"
-          :year="entry.year"
-          :logo="entry.logo"
-          :company="entry.company"
-          :title="entry.title"
-          :details="entry.details"
-          :featuredBrands="entry.featured_brands"
-          :stats="entry.stats"
-        ></TimelineEntry>
+      <div class="resume--content content">
+        <div class="timeline">
+          <TimelineEntry
+            v-for="(entry, index) in resume.entries"
+            :key="index"
+            :year="entry.year"
+            :logo="entry.logo"
+            :company="entry.company"
+            :title="entry.title"
+            :details="entry.details"
+            :featuredBrands="entry.featured_brands"
+            :stats="entry.stats"
+          ></TimelineEntry>
+        </div>
+
+        <aside class="skill-tree">
+          <ProfilePhoto
+            v-if="resume.image"
+            :image="resume.image"
+            :name="resume.sig_text"
+          ></ProfilePhoto>
+
+          <LinkList :links="resume.link_list"></LinkList>
+
+          <SkillSet
+            :headline="resume.dev_skills_headline"
+            :skillset="resume.dev_skills"
+          ></SkillSet>
+
+          <SkillSet
+            :headline="resume.design_skills_headline"
+            :skillset="resume.design_skills"
+          ></SkillSet>
+        </aside>
       </div>
-
-      <aside class="skill-tree">
-        <ProfilePhoto
-          v-if="resume.image"
-          :image="resume.image"
-          :name="resume.sig_text"
-        ></ProfilePhoto>
-
-        <LinkList :links="resume.link_list"></LinkList>
-
-        <SkillSet
-          :headline="resume.dev_skills_headline"
-          :skillset="resume.dev_skills"
-        ></SkillSet>
-
-        <SkillSet
-          :headline="resume.design_skills_headline"
-          :skillset="resume.design_skills"
-        ></SkillSet>
-      </aside>
-    </div>
+    </template>
   </section>
 </template>
 
