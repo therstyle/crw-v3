@@ -89,16 +89,8 @@ watch(el, (newVal) => {
   </section>
 
   <div class="bg-video">
-    <video
-      v-if="intro !== null"
-      ref="bgVideo"
-      preload="auto"
-      autoplay
-      muted
-      loop
-      class="full-height"
-    >
-      <source :src="intro.video_mp4" type="video/mp4" />
+    <video ref="bgVideo" autoplay muted loop>
+      <source v-if="intro !== null" :src="intro.video_mp4" type="video/mp4" />
     </video>
   </div>
 </template>
