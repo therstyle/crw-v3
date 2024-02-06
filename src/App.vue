@@ -72,7 +72,7 @@ body {
     }
 
     &.contact {
-      min-height: auto;
+      min-height: calc(100vh - 56px);
       scroll-padding-top: 56px;
     }
   }
