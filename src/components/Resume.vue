@@ -42,9 +42,14 @@ const initData = async () => {
   }
 };
 
-onMounted(() => {
-  initData();
-});
+watch(
+  () => props.viewed,
+  (newVal) => {
+    if (newVal) {
+      initData();
+    }
+  },
+);
 
 watch(el, (newVal) => {
   if (newVal) {

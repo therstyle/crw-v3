@@ -119,10 +119,15 @@ const nextPage = () => {
   loadPortfolioData('more');
 };
 
-onMounted(() => {
-  initGlobalData();
-  loadPortfolioData();
-});
+watch(
+  () => props.viewed,
+  (newVal) => {
+    if (newVal) {
+      initGlobalData();
+      loadPortfolioData();
+    }
+  },
+);
 
 watch(el, (newVal) => {
   if (newVal) {
