@@ -8,6 +8,19 @@
         width="24"
         height="24"
         alt="Vue.js"
+        loading="lazy"
+      />
+    </a>
+
+    +
+
+    <a href="https://wordpress.org/" target="_blank">
+      <img
+        src="/images/icon-wordpress-white.svg"
+        width="24"
+        height="24"
+        alt="WordPress"
+        loading="lazy"
       />
     </a>
   </footer>

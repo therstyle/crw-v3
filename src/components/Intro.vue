@@ -32,14 +32,11 @@ const loadVideo = () => {
   }
 };
 
-onMounted(() => {
-  initData();
-});
-
 watch(
   () => props.viewed,
   (newVal) => {
     if (newVal) {
+      initData();
       loadVideo();
     }
   },

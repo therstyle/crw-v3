@@ -111,10 +111,15 @@ const formSubmit = async () => {
   }
 };
 
-onMounted(() => {
-  initData();
-  window.addEventListener('scroll', getCurrentPosition);
-});
+watch(
+  () => props.viewed,
+  (newVal) => {
+    if (newVal) {
+      initData();
+      window.addEventListener('scroll', getCurrentPosition);
+    }
+  },
+);
 
 watch(el, (newVal) => {
   if (newVal) {
