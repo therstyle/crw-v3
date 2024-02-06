@@ -133,61 +133,65 @@ watch(el, (newVal) => {
 
 <template>
   <section
-    v-if="portfolio !== null"
     ref="el"
     id="portfolio"
     class="portfolio"
     :class="{ viewed: viewed }"
   >
-    <Heading>{{ portfolio.headline }}</Heading>
+    <template v-if="portfolio !== null">
+      <Heading>{{ portfolio.headline }}</Heading>
 
-    <div class="portfolio--filters content" v-if="portfolio.types">
-      <PortfolioFilter
-        :id="0"
-        :selected="selected"
-        @update-selected="updateSelected"
-      >
-        All
-      </PortfolioFilter>
+      <div class="portfolio--filters content" v-if="portfolio.types">
+        <PortfolioFilter
+          :id="0"
+          :selected="selected"
+          @update-selected="updateSelected"
+        >
+          All
+        </PortfolioFilter>
 
-      <PortfolioFilter
-        v-for="(filter, index) in portfolio.types"
-        :key="index"
-        :id="filter.term_id"
-        :selected="selected"
-        @update-selected="updateSelected"
-      >
-        {{ filter.name }}
-      </PortfolioFilter>
-    </div>
+        <PortfolioFilter
+          v-for="(filter, index) in portfolio.types"
+          :key="index"
+          :id="filter.term_id"
+          :selected="selected"
+          @update-selected="updateSelected"
+        >
+          {{ filter.name }}
+        </PortfolioFilter>
+      </div>
 
-    <div
-      class="portfolio--content content"
-      :class="{ loading: loading }"
-      v-if="posts && posts.length > 0"
-    >
-      <PortfolioItem
-        v-for="post in posts"
-        :key="post.id"
-        :url="post.custom.url"
-        :image="post.custom.image"
-        :video="post.custom.video"
-        :name="post.title.rendered"
-        :description="post.custom.description"
-        :types="post.custom.types"
+      <div
+        class="portfolio--content content"
+        :class="{ loading: loading }"
+        v-if="posts && posts.length > 0"
       >
-      </PortfolioItem>
-    </div>
+        <PortfolioItem
+          v-for="post in posts"
+          :key="post.id"
+          :url="post.custom.url"
+          :image="post.custom.image"
+          :video="post.custom.video"
+          :name="post.title.rendered"
+          :description="post.custom.description"
+          :types="post.custom.types"
+        >
+        </PortfolioItem>
+      </div>
 
-    <div class="portfolio--pagination content" v-if="currentPage !== maxPages">
-      <button
-        class="button ghost"
-        :class="{ disabled: currentPage === maxPages }"
-        @click="nextPage"
+      <div
+        class="portfolio--pagination content"
+        v-if="currentPage !== maxPages"
       >
-        Load More
-      </button>
-    </div>
+        <button
+          class="button ghost"
+          :class="{ disabled: currentPage === maxPages }"
+          @click="nextPage"
+        >
+          Load More
+        </button>
+      </div>
+    </template>
   </section>
 </template>
 

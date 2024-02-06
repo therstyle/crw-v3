@@ -17,9 +17,15 @@ const experience = (startYear: string) => {
 <template>
   <li>
     <div>
-      <img :src="logo" :alt="name" loading="lazy" />
+      <img :src="logo" :alt="name" loading="lazy" width="44" height="44" />
       <h6>{{ name }}</h6>
       <small>{{ experience(start_year) }}</small>
     </div>
   </li>
 </template>
+
+<style lang="scss" scoped>
+img {
+  width: 100%;
+}
+</style>

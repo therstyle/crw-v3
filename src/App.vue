@@ -55,6 +55,9 @@ body {
     min-height: 100vh;
 
     &:not(.intro) {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 100vh;
+
       .content {
         padding-top: 0;
         padding-bottom: 0;
