@@ -55,40 +55,49 @@ watch(el, (newVal) => {
 <template>
   <section
     ref="el"
-    v-if="intro !== null"
     id="intro"
     class="intro content"
     :class="{ viewed: viewed }"
   >
-    <div class="intro--content">
-      <h6 class="sub-heading">{{ intro.sub_headline }}</h6>
-      <h1 class="heading" v-html="intro.headline"></h1>
+    <template v-if="intro !== null">
+      <div class="intro--content">
+        <h6 class="sub-heading">{{ intro.sub_headline }}</h6>
+        <h1 class="heading" v-html="intro.headline"></h1>
 
-      <div v-html="intro.text"></div>
-    </div>
+        <div v-html="intro.text"></div>
+      </div>
 
-    <div class="scroll-down">
-      <a href="#resume">
-        <svg fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M16 0C9.787 0 4.733 5.134 4.733 11.444v9.113C4.733 26.867 9.787 32 16 32c6.212 0 11.267-5.118 11.267-11.408v-9.148C27.267 5.134 22.212 0 16 0zm9.148 20.592c0 5.122-4.104 9.289-9.148 9.289s-9.148-4.183-9.148-9.325v-9.112c0-5.142 4.104-9.325 9.148-9.325s9.148 4.183 9.148 9.325v9.148z"
-            fill="#fff"
-            fill-opacity=".5"
-          />
-          <path
-            d="M16 8.76a1.06 1.06 0 0 0-1.06 1.06v3.708a1.06 1.06 0 0 0 2.12 0V9.819A1.06 1.06 0 0 0 16 8.76z"
-            fill="#fff"
-            fill-opacity=".5"
-          />
-        </svg>
+      <div class="scroll-down">
+        <a href="#resume">
+          <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M16 0C9.787 0 4.733 5.134 4.733 11.444v9.113C4.733 26.867 9.787 32 16 32c6.212 0 11.267-5.118 11.267-11.408v-9.148C27.267 5.134 22.212 0 16 0zm9.148 20.592c0 5.122-4.104 9.289-9.148 9.289s-9.148-4.183-9.148-9.325v-9.112c0-5.142 4.104-9.325 9.148-9.325s9.148 4.183 9.148 9.325v9.148z"
+              fill="#fff"
+              fill-opacity=".5"
+            />
+            <path
+              d="M16 8.76a1.06 1.06 0 0 0-1.06 1.06v3.708a1.06 1.06 0 0 0 2.12 0V9.819A1.06 1.06 0 0 0 16 8.76z"
+              fill="#fff"
+              fill-opacity=".5"
+            />
+          </svg>
 
-        <span class="sub-heading">{{ intro.scroll_text }}</span>
-      </a>
-    </div>
+          <span class="sub-heading">{{ intro.scroll_text }}</span>
+        </a>
+      </div>
+    </template>
   </section>
 
-  <div class="bg-video" v-if="intro !== null">
-    <video ref="bgVideo" preload="auto" autoplay muted loop class="full-height">
+  <div class="bg-video">
+    <video
+      v-if="intro !== null"
+      ref="bgVideo"
+      preload="auto"
+      autoplay
+      muted
+      loop
+      class="full-height"
+    >
       <source :src="intro.video_mp4" type="video/mp4" />
     </video>
   </div>
