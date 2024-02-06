@@ -7,8 +7,8 @@ import type { PageSections } from '@/types/PageSections';
 
 interface SideBar {
   logo: {
-    image: null | string;
-    url: null | string;
+    image: string;
+    url: string;
   };
   internal: NavLink[];
   external: NavLink[];
@@ -25,15 +25,7 @@ interface Props {
   sections: PageSections;
 }
 
-const sidebar = ref<SideBar>({
-  logo: {
-    image: null,
-    url: null,
-  },
-  internal: [],
-  external: [],
-});
-
+const sidebar = ref<null | SideBar>(null);
 const props = defineProps<Props>();
 
 const initData = async () => {
@@ -56,37 +48,36 @@ onMounted(() => {
 
 <template>
   <nav class="main-nav">
-    <div
-      v-if="sidebar.logo.image && sidebar.logo.url !== null"
-      class="main-nav--logo"
-    >
-      <a :href="sidebar.logo.url" v-html="sidebar.logo.image"></a>
-    </div>
+    <template v-if="sidebar !== null">
+      <div class="main-nav--logo">
+        <a :href="sidebar.logo.url" v-html="sidebar.logo.image"></a>
+      </div>
 
-    <ul class="main-nav--internal" v-if="sidebar?.internal">
-      <li
-        v-for="(link, index) in sidebar.internal"
-        :key="index"
-        :class="{ active: isActive(link.id) }"
-        :id="`menu-${link.id}`"
-      >
-        <a :href="link.url">
-          <span v-html="link.icon"></span>
-          <span class="menu-title">{{ link.text }}</span>
-        </a>
-      </li>
-    </ul>
+      <ul class="main-nav--internal">
+        <li
+          v-for="(link, index) in sidebar.internal"
+          :key="index"
+          :class="{ active: isActive(link.id) }"
+          :id="`menu-${link.id}`"
+        >
+          <a :href="link.url">
+            <span v-html="link.icon"></span>
+            <span class="menu-title">{{ link.text }}</span>
+          </a>
+        </li>
+      </ul>
 
-    <ul class="main-nav--external">
-      <li v-for="(link, index) in sidebar.external" :key="index">
-        <a
-          :href="link.url"
-          v-html="link.icon"
-          :id="link.id"
-          target="_blank"
-        ></a>
-      </li>
-    </ul>
+      <ul class="main-nav--external">
+        <li v-for="(link, index) in sidebar.external" :key="index">
+          <a
+            :href="link.url"
+            v-html="link.icon"
+            :id="link.id"
+            target="_blank"
+          ></a>
+        </li>
+      </ul>
+    </template>
   </nav>
 </template>
 
