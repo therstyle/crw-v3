@@ -19,9 +19,6 @@ const waypoint = (el: null | HTMLElement) => {
         return;
       }
 
-      sections.value[keyName].threshold = threshold;
-      sections.value[keyName].intersectionRatio = entry.intersectionRatio;
-
       if (entry.isIntersecting) {
         sections.value[keyName].viewed = true;
         sections.value[keyName].active = true;

@@ -9,7 +9,7 @@ import API_BASE_PATH from '../state/apiBasePath';
 import Portfolio from '@/components/Portfolio.vue';
 
 interface Props {
-  viewed: Boolean;
+  viewed: boolean;
 }
 
 interface Portfolio {
@@ -119,15 +119,10 @@ const nextPage = () => {
   loadPortfolioData('more');
 };
 
-watch(
-  () => props.viewed,
-  (newVal) => {
-    if (newVal) {
-      initGlobalData();
-      loadPortfolioData();
-    }
-  },
-);
+onMounted(() => {
+  initGlobalData();
+  loadPortfolioData();
+});
 
 watch(el, (newVal) => {
   if (newVal) {

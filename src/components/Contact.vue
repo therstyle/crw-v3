@@ -111,15 +111,10 @@ const formSubmit = async () => {
   }
 };
 
-watch(
-  () => props.viewed,
-  (newVal) => {
-    if (newVal) {
-      initData();
-      window.addEventListener('scroll', getCurrentPosition);
-    }
-  },
-);
+onMounted(() => {
+  initData();
+  window.addEventListener('scroll', getCurrentPosition);
+});
 
 watch(el, (newVal) => {
   if (newVal) {
