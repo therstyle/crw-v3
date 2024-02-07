@@ -82,7 +82,7 @@ const initGlobalData = async () => {
 const loadPortfolioData = async (loadType?: string) => {
   try {
     loading.value = true;
-    const url = `${API_BASE_PATH}/wp-json/wp/v2/portfolio?page=${currentPage.value}${portfolioTypeParam.value}&per_page=6&tax_relation=AND`;
+    const url = `${API_BASE_PATH}/wp-json/wp/v2/portfolio?page=${currentPage.value}${portfolioTypeParam.value}&per_page=6&tax_relation=AND&orderby=menu_order&order=asc`;
     const response = await fetch(url);
     const data = await response.json();
     const totalPagesHeader = response.headers.get('X-WP-TotalPages');
