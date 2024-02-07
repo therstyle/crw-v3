@@ -9,7 +9,7 @@ import API_BASE_PATH from '../state/apiBasePath';
 import Portfolio from '@/components/Portfolio.vue';
 
 interface Props {
-  viewed: Boolean;
+  viewed: boolean;
 }
 
 interface Portfolio {
