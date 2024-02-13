@@ -11,10 +11,10 @@ interface Props {
 
 interface Contact {
   button_text: string;
-  formErrorMessage: string;
+  form_error_message: string;
   headline: string;
   image: string;
-  loaderImg: string;
+  loader_image: string;
 }
 
 interface Form {
@@ -82,15 +82,15 @@ const formSubmit = async () => {
 
   form.value.loading = true;
 
-  try {
-    const body = {
-      name: form.value.name,
-      email: form.value.email,
-      message: form.value.message,
-    };
+  const body = {
+    name: form.value.name,
+    email: form.value.email,
+    message: form.value.message,
+  };
 
+  try {
     const response = await fetch(
-      'https://formsubmit.co/ajax/c21474138c05ee3a77550626c88f34ee',
+      'https://formsubmit.co/ajax/39438d5fd0a5160f9a4e597a4453a38d',
       {
         method: 'POST',
         headers: {
@@ -145,7 +145,7 @@ watch(el, (newVal) => {
                 required
               />
               <span v-if="form.nameError" class="error">{{
-                contact.formErrorMessage
+                contact.form_error_message
               }}</span>
             </div>
 
@@ -159,7 +159,7 @@ watch(el, (newVal) => {
                 required
               />
               <span v-if="form.emailError" class="error">{{
-                contact.formErrorMessage
+                contact.form_error_message
               }}</span>
             </div>
 
@@ -172,15 +172,15 @@ watch(el, (newVal) => {
                 required
               ></textarea>
               <span v-if="form.messageError" class="error">{{
-                contact.formErrorMessage
+                contact.form_error_message
               }}</span>
             </div>
 
             <button v-if="!form.success" class="button">
               {{ contact.button_text }}
               <img
-                :src="contact.loaderImg"
-                v-if="form.loading && contact.loaderImg"
+                :src="contact.loader_image"
+                v-if="form.loading && contact.loader_image"
                 alt="loading..."
               />
             </button>
