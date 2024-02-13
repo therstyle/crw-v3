@@ -68,7 +68,7 @@ watch(el, (newVal) => {
             :company="entry.company"
             :title="entry.title"
             :details="entry.details"
-            :featuredBrands="entry.featured_brands"
+            :featured_brands="entry.featured_brands"
             :stats="entry.stats"
           ></TimelineEntry>
         </div>
