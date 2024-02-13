@@ -176,7 +176,11 @@ watch(el, (newVal) => {
               }}</span>
             </div>
 
-            <button v-if="!form.success" class="button">
+            <button
+              v-if="!form.success"
+              class="button"
+              :disabled="form.loading"
+            >
               {{ contact.button_text }}
               <img
                 :src="contact.loader_image"
@@ -268,6 +272,11 @@ watch(el, (newVal) => {
 
       &:hover {
         cursor: pointer;
+      }
+
+      &[disabled] {
+        pointer-events: none;
+        opacity: 0.5;
       }
     }
   }
