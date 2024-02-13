@@ -189,9 +189,7 @@ watch(el, (newVal) => {
               />
             </button>
 
-            <p v-if="form.success" class="success">
-              Thank you for your submission!
-            </p>
+            <p v-else class="success">Thank you for your submission!</p>
           </form>
 
           <picture
