@@ -11,7 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "flickity": "^3.0.0",
+    "flickity": "^2.2.1",
     "vue": "^3.2.37"
   },
   "devDependencies": {
