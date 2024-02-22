@@ -32,7 +32,6 @@ interface Form {
 const el = ref<null | HTMLElement>(null);
 const contact = ref<null | Contact>(null);
 const amountScrolled = ref(0);
-const emailId = ref<string>('mail@chrisrobertsweb.dev');
 const form = ref<Form>({
   name: '',
   nameError: false,
@@ -90,14 +89,17 @@ const formSubmit = async () => {
   };
 
   try {
-    const response = await fetch(`https://formsubmit.co/ajax/${emailId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+    const response = await fetch(
+      'https://formsubmit.co/ajax/mail@chrisrobertsweb.dev',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(body),
       },
-      body: JSON.stringify(body),
-    });
+    );
 
     form.value.status = await response.json();
   } catch (e) {
@@ -128,11 +130,7 @@ watch(el, (newVal) => {
 
       <div class="contact--content content">
         <div class="contact-form">
-          <form
-            :action="`https://formsubmit.co/${emailId}`"
-            method="POST"
-            @submit.prevent="formSubmit"
-          >
+          <form @submit.prevent="formSubmit">
             <div class="field-group">
               <input
                 name="name"
