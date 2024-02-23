@@ -89,17 +89,14 @@ const formSubmit = async () => {
   };
 
   try {
-    const response = await fetch(
-      'https://formsubmit.co/ajax/mail@chrisrobertsweb.dev',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(body),
+    const response = await fetch('https://formspree.io/f/xnqevqkv', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
-    );
+      body: JSON.stringify(body),
+    });
 
     form.value.status = await response.json();
   } catch (e) {
